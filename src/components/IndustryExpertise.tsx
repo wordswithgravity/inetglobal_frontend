@@ -7,70 +7,40 @@ import {
   Compass,
   ChevronRight,
 } from "lucide-react";
-import { theme } from "../theme";
 
 import ecommerceImg from "../assets/Ecommerce.png";
 import educationImg from "../assets/Education.png";
 import financialImg from "../assets/Financial.png";
 import healthcareImg from "../assets/healthcare.png";
 import travelImg from "../assets/travel.png";
+import { useAppSelector } from "../store/hooks";
+import { getRegionContent } from "../data/regionContent";
 
-interface IndustryItem {
-  id: string;
-  name: string; // tab label
-  icon: React.ReactNode;
-  image: string;
-  title: string; // card heading
-  description: string;
-}
-
-const industries: IndustryItem[] = [
-  {
-    id: "banking",
-    name: "Banking",
+const iconMap: Record<
+  string,
+  { icon: React.ReactNode; image: string }
+> = {
+  banking: {
     icon: <Building2 className="w-[22px] h-[22px]" strokeWidth={1.75} />,
     image: financialImg,
-    title: "Banking and Financial Services",
-    description:
-      "Utilize Transactional SMS and OTP SMS Service solutions for secure customer authentication, payment alerts, and account notifications.",
   },
-  {
-    id: "healthcare",
-    name: "Healthcare",
+  healthcare: {
     icon: <BriefcaseMedical className="w-[22px] h-[22px]" strokeWidth={1.75} />,
     image: healthcareImg,
-    title: "Healthcare",
-    description:
-      "Send critical patient appointment reminders, prescription updates, and healthcare notifications with enterprise reliability.",
   },
-  {
-    id: "ecommerce",
-    name: "E-Commerce and Retail",
+  ecommerce: {
     icon: <ShoppingCart className="w-[22px] h-[22px]" strokeWidth={1.75} />,
     image: ecommerceImg,
-    title: "E-Commerce and Retail",
-    description:
-      "Enhance customer experiences with SMS Notification Service updates, order confirmations and promotional campaigns.",
   },
-  {
-    id: "education",
-    name: "Education",
+  education: {
     icon: <GraduationCap className="w-[22px] h-[22px]" strokeWidth={1.75} />,
     image: educationImg,
-    title: "Education",
-    description:
-      "Keep students and parents informed with admission alerts, campus updates, attendance notices, and exam results across channels.",
   },
-  {
-    id: "travel",
-    name: "Travel and Hospitality",
+  travel: {
     icon: <Compass className="w-[22px] h-[22px]" strokeWidth={1.75} />,
     image: travelImg,
-    title: "Travel and Hospitality",
-    description:
-      "Deliver real-time flight updates, booking confirmations, itinerary changes, and 24/7 guest support messaging worldwide.",
   },
-];
+};
 
 /**
  * Deck geometry (by distance from the active card).
@@ -83,7 +53,28 @@ const LEVELS = [
   { x: 180, h: 318, overlay: 0.24, z: 10 }, // 2 steps away
 ];
 
+import { getNavTranslations } from "../data/translations";
+
 export const IndustryExpertise: React.FC = () => {
+  const selectedRegion = useAppSelector((state) => state.region.selectedRegion);
+  const selectedLanguage = useAppSelector(
+    (state) => state.language.selectedLanguage
+  );
+  const content = getRegionContent(
+    selectedRegion,
+    selectedLanguage
+  ).industryExpertise;
+  const t = getNavTranslations(selectedLanguage);
+
+  const industries = content.industries.map((item) => ({
+
+    ...item,
+    icon: iconMap[item.id]?.icon || (
+      <Building2 className="w-[22px] h-[22px]" strokeWidth={1.75} />
+    ),
+    image: iconMap[item.id]?.image || financialImg,
+  }));
+
   const [activeId, setActiveId] = useState<string>("banking");
   const [isPaused, setIsPaused] = useState<boolean>(false);
 
@@ -103,7 +94,7 @@ export const IndustryExpertise: React.FC = () => {
     }, 4000);
 
     return () => clearInterval(timer);
-  }, [isPaused, n]);
+  }, [isPaused, n, industries]);
 
   // circular offset in range -2..2
   const getOffset = (idx: number) => ((idx - activeIndex + n + 2) % n) - 2;
@@ -112,26 +103,25 @@ export const IndustryExpertise: React.FC = () => {
     <section
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
-      className={`w-full bg-white pt-10 sm:pt-14 lg:pt-16 pb-16 sm:pb-20 lg:pb-24 ${theme.layout.sectionPx} overflow-hidden`}
+      className="w-full bg-white pt-10 sm:pt-14 lg:pt-16 pb-16 sm:pb-20 lg:pb-24 px-3 sm:px-6 lg:px-8 overflow-hidden"
     >
-      <div className={`${theme.layout.maxWidth} mx-auto space-y-8 lg:space-y-12`}>
+      <div className="max-w-[1440px] mx-auto space-y-8 lg:space-y-12">
         {/* Section Header */}
         <div className="max-w-3xl space-y-3">
           <div className="flex items-center gap-2">
-            <span className={theme.classes.badgeLine} />
-            <span className={theme.classes.sectionBadge}>
-              Industry Expertise
+            <span className="w-5 h-[1.5px] bg-[#5f8a1a]" />
+            <span className="text-[12px] sm:text-[12.5px] font-semibold tracking-wide text-[#5f8a1a] uppercase">
+              {content.badge}
             </span>
           </div>
 
           <h2 className="text-2xl sm:text-3xl lg:text-[38px] font-bold text-[#12223b] tracking-tight leading-[1.2]">
-            Communication Solutions Built <br className="hidden sm:inline" />
-            For Every Industry
+            {content.titleLine1} <br className="hidden sm:inline" />
+            {content.titleLine2}
           </h2>
 
           <p className="text-[15px] sm:text-[17px] text-[#5b6878] leading-relaxed max-w-[520px]">
-            Connect, engage and communicate with customers through reliable
-            voice, messaging and omnichannel solutions.
+            {content.description}
           </p>
         </div>
 
@@ -226,7 +216,7 @@ export const IndustryExpertise: React.FC = () => {
                         }}
                         className="inline-flex items-center justify-center px-10 sm:px-14 py-2.5 sm:py-3 rounded-full text-[14.5px] sm:text-[15.5px] font-medium text-white bg-[#8b1a5e] hover:bg-[#751450] shadow-md shadow-[#8b1a5e]/25 transition duration-150 active:scale-[0.98]"
                       >
-                        Contact Us
+                        {t.contactUs}
                       </a>
                     </div>
                   </div>

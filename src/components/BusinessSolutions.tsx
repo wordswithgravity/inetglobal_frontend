@@ -13,256 +13,65 @@ import {
   MessageSquare,
   MapPin,
 } from "lucide-react";
-import { theme } from "../theme";
-
-interface SolutionItem {
-  id: string;
-  name: string;
-  tabIcon: React.ReactNode;
-  tagline: string;
-  title: string;
-  description: string;
-  features: string[];
-  customerStatus: string;
-  notification: {
-    header: string;
-    line1?: string;
-    line2?: string;
-    body?: string;
-    bodyBold?: string;
-    validTime?: string;
-    time: string;
-  };
-  phoneScreen: {
-    backTitle: string;
-    icon: React.ReactNode;
-    badge?: string;
-    title: string;
-    subtitle: string;
-    bankingDetails?: {
-      amount: string;
-      status: string;
-      reference: string;
-    };
-    infoCard?: {
-      label: string;
-      value: string;
-    };
-    otpDigits?: string[];
-    buttonText: string;
-    subNote: string;
-  };
-}
+import { useAppSelector } from "../store/hooks";
+import { getRegionContent } from "../data/regionContent";
 
 const phoneIconCls = "w-[22px] h-[22px] text-[#55801a]";
 const tabIconCls = "w-[18px] h-[18px]";
 
-const solutions: SolutionItem[] = [
-  {
-    id: "otp",
-    name: "OTP Auth",
+const iconMap: Record<
+  string,
+  { tabIcon: React.ReactNode; phoneIcon: React.ReactNode }
+> = {
+  otp: {
     tabIcon: <ShieldCheck className={tabIconCls} />,
-    tagline: "Secure. Fast. Reliable.",
-    title: "OTP Authentication",
-    description:
-      "Deliver one-time passwords quickly and securely for registrations, logins, account recovery, and payment verification across global networks.",
-    features: [
-      "Fast and reliable OTP delivery",
-      "Secure multi-channel authentication",
-      "Global reach with intelligent routing",
-    ],
-    customerStatus: "Identity Verified",
-    notification: {
-      header: "iNet Global",
-      body: "Your verification code is",
-      bodyBold: "53193",
-      validTime: "Valid for 5 minutes",
-      time: "10:24 AM",
-    },
-    phoneScreen: {
-      backTitle: "Authentication",
-      icon: <ShieldCheck className={phoneIconCls} />,
-      title: "Verify your identity",
-      subtitle:
-        "We've sent a verification code to your registered mobile number.",
-      otpDigits: ["5", "3", "1", "9", "3"],
-      buttonText: "Verify and Continue",
-      subNote: "Didn't receive the code?\nResend code in 00:45",
-    },
+    phoneIcon: <ShieldCheck className={phoneIconCls} />,
   },
-  {
-    id: "banking",
-    name: "Banking",
+  banking: {
     tabIcon: <Building2 className={tabIconCls} />,
-    tagline: "Secure. Connected. Trusted",
-    title: "Banking & Financial Services",
-    description:
-      "Enable secure and reliable customer communication with transactional SMS, payment alerts, and other critical messages designed for banks and financial institutions.",
-    features: [
-      "Secure OTP and transaction alerts",
-      "Reliable high-volume messaging",
-      "Real-time customer notifications",
-    ],
-    customerStatus: "Transaction received",
-    notification: {
-      header: "Transaction Alert",
-      body: "Your payment of $250.00 was completed successfully.",
-      time: "10:24 AM",
-    },
-    phoneScreen: {
-      backTitle: "Banking",
-      icon: <Building2 className={phoneIconCls} />,
-      title: "Transaction Successful",
-      subtitle: "Your payment of $250.00 has been processed successfully.",
-      bankingDetails: {
-        amount: "$250.00",
-        status: "Completed",
-        reference: "TXN-482190",
-      },
-      buttonText: "View Transaction",
-      subNote: "✓  Securely delivered",
-    },
+    phoneIcon: <Building2 className={phoneIconCls} />,
   },
-  {
-    id: "marketing",
-    name: "Marketing",
+  marketing: {
     tabIcon: <Megaphone className={tabIconCls} />,
-    tagline: "Reach. Engage. Convert",
-    title: "Marketing Communications",
-    description:
-      "Connect with customers through targeted messaging campaigns that deliver promotions, offers, and brand communications at the right time.",
-    features: [
-      "Targeted customer campaigns",
-      "High-volume SMS delivery",
-      "Personalized customer engagement",
-    ],
-    customerStatus: "Offer delivered",
-    notification: {
-      header: "Marketing Campaign",
-      line1: "20% OFF",
-      line2: "Your exclusive offer is waiting.",
-      time: "10:24 AM",
-    },
-    phoneScreen: {
-      backTitle: "Marketing",
-      icon: <Megaphone className={phoneIconCls} />,
-      badge: "New Offer",
-      title: "Special Offer Just for You",
-      subtitle: "Get 20% off your next purchase.\nOffer valid until June 30.",
-      buttonText: "Shop Now",
-      subNote: "✓  Campaign delivered",
-    },
+    phoneIcon: <Megaphone className={phoneIconCls} />,
   },
-  {
-    id: "reminders",
-    name: "Reminders",
+  reminders: {
     tabIcon: <Bell className={tabIconCls} />,
-    tagline: "Timely. Reliable. Automated",
-    title: "Customer Reminders",
-    description:
-      "Keep customers informed with automated reminders for appointments, payments, renewals, bookings, and important upcoming events.",
-    features: [
-      "Automated reminder messaging",
-      "Timely delivery across channels",
-      "Reduce missed appointments and payments",
-    ],
-    customerStatus: "Reminder received",
-    notification: {
-      header: "Reminder",
-      line1: "Appointment Tomorrow",
-      line2: "Your appointment is scheduled for June 30",
-      time: "10:24 AM",
-    },
-    phoneScreen: {
-      backTitle: "Reminders",
-      icon: <Bell className={phoneIconCls} />,
-      title: "Your Appointment is Tomorrow",
-      subtitle: "You have an appointment scheduled for 10:30 AM, June 30",
-      infoCard: {
-        label: "Location",
-        value: "City Medical Center",
-      },
-      buttonText: "View Details",
-      subNote: "Reply 1 to confirm",
-    },
+    phoneIcon: <Bell className={phoneIconCls} />,
   },
-  {
-    id: "emergency",
-    name: "Emergency",
+  emergency: {
     tabIcon: <AlertTriangle className={tabIconCls} />,
-    tagline: "Critical. Fast. Always Connected",
-    title: "Emergency Communications",
-    description:
-      "Deliver critical alerts quickly when every second matters, helping organizations communicate important information during urgent situations.",
-    features: [
-      "Rapid emergency notifications",
-      "High-priority message delivery",
-      "Reliable communication at scale",
-    ],
-    customerStatus: "Alert received",
-    notification: {
-      header: "Emergency Alert",
-      line1: "Important Alert",
-      line2: "Please check the latest safety information.",
-      time: "10:24 AM",
-    },
-    phoneScreen: {
-      backTitle: "Emergency",
-      icon: <AlertTriangle className={phoneIconCls} />,
-      title: "Important Safety Alert",
-      subtitle:
-        "Severe weather has been reported in your area. Please follow local safety instructions.",
-      infoCard: {
-        label: "Affected Area",
-        value: "San Francisco, CA",
-      },
-      buttonText: "View Alert",
-      subNote: "Emergency notification",
-    },
+    phoneIcon: <AlertTriangle className={phoneIconCls} />,
   },
-  {
-    id: "order",
-    name: "Order Alert",
+  order: {
     tabIcon: <Receipt className={tabIconCls} />,
-    tagline: "Inform. Track. Deliver",
-    title: "Order Alerts",
-    description:
-      "Keep customers updated throughout their order journey with real-time notifications for confirmations, dispatch, delivery, and status changes.",
-    features: [
-      "Real-time order notifications",
-      "Delivery and status updates",
-      "Seamless customer communication",
-    ],
-    customerStatus: "Order update received",
-    notification: {
-      header: "Order Update",
-      line1: "Order #IN482190",
-      line2: "Your package has been shipped.",
-      time: "10:24 AM",
-    },
-    phoneScreen: {
-      backTitle: "Order Alert",
-      icon: <Receipt className={phoneIconCls} />,
-      title: "Your Order Has Shipped",
-      subtitle: "Order #IN482190 is on its way.",
-      infoCard: {
-        label: "Estimated Delivery",
-        value: "Tomorrow, 2:00 - 5:00 PM",
-      },
-      buttonText: "Track Order",
-      subNote: "Delivery notification",
-    },
+    phoneIcon: <Receipt className={phoneIconCls} />,
   },
-];
+};
 
-// Fixed design stage (matches the screenshot); scaled down on smaller screens
+// Fixed design stage; scaled down on smaller screens
 const STAGE_W = 605;
 const STAGE_H = 427;
 
 export const BusinessSolutions: React.FC = () => {
+  const selectedRegion = useAppSelector((state) => state.region.selectedRegion);
+  const selectedLanguage = useAppSelector(
+    (state) => state.language.selectedLanguage
+  );
+  const content = getRegionContent(
+    selectedRegion,
+    selectedLanguage
+  ).businessSolutions;
+  const solutions = content.solutions;
+
   const [activeTab, setActiveTab] = useState<string>("otp");
-  const current = solutions.find((s) => s.id === activeTab) || solutions[0];
+
+  // Reset or fallback activeTab if needed
+  const current =
+    solutions.find((s) => s.id === activeTab) || solutions[0] || solutions;
   const { notification: n, phoneScreen: p } = current;
+  const currentPhoneIcon =
+    iconMap[current.id]?.phoneIcon || <ShieldCheck className={phoneIconCls} />;
 
   // Scale the fixed stage to fit the available panel width
   const panelRef = useRef<HTMLDivElement>(null);
@@ -285,24 +94,23 @@ export const BusinessSolutions: React.FC = () => {
   }, []);
 
   return (
-    <section className={`w-full bg-[${theme.colors.light.solutionsBg}] ${theme.layout.sectionPy} ${theme.layout.sectionPx}`}>
-      <div className={`${theme.layout.maxWidth} mx-auto space-y-10`}>
+    <section className="w-full bg-[#f3f5f0] py-16 px-3 sm:px-6 lg:px-8">
+      <div className="max-w-[1440px] mx-auto space-y-10">
         {/* Section Header (centered) */}
         <div className="flex flex-col items-center text-center">
           <div className="flex items-center gap-2">
             <span className="w-5 h-[1.5px] bg-[#5f8a1a]" />
             <span className="text-[12px] font-semibold tracking-wide text-[#5f8a1a] uppercase">
-              Business Solutions
+              {content.badge}
             </span>
           </div>
 
           <h2 className="mt-3 text-[28px] sm:text-[34px] lg:text-[38px] font-bold text-[#12243d] tracking-tight leading-[1.2]">
-            Solutions For Every Customer Journey
+            {content.title}
           </h2>
 
           <p className="mt-3 text-[15px] sm:text-[16px] text-[#5b6878] leading-[24px] max-w-[690px]">
-            Connect, engage and communicate with customers through reliable
-            voice, messaging and omnichannel solutions.
+            {content.description}
           </p>
         </div>
 
@@ -310,20 +118,24 @@ export const BusinessSolutions: React.FC = () => {
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 sm:gap-4 lg:gap-5 w-full">
           {solutions.map((tab) => {
             const isActive = tab.id === activeTab;
+            const tabIcon = iconMap[tab.id]?.tabIcon || (
+              <ShieldCheck className={tabIconCls} />
+            );
+
             return (
               <button
                 key={tab.id}
                 onClick={() => setActiveTab(tab.id)}
                 className={`w-full h-[50px] sm:h-[54px] px-5 sm:px-6 flex items-center justify-center gap-2.5 sm:gap-3 rounded-full text-[14.5px] sm:text-[15.5px] font-medium border transition-all duration-200 cursor-pointer ${
                   isActive
-                    ? theme.classes.pillTabActive
-                    : theme.classes.pillTabInactive
+                    ? "bg-[#12243d] text-white border-[#6f9a1f] shadow-md shadow-slate-900/10"
+                    : "bg-white/80 sm:bg-transparent text-[#364152] border-[#d3d9d0] hover:bg-white hover:border-[#bcc7b6]"
                 }`}
               >
                 <span
                   className={isActive ? "text-[#7fae2a]" : "text-[#6b7280]"}
                 >
-                  {tab.tabIcon}
+                  {tabIcon}
                 </span>
                 <span className="truncate">{tab.name}</span>
               </button>
@@ -449,7 +261,7 @@ export const BusinessSolutions: React.FC = () => {
                         {/* Icon with soft halo */}
                         <div className="mt-5 w-[70px] h-[70px] rounded-full bg-[#f1f7e3] flex items-center justify-center">
                           <div className="w-[48px] h-[48px] rounded-full bg-[#dcebb8] flex items-center justify-center">
-                            {p.icon}
+                            {currentPhoneIcon}
                           </div>
                         </div>
 

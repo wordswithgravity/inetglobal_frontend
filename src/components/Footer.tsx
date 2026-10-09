@@ -1,16 +1,23 @@
 import React from "react";
 import { Mail, Phone, MapPin } from "lucide-react";
-import { theme } from "../theme";
 import logoImg from "../assets/logo.png";
+import { useAppSelector } from "../store/hooks";
+import { getRegionContent } from "../data/regionContent";
+import { getNavTranslations } from "../data/translations";
 
 export const Footer: React.FC = () => {
+  const selectedRegion = useAppSelector((state) => state.region.selectedRegion);
+  const selectedLanguage = useAppSelector(
+    (state) => state.language.selectedLanguage
+  );
+  const content = getRegionContent(selectedRegion, selectedLanguage).footer;
+  const t = getNavTranslations(selectedLanguage);
+
   return (
-    <footer className={`w-full bg-[${theme.colors.dark.footer}] text-slate-300 font-sans pt-12 sm:pt-16 pb-8 ${theme.layout.sectionPx} border-t border-slate-800`}>
-      <div className={`${theme.layout.maxWidth} mx-auto space-y-12 sm:space-y-14`}>
-        
+    <footer className="w-full bg-[#0d1b33] text-slate-300 font-sans pt-12 sm:pt-16 pb-8 px-4 sm:px-6 lg:px-8 border-t border-slate-800">
+      <div className="max-w-[1440px] mx-auto space-y-12 sm:space-y-14">
         {/* Top Grid: 5 Columns */}
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-12 gap-8 lg:gap-8">
-          
           {/* Column 1: Brand Info & Newsletter (4 cols) */}
           <div className="sm:col-span-2 md:col-span-3 lg:col-span-4 space-y-6">
             {/* Logo */}
@@ -27,14 +34,13 @@ export const Footer: React.FC = () => {
 
             {/* Description */}
             <p className="text-[14px] sm:text-[14.5px] text-slate-400 leading-relaxed max-w-sm">
-              Global communication infrastructure for businesses that need
-              reliable voice, messaging and omnichannel connectivity.
+              {content.description}
             </p>
 
             {/* Newsletter Subscription */}
             <div className="space-y-3 pt-1">
               <p className="text-[13.5px] sm:text-[14px] text-slate-300 font-medium">
-                Get product updates & industry insights
+                {t.newsletterTitle}
               </p>
 
               <form
@@ -43,14 +49,14 @@ export const Footer: React.FC = () => {
               >
                 <input
                   type="email"
-                  placeholder="Enter your email address"
+                  placeholder={t.newsletterPlaceholder}
                   className="flex-1 bg-[#162746] border border-[#263c62] text-slate-200 placeholder-slate-400 text-[13.5px] px-4 py-2.5 rounded-full focus:outline-none focus:border-[#739b20] transition"
                 />
                 <button
                   type="submit"
                   className="px-6 py-2.5 rounded-full bg-[#83184d] hover:bg-[#721240] text-white text-[13.5px] font-medium transition duration-150 shadow-md shadow-[#83184d]/25 cursor-pointer shrink-0 text-center"
                 >
-                  Subscribe
+                  {t.subscribe}
                 </button>
               </form>
             </div>
@@ -98,42 +104,42 @@ export const Footer: React.FC = () => {
           {/* Column 2: Products (2 cols) */}
           <div className="lg:col-span-2 space-y-4">
             <h4 className="text-[15px] font-semibold text-white tracking-wide">
-              Products
+              {t.productsCol}
             </h4>
             <ul className="space-y-2.5 text-[14px]">
               <li>
                 <a href="#wholesale-voice" className="text-slate-400 hover:text-white transition">
-                  Wholesale Voice
+                  {t.productItems?.["wholesale-voice"]?.title || "Wholesale Voice"}
                 </a>
               </li>
               <li>
                 <a href="#ai-voice" className="text-slate-400 hover:text-white transition">
-                  AI Voice
+                  {t.productItems?.["ai-voice"]?.title || "AI Voice"}
                 </a>
               </li>
               <li>
                 <a href="#virtual-numbers" className="text-slate-400 hover:text-white transition">
-                  Virtual Numbers (DID)
+                  {t.productItems?.["virtual-numbers"]?.title || "Virtual Numbers (DID)"}
                 </a>
               </li>
               <li>
                 <a href="#wholesale-sms" className="text-slate-400 hover:text-white transition">
-                  Wholesale SMS
+                  {t.productItems?.["wholesale-sms"]?.title || "Wholesale SMS"}
                 </a>
               </li>
               <li>
                 <a href="#rcs" className="text-slate-400 hover:text-white transition">
-                  RCS Business Messaging
+                  {t.productItems?.["rcs"]?.title || "RCS Business Messaging"}
                 </a>
               </li>
               <li>
                 <a href="#otp-sms" className="text-slate-400 hover:text-white transition">
-                  OTP SMS
+                  {t.productItems?.["otp-sms"]?.title || "OTP SMS"}
                 </a>
               </li>
               <li>
-                <a href="#omnichannel" className="text-slate-400 hover:text-white transition">
-                  Omnichannel Messaging
+                <a href="#whatsapp" className="text-slate-400 hover:text-white transition">
+                  {t.productItems?.["whatsapp"]?.title || "WhatsApp Business"}
                 </a>
               </li>
             </ul>
@@ -142,12 +148,27 @@ export const Footer: React.FC = () => {
           {/* Column 3: Solution (2 cols) */}
           <div className="lg:col-span-2 space-y-4">
             <h4 className="text-[15px] font-semibold text-white tracking-wide">
-              Solution
+              {t.solutionsCol}
             </h4>
             <ul className="space-y-2.5 text-[14px]">
               <li>
+                <a href="#advance-sms" className="text-slate-400 hover:text-white transition">
+                  {t.solutionItems?.[0]?.title || "Advance SMS Portal"}
+                </a>
+              </li>
+              <li>
+                <a href="#dialer" className="text-slate-400 hover:text-white transition">
+                  {t.solutionItems?.[1]?.title || "Complete Dialer Solution"}
+                </a>
+              </li>
+              <li>
+                <a href="#did" className="text-slate-400 hover:text-white transition">
+                  {t.solutionItems?.[2]?.title || "International Number (DID)"}
+                </a>
+              </li>
+              <li>
                 <a href="#banking" className="text-slate-400 hover:text-white transition">
-                  Banking & Financial Services
+                  Banking & Finance
                 </a>
               </li>
               <li>
@@ -160,33 +181,23 @@ export const Footer: React.FC = () => {
                   E-Commerce & Retail
                 </a>
               </li>
-              <li>
-                <a href="#education" className="text-slate-400 hover:text-white transition">
-                  Education
-                </a>
-              </li>
-              <li>
-                <a href="#travel" className="text-slate-400 hover:text-white transition">
-                  Travel & Hospitality
-                </a>
-              </li>
             </ul>
           </div>
 
           {/* Column 4: Company (2 cols) */}
           <div className="lg:col-span-2 space-y-4">
             <h4 className="text-[15px] font-semibold text-white tracking-wide">
-              Company
+              {t.companyCol}
             </h4>
             <ul className="space-y-2.5 text-[14px]">
               <li>
                 <a href="#about-us" className="text-slate-400 hover:text-white transition">
-                  About Us
+                  {t.aboutUs}
                 </a>
               </li>
               <li>
                 <a href="#career" className="text-slate-400 hover:text-white transition">
-                  Career
+                  Careers
                 </a>
               </li>
               <li>
@@ -201,17 +212,12 @@ export const Footer: React.FC = () => {
               </li>
               <li>
                 <a href="#api" className="text-slate-400 hover:text-white transition">
-                  API / Developer
+                  REST APIs
                 </a>
               </li>
               <li>
                 <a href="#faqs" className="text-slate-400 hover:text-white transition">
                   FAQs
-                </a>
-              </li>
-              <li>
-                <a href="#blog" className="text-slate-400 hover:text-white transition">
-                  Blog
                 </a>
               </li>
             </ul>
@@ -220,55 +226,51 @@ export const Footer: React.FC = () => {
           {/* Column 5: Contact Us (2 cols) */}
           <div className="lg:col-span-2 space-y-4">
             <h4 className="text-[15px] font-semibold text-white tracking-wide">
-              Contact Us
+              {t.contactCol}
             </h4>
             <ul className="space-y-3.5 text-[13.5px]">
               <li className="flex items-start gap-2.5 text-slate-400">
                 <Mail className="w-4 h-4 text-slate-300 shrink-0 mt-0.5" />
-                <a href="mailto:hello@inetglobal.com" className="hover:text-white transition break-all">
-                  hello@inetglobal.com
+                <a href={`mailto:${content.email}`} className="hover:text-white transition break-all">
+                  {content.email}
                 </a>
               </li>
               <li className="flex items-center gap-2.5 text-slate-400">
                 <Phone className="w-4 h-4 text-slate-300 shrink-0" />
-                <a href="tel:+18001234567" className="hover:text-white transition">
-                  +1 800 123 4567
+                <a href={`tel:${content.phone.replace(/\s+/g, "")}`} className="hover:text-white transition">
+                  {content.phone}
                 </a>
               </li>
               <li className="flex items-start gap-2.5 text-slate-400">
                 <MapPin className="w-4 h-4 text-slate-300 shrink-0 mt-0.5" />
                 <span className="leading-snug">
-                  123 Innovation Drive, <br />
-                  San Francisco, CA 94105, <br />
-                  United States
+                  {content.address.line1} <br />
+                  {content.address.line2} <br />
+                  {content.address.line3}
                 </span>
               </li>
             </ul>
           </div>
-
         </div>
 
         {/* Bottom Legal & Copyright Bar */}
         <div className="pt-8 border-t border-[#182845] flex flex-col sm:flex-row items-center justify-between gap-4 text-[13px] text-slate-500">
-          <p>
-            @2026 iNet Global Services. All right reserved.
-          </p>
+          <p>{content.copyright}</p>
 
           <div className="flex items-center gap-3">
             <a href="#privacy" className="hover:text-slate-300 transition">
-              Privacy Policy
+              {t.privacyPolicy}
             </a>
             <span className="text-slate-700">|</span>
             <a href="#terms" className="hover:text-slate-300 transition">
-              Terms of Services
+              {t.termsOfService}
             </a>
             <span className="text-slate-700">|</span>
-            <a href="#cookie" className="hover:text-slate-300 transition">
-              Cookie Policy
+            <a href="#security" className="hover:text-slate-300 transition">
+              {t.securityCompliance}
             </a>
           </div>
         </div>
-
       </div>
     </footer>
   );
