@@ -34,7 +34,7 @@ export const Header: React.FC = () => {
             <div className="flex flex-wrap items-center gap-3 sm:gap-4 pt-2 sm:pt-3">
               {/* Primary CTA */}
               <a
-                href="#get-started"
+                href="/contact"
                 className="inline-flex items-center justify-center gap-2 px-7 sm:px-8 py-3 sm:py-3.5 rounded-full bg-[#83184d] hover:bg-[#721240] text-white text-[14.5px] sm:text-[16px] font-medium transition duration-150 shadow-md shadow-[#83184d]/25 active:scale-[0.98]"
               >
                 {content.primaryCta}
@@ -43,7 +43,7 @@ export const Header: React.FC = () => {
 
               {/* Secondary CTA */}
               <a
-                href="#explore"
+                href="/voice"
                 className="inline-flex items-center justify-center px-7 sm:px-8 py-3 sm:py-3.5 rounded-full border border-[#7e995f] hover:bg-[#e4ece0] text-[#1e2d42] text-[14.5px] sm:text-[16px] font-medium transition duration-150 active:scale-[0.98]"
               >
                 {content.secondaryCta}

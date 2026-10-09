@@ -32,6 +32,44 @@ export interface NavTranslations {
   solutionItems: Array<{ title: string; description: string }>;
 }
 
+export interface ContactTranslations {
+  heroBadge: string;
+  heroTitle: string;
+  heroDesc: string;
+  getStarted: string;
+  formBadge: string;
+  formTitle: string;
+  formSubtitle: string;
+  fullName: string;
+  fullNamePlaceholder: string;
+  businessEmail: string;
+  businessEmailPlaceholder: string;
+  companyName: string;
+  companyNamePlaceholder: string;
+  phoneNumber: string;
+  phoneNumberPlaceholder: string;
+  interestQuestion: string;
+  interests: {
+    voice: string;
+    messaging: string;
+    omnichannel: string;
+  };
+  messageLabel: string;
+  messagePlaceholder: string;
+  sendMessage: string;
+  messageSent: string;
+  securityNote: string;
+  ourLocation: string;
+  addressLabel: string;
+  phoneLabel: string;
+  emailLabel: string;
+  socialLabel: string;
+  faqBadge: string;
+  faqTitle: string;
+  faqSubtitle: string;
+  faqs: Array<{ question: string; answer: string }>;
+}
+
 export const navTranslations: Record<string, NavTranslations> = {
   // English
   en: {
@@ -75,7 +113,7 @@ export const navTranslations: Record<string, NavTranslations> = {
     },
     productItems: {
       "wholesale-voice": { title: "Wholesale Voice", description: "Reliable global voice connectivity" },
-      "ai-voice": { title: "AI Voice", description: "Intelligent automated voice solutions" },
+      "ai-voice": { title: "Ai Voice", description: "Intelligent automated voice solutions" },
       "virtual-numbers": { title: "Virtual Numbers (DID)", description: "Local numbers, global presence" },
       "wholesale-sms": { title: "Wholesale SMS", description: "Global SMS delivery solutions" },
       "rcs": { title: "RCS Business Messaging", description: "Rich interactive business messaging" },
@@ -288,388 +326,249 @@ export const navTranslations: Record<string, NavTranslations> = {
       { title: "इंटरनेशनल वर्चुअल नंबर (DID)", description: "100+ देशों में स्थानीय वर्चुअल नंबर" },
     ],
   },
+};
 
-  // Arabic (العربية)
-  ar: {
-    products: "المنتجات",
-    solutions: "الحلول",
-    aboutUs: "معلومات عنا",
-    region: "المنطقة",
-    language: "اللغة",
-    searchCountries: "البحث عن البلدان...",
-    searchLanguages: "البحث عن اللغات...",
-    noCountries: "لم يتم العثور على بلدان",
-    noLanguages: "لم يتم العثور على لغات",
-    getStarted: "ابدأ الآن",
-    contactUs: "اتصل بنا",
-    learnMore: "معرفة المزيد",
-    exploreSolutions: "استكشف الحلول",
-    subscribe: "اشتراك",
-    newsletterTitle: "احصل على تحديثات المنتجات والرؤى المتخصصة",
-    newsletterPlaceholder: "أدخل بريدك الإلكتروني",
-    quickLinks: "روابط سريعة",
-    productsCol: "المنتجات",
-    solutionsCol: "الحلول",
-    companyCol: "الشركة",
-    contactCol: "الاتصال",
-    privacyPolicy: "سياسة الخصوصية",
-    termsOfService: "شروط الخدمة",
-    securityCompliance: "الأمان والامتثال",
-    categories: {
-      voice: {
-        name: "الصوت",
-        tagline: "اتصال صوتي عالمي مصمم خصيصاً لعملك.",
-      },
-      messaging: {
-        name: "الرسائل",
-        tagline: "حلول المراسلة الموثوقة لتعزيز التواصل مع العملاء.",
-      },
-      omnichannel: {
-        name: "القنوات المتعددة",
-        tagline: "تواصل مع العملاء عبر جميع القنوات والتطبيقات المفضلة.",
-      },
+export const contactTranslations: Record<string, ContactTranslations> = {
+  // English
+  en: {
+    heroBadge: "LET'S TALK",
+    heroTitle: "Let’s Build the Right Communication Solution for Your Business",
+    heroDesc:
+      "Tell us what you need to connect with customers. Our communication experts will help you find the right voice, messaging, and omnichannel solutions for your business.",
+    getStarted: "Get Started",
+    formBadge: "CONTACT US",
+    formTitle: "Tell Us About Your Communication Needs",
+    formSubtitle:
+      "Share your requirements and our communication experts will help you find the right solution.",
+    fullName: "Full Name*",
+    fullNamePlaceholder: "Enter first name",
+    businessEmail: "Business Email*",
+    businessEmailPlaceholder: "you@company.com",
+    companyName: "Company Name*",
+    companyNamePlaceholder: "Enter company name",
+    phoneNumber: "Phone Number*",
+    phoneNumberPlaceholder: "Enter your number",
+    interestQuestion: "What are you interested in ?*",
+    interests: {
+      voice: "Voice",
+      messaging: "Messaging",
+      omnichannel: "Omnichannel",
     },
-    productItems: {
-      "wholesale-voice": { title: "الصوت بالجملة", description: "اتصال صوتي دولي عالي الجودة" },
-      "ai-voice": { title: "الصوت بالذكاء الاصطناعي", description: "حلول صوتية آلية وذكية" },
-      "virtual-numbers": { title: "أرقام افتراضية (DID)", description: "أرقام محلية مع تواجد عالمي" },
-      "wholesale-sms": { title: "رسائل SMS بالجملة", description: "حلول تسليم الرسائل العالمية" },
-      "rcs": { title: "رسائل RCS للأعمال", description: "مراسلة تفاعلية غنية بالأعمال" },
-      "otp-sms": { title: "رسائل OTP للتحقق", description: "تسليم فوري لرموز التحقق" },
-      "whatsapp": { title: "واتساب للأعمال", description: "تواصل مع العملاء عبر واتساب" },
-      "voice-calls": { title: "المكالمات الصوتية", description: "اتصالات صوتية للمؤسسات" },
-      "telegram": { title: "تيليجرام", description: "تفاعل مع العملاء عبر تيليجرام" },
-      "instagram": { title: "إنستغرام", description: "رسائل مباشرة عبر إنستغرام" },
-      "facebook": { title: "فيسبوك", description: "خدمة العملاء عبر فيسبوك" },
-      "tiktok": { title: "تيك توك", description: "تفاعل مع العملاء على تيك توك" },
-      "live-chat": { title: "الدردشة المباشرة", description: "محادثات في الوقت الفعلي على الموقع" },
-      "rcs-messaging": { title: "رسائل RCS", description: "مراسلة تفاعلية حديثة" },
-      "email": { title: "البريد الإلكتروني", description: "رسائل بريد إلكتروني موثوقة للأعمال" },
-    },
-    solutionItems: [
-      { title: "بوابة الرسائل المتقدمة", description: "بوابة تسليم الرسائل النصية الموثوقة" },
-      { title: "حلول الاتصال والاتصال التنبؤي", description: "إدارة حركة المكالمات للمؤسسات" },
-      { title: "أرقام دولية افتراضية (DID)", description: "أرقام افتراضية في أكثر من 100 دولة" },
+    messageLabel: "Message",
+    messagePlaceholder: "Send us message",
+    sendMessage: "Send Message",
+    messageSent: "✓ Message Sent Successfully!",
+    securityNote: "Your information is secure and will never be shared.",
+    ourLocation: "Our Location",
+    addressLabel: "Address:",
+    phoneLabel: "Phone Number:",
+    emailLabel: "Email:",
+    socialLabel: "Our Social media",
+    faqBadge: "YOUR QUESTION AND ANSWER",
+    faqTitle: "Our Frequently Asked Question",
+    faqSubtitle: "The practical details to consider before connecting your traffic.",
+    faqs: [
+      {
+        question: "Who is wholesale SMS built for?",
+        answer:
+          "Carriers, SMS aggregators, CPaaS providers and messaging platforms that need connectivity for enterprise A2P traffic.",
+      },
+      {
+        question: "Can we keep our existing messaging platform?",
+        answer:
+          "Yes. We can discuss an SMPP or API interconnect and agree the message formats, throughput requirements and delivery-receipt handling for your setup.",
+      },
+      {
+        question: "How do coverage and sender requirements work?",
+        answer:
+          "Route availability, sender ID rules and registration processes vary by market. Share your destinations and use cases so our team can review the requirements.",
+      },
+      {
+        question: "What should we share to get started?",
+        answer:
+          "Your target destinations, expected traffic profile, message types, sender needs and current integration. These help us shape a relevant routing and commercial proposal.",
+      },
     ],
   },
 
-  // French (Français)
-  fr: {
-    products: "Produits",
-    solutions: "Solutions",
-    aboutUs: "À Propos",
-    region: "Région",
-    language: "Langue",
-    searchCountries: "Rechercher des pays...",
-    searchLanguages: "Rechercher des langues...",
-    noCountries: "Aucun pays trouvé",
-    noLanguages: "Aucune langue trouvée",
-    getStarted: "Commencer",
-    contactUs: "Contactez-nous",
-    learnMore: "En savoir plus",
-    exploreSolutions: "Explorer les solutions",
-    subscribe: "S'abonner",
-    newsletterTitle: "Recevez les mises à jour produits et analyses du secteur",
-    newsletterPlaceholder: "Entrez votre adresse email",
-    quickLinks: "Liens Rapides",
-    productsCol: "Produits",
-    solutionsCol: "Solutions",
-    companyCol: "Entreprise",
-    contactCol: "Contact",
-    privacyPolicy: "Politique de Confidentialité",
-    termsOfService: "Conditions d'Utilisation",
-    securityCompliance: "Sécurité & Conformité",
-    categories: {
-      voice: {
-        name: "Voix",
-        tagline: "Connectivité vocale mondiale adaptée à vos besoins professionnels.",
-      },
-      messaging: {
-        name: "Messagerie",
-        tagline: "Solutions de messagerie fiables pour la communication client.",
-      },
-      omnichannel: {
-        name: "Omnicanal",
-        tagline: "Connectez-vous avec vos clients sur leurs canaux préférés.",
-      },
+  // Spanish
+  es: {
+    heroBadge: "HABLEMOS",
+    heroTitle: "Construyamos la Solución de Comunicación Adecuada Para Su Negocio",
+    heroDesc:
+      "Cuéntenos qué necesita para conectarse con sus clientes. Nuestros expertos en telecomunicaciones le ayudarán a encontrar las mejores soluciones de voz, mensajería y omnicanal.",
+    getStarted: "Comenzar",
+    formBadge: "CONTÁCTENOS",
+    formTitle: "Cuéntenos Sobre Sus Necesidades de Comunicación",
+    formSubtitle:
+      "Comparta sus requerimientos y nuestros expertos le ayudarán a encontrar la solución perfecta.",
+    fullName: "Nombre Completo*",
+    fullNamePlaceholder: "Ingrese su nombre",
+    businessEmail: "Correo Corporativo*",
+    businessEmailPlaceholder: "su_nombre@empresa.com",
+    companyName: "Nombre de la Empresa*",
+    companyNamePlaceholder: "Ingrese el nombre de la empresa",
+    phoneNumber: "Número Telefónico*",
+    phoneNumberPlaceholder: "Ingrese su número",
+    interestQuestion: "¿En qué servicio está interesado?*",
+    interests: {
+      voice: "Voz",
+      messaging: "Mensajería",
+      omnichannel: "Omnicanal",
     },
-    productItems: {
-      "wholesale-voice": { title: "Voix de Gros", description: "Connectivité vocale mondiale fiable" },
-      "ai-voice": { title: "Voix IA", description: "Solutions vocales automatisées intelligentes" },
-      "virtual-numbers": { title: "Numéros Virtuels (DID)", description: "Numéros locaux, présence mondiale" },
-      "wholesale-sms": { title: "SMS de Gros", description: "Routage mondial de SMS à haute délivrabilité" },
-      "rcs": { title: "Messagerie RCS Business", description: "Messagerie interactive et enrichie" },
-      "otp-sms": { title: "SMS OTP", description: "Livraison sécurisée de codes de vérification" },
-      "whatsapp": { title: "WhatsApp Business API", description: "Engagez vos clients sur WhatsApp" },
-      "voice-calls": { title: "Appels Vocaux", description: "Téléphonie d'entreprise internationale" },
-      "telegram": { title: "Telegram", description: "Interagissez avec vos clients sur Telegram" },
-      "instagram": { title: "Instagram Direct", description: "Messagerie d'entreprise sur Instagram" },
-      "facebook": { title: "Facebook Messenger", description: "Support client via Facebook" },
-      "tiktok": { title: "TikTok", description: "Engagement client sur TikTok" },
-      "live-chat": { title: "Chat en Direct", description: "Conversations web en temps réel" },
-      "rcs-messaging": { title: "RCS Enrichi", description: "Messagerie conversationnelle moderne" },
-      "email": { title: "Email d'Entreprise", description: "Messagerie électronique transactionnelle" },
-    },
-    solutionItems: [
-      { title: "Portail SMS Avancé", description: "Connectivité de messagerie globale ultra-fiable" },
-      { title: "Solution Complète de Numéroteur", description: "Trafic d'appels d'entreprise et numérotation prédictive" },
-      { title: "Numéros Internationaux (DID)", description: "Numéros virtuels dans plus de 100 pays" },
+    messageLabel: "Mensaje",
+    messagePlaceholder: "Escriba su mensaje aquí",
+    sendMessage: "Enviar Mensaje",
+    messageSent: "✓ ¡Mensaje enviado con éxito!",
+    securityNote: "Su información está segura y nunca será compartida.",
+    ourLocation: "Nuestra Ubicación",
+    addressLabel: "Dirección:",
+    phoneLabel: "Teléfono:",
+    emailLabel: "Correo Electrónico:",
+    socialLabel: "Redes Sociales",
+    faqBadge: "PREGUNTAS Y RESPUESTAS",
+    faqTitle: "Preguntas Frecuentes",
+    faqSubtitle: "Detalles prácticos a considerar antes de conectar su tráfico de telecomunicaciones.",
+    faqs: [
+      {
+        question: "¿Para quién está diseñado el SMS mayorista?",
+        answer:
+          "Operadores, agregadores de SMS, proveedores de CPaaS y plataformas de mensajería que necesitan conectividad masiva A2P.",
+      },
+      {
+        question: "¿Podemos mantener nuestra plataforma de mensajería actual?",
+        answer:
+          "Sí. Podemos habilitar una interconexión SMPP o API REST manteniendo sus formatos de mensaje y reportes de entrega.",
+      },
+      {
+        question: "¿Cómo funcionan la cobertura y los requisitos de remitente?",
+        answer:
+          "La disponibilidad de rutas y las normativas de ID de remitente varían según el país. Comparta sus destinos para evaluar los requisitos.",
+      },
+      {
+        question: "¿Qué información debemos proporcionar para comenzar?",
+        answer:
+          "Destinos previstos, volumen estimado de tráfico, tipos de mensajes y tipo de integración requerida.",
+      },
     ],
   },
 
-  // German (Deutsch)
-  de: {
-    products: "Produkte",
-    solutions: "Lösungen",
-    aboutUs: "Über Uns",
-    region: "Region",
-    language: "Sprache",
-    searchCountries: "Länder suchen...",
-    searchLanguages: "Sprachen suchen...",
-    noCountries: "Keine Länder gefunden",
-    noLanguages: "Keine Sprachen gefunden",
-    getStarted: "Jetzt Starten",
-    contactUs: "Kontaktieren",
-    learnMore: "Mehr erfahren",
-    exploreSolutions: "Lösungen erkunden",
-    subscribe: "Abonnieren",
-    newsletterTitle: "Erhalten Sie Produkt-Updates und Brancheneinblicke",
-    newsletterPlaceholder: "E-Mail-Adresse eingeben",
-    quickLinks: "Schnelllinks",
-    productsCol: "Produkte",
-    solutionsCol: "Lösungen",
-    companyCol: "Unternehmen",
-    contactCol: "Kontakt",
-    privacyPolicy: "Datenschutzrichtlinie",
-    termsOfService: "Nutzungsbedingungen",
-    securityCompliance: "Sicherheit & Compliance",
-    categories: {
-      voice: {
-        name: "Sprache (Voice)",
-        tagline: "Globale Sprachverbindungen, optimiert für Ihr Unternehmen.",
-      },
-      messaging: {
-        name: "Messaging",
-        tagline: "Zuverlässige Messaging-Lösungen für erfolgreiche Kundenkommunikation.",
-      },
-      omnichannel: {
-        name: "Omnichannel",
-        tagline: "Erreichen Sie Kunden über ihre bevorzugten Kommunikationskanäle.",
-      },
+  // Chinese
+  zh: {
+    heroBadge: "联系专家",
+    heroTitle: "让我们为您的企业构建最合适的通信连接方案",
+    heroDesc:
+      "告诉我们您触达全球客户的需求，我们的通信技术专家将帮助您选择最优质的国际语音、商业短信与全渠道集成方案。",
+    getStarted: "立即咨询",
+    formBadge: "联系我们",
+    formTitle: "告诉我们您的业务通信需求",
+    formSubtitle: "提交您的具体需求，我们的企业级通信顾问将为您提供专属解决方案与通道报价。",
+    fullName: "您的姓名*",
+    fullNamePlaceholder: "输入您的姓名",
+    businessEmail: "企业工作邮箱*",
+    businessEmailPlaceholder: "name@company.com",
+    companyName: "公司名称*",
+    companyNamePlaceholder: "输入您的公司名称",
+    phoneNumber: "联系电话*",
+    phoneNumberPlaceholder: "输入您的手机号码",
+    interestQuestion: "您感兴趣的通信业务是？*",
+    interests: {
+      voice: "国际语音 (Voice)",
+      messaging: "商业短信 (Messaging)",
+      omnichannel: "全渠道整合 (Omnichannel)",
     },
-    productItems: {
-      "wholesale-voice": { title: "Wholesale Voice", description: "Zuverlässige globale Sprachverbindungen" },
-      "ai-voice": { title: "KI-Sprachlösungen", description: "Intelligente automatisierte Sprachdienste" },
-      "virtual-numbers": { title: "Virtuelle Rufnummern (DID)", description: "Lokale Präsenz weltweit" },
-      "wholesale-sms": { title: "Wholesale SMS", description: "Weltweiter zuverlässiger SMS-Versand" },
-      "rcs": { title: "RCS Business Messaging", description: "Interaktive Rich-Media-Nachrichten" },
-      "otp-sms": { title: "OTP-SMS", description: "Sichere und schnelle OTP-Zustellung" },
-      "whatsapp": { title: "WhatsApp Business API", description: "Kundenkommunikation via WhatsApp" },
-      "voice-calls": { title: "Sprachanrufe", description: "Hochverfügbare Unternehmenstelefonie" },
-      "telegram": { title: "Telegram", description: "Kundenbetreuung via Telegram" },
-      "instagram": { title: "Instagram", description: "Direktnachrichten auf Instagram" },
-      "facebook": { title: "Facebook", description: "Kundeninteraktion auf Facebook" },
-      "tiktok": { title: "TikTok", description: "Kundenengagement auf TikTok" },
-      "live-chat": { title: "Live-Chat-Plugin", description: "Echtzeit-Webchat für Kunden" },
-      "rcs-messaging": { title: "RCS-Messaging", description: "Moderne Rich-Media-Kommunikation" },
-      "email": { title: "E-Mail-Dienste", description: "Integrierte Transaktions-E-Mails" },
-    },
-    solutionItems: [
-      { title: "Erweitertes SMS-Portal", description: "Zuverlässige globale Messaging-Konnektivität" },
-      { title: "Komplette Dialer-Lösung", description: "Unternehmens-Sprachverkehr & intelligentes Wählen" },
-      { title: "Internationale Rufnummern (DID)", description: "Virtuelle Rufnummern in über 100 Ländern" },
+    messageLabel: "详细需求描述",
+    messagePlaceholder: "请简要描述您的业务场景、目标国家及预计发送量...",
+    sendMessage: "立即提交需求",
+    messageSent: "✓ 需求提交成功，我们的顾问将尽快联系您！",
+    securityNote: "您的企业信息受严格数据加密保护，绝不对外泄露。",
+    ourLocation: "全球总部位置",
+    addressLabel: "办公地址：",
+    phoneLabel: "联系电话：",
+    emailLabel: "企业邮箱：",
+    socialLabel: "官方社交媒体",
+    faqBadge: "常见疑问解答",
+    faqTitle: "客户常见问题与解答",
+    faqSubtitle: "在接入与测试国际通信专线前，您可能关心的关键业务细节。",
+    faqs: [
+      {
+        question: "国际批发 SMS 短信专线适合哪些企业？",
+        answer: "电信运营商、短信聚合商、CPaaS 平台以及需要稳定高到达率 A2P 验证码与通知推送的全球出海与本土企业。",
+      },
+      {
+        question: "我们可以保留现有的系统平台直接对接吗？",
+        answer: "完全可以。我们支持标准 SMPP 协议直连以及简洁高效的 HTTP REST API，轻松无缝接入您当前的业务系统。",
+      },
+      {
+        question: "不同国家地区的通道覆盖与发件人签名如何管理？",
+        answer: "各国的运营商监管规则与签名报备流程有所不同。告知我们您的目标国家，我们将全程协助完成签名白名单报备。",
+      },
+      {
+        question: "开启测试与商用需要准备哪些信息？",
+        answer: "请提供目标发送国家、预计月发送量、短信消息类型（验证码/动账/营销）以及偏好的接口协议（API/SMPP）。",
+      },
     ],
   },
 
-  // Japanese (日本語)
-  ja: {
-    products: "製品",
-    solutions: "ソリューション",
-    aboutUs: "会社概要",
-    region: "地域",
-    language: "言語",
-    searchCountries: "国を検索...",
-    searchLanguages: "言語を検索...",
-    noCountries: "国が見つかりません",
-    noLanguages: "言語が見つかりません",
-    getStarted: "今すぐ始める",
-    contactUs: "お問い合わせ",
-    learnMore: "詳細を見る",
-    exploreSolutions: "ソリューションを見る",
-    subscribe: "登録する",
-    newsletterTitle: "最新の製品アップデートと業界の知見をお届け",
-    newsletterPlaceholder: "メールアドレスを入力",
-    quickLinks: "クイックリンク",
-    productsCol: "製品",
-    solutionsCol: "ソリューション",
-    companyCol: "会社情報",
-    contactCol: "お問い合わせ",
-    privacyPolicy: "プライバシーポリシー",
-    termsOfService: "利用規約",
-    securityCompliance: "セキュリティとコンプライアンス",
-    categories: {
-      voice: {
-        name: "音声サービス",
-        tagline: "ビジネスに最適化されたグローバル音声接続。",
-      },
-      messaging: {
-        name: "メッセージング",
-        tagline: "信頼性の高い顧客コミュニケーションを実現するメッセージング。",
-      },
-      omnichannel: {
-        name: "オムニチャネル",
-        tagline: "お客様が普段利用するあらゆるチャネルでつながる。",
-      },
+  // Hindi
+  hi: {
+    heroBadge: "बातचीत करें",
+    heroTitle: "आइए आपके व्यवसाय के लिए सही संचार समाधान का निर्माण करें",
+    heroDesc:
+      "ग्राहकों से जुड़ने के लिए अपनी जरूरतें हमें बताएं। हमारे विशेषज्ञ आपके व्यवसाय के लिए सर्वश्रेष्ठ वॉइस, एसएमएस और ओमनीचैनल समाधान चुनने में मदद करेंगे।",
+    getStarted: "शुरू करें",
+    formBadge: "संपर्क करें",
+    formTitle: "अपनी संचार आवश्यकताओं के बारे में बताएं",
+    formSubtitle:
+      "अपनी आवश्यकताएं साझा करें और हमारे विशेषज्ञ सही समाधान ढूंढने में आपकी सहायता करेंगे।",
+    fullName: "पूरा नाम*",
+    fullNamePlaceholder: "अपना नाम दर्ज करें",
+    businessEmail: "व्यावसायिक ईमेल*",
+    businessEmailPlaceholder: "you@company.com",
+    companyName: "कंपनी का नाम*",
+    companyNamePlaceholder: "कंपनी का नाम दर्ज करें",
+    phoneNumber: "फ़ोन नंबर*",
+    phoneNumberPlaceholder: "अपना नंबर दर्ज करें",
+    interestQuestion: "आपकी किस सेवा में रुचि है ?*",
+    interests: {
+      voice: "वॉइस सेवाएं",
+      messaging: "मैसेजिंग / एसएमएस",
+      omnichannel: "ओमनीचैनल",
     },
-    productItems: {
-      "wholesale-voice": { title: "ホールセール音声", description: "高品質なグローバル音声通話接続" },
-      "ai-voice": { title: "AI音声ソリューション", description: "インテリジェントな自動音声応答" },
-      "virtual-numbers": { title: "仮想番号 (DID)", description: "ローカル番号でグローバル展開" },
-      "wholesale-sms": { title: "ホールセールSMS", description: "高到達率のグローバルSMS配信" },
-      "rcs": { title: "RCSビジネスメッセージ", description: "リッチでインタラクティブな企業向けメッセージ" },
-      "otp-sms": { title: "OTP認証SMS", description: "安全かつ高速な認証コード配信" },
-      "whatsapp": { title: "WhatsApp Business", description: "WhatsAppを通じたシームレスな会話" },
-      "voice-calls": { title: "ビジネス通話", description: "高品質な企業向け音声通信" },
-      "telegram": { title: "Telegram", description: "Telegramによる顧客エンゲージメント" },
-      "instagram": { title: "Instagram", description: "Instagramメッセージング連携" },
-      "facebook": { title: "Facebook", description: "Facebookでのカスタマーサポート" },
-      "tiktok": { title: "TikTok", description: "TikTokでの顧客とのつながり" },
-      "live-chat": { title: "ライブチャット", description: "Webサイトでのリアルタイム顧客対話" },
-      "rcs-messaging": { title: "RCSメッセージング", description: "リッチな対話型メッセージング" },
-      "email": { title: "ビジネスメール", description: "安全なトランザクションメール配信" },
-    },
-    solutionItems: [
-      { title: "アドバンスSMSポータル", description: "信頼性の高いグローバルSMS配信基盤" },
-      { title: "完全ダイアラーソリューション", description: "エンタープライズ通話トラフィックと自動発信" },
-      { title: "国際仮想番号 (DID)", description: "世界100カ国以上の仮想電話番号" },
-    ],
-  },
-
-  // Portuguese (Português)
-  pt: {
-    products: "Produtos",
-    solutions: "Soluções",
-    aboutUs: "Sobre Nós",
-    region: "Região",
-    language: "Idioma",
-    searchCountries: "Buscar países...",
-    searchLanguages: "Buscar idiomas...",
-    noCountries: "Nenhum país encontrado",
-    noLanguages: "Nenhum idioma encontrado",
-    getStarted: "Começar",
-    contactUs: "Fale Conosco",
-    learnMore: "Saber mais",
-    exploreSolutions: "Explorar soluções",
-    subscribe: "Inscrever-se",
-    newsletterTitle: "Receba novidades de produtos e análises do setor",
-    newsletterPlaceholder: "Digite seu e-mail",
-    quickLinks: "Links Rápidos",
-    productsCol: "Produtos",
-    solutionsCol: "Soluções",
-    companyCol: "Empresa",
-    contactCol: "Contato",
-    privacyPolicy: "Política de Privacidade",
-    termsOfService: "Termos de Serviço",
-    securityCompliance: "Segurança e Conformidade",
-    categories: {
-      voice: {
-        name: "Voz",
-        tagline: "Conectividade de voz global criada para sua empresa.",
+    messageLabel: "संदेश",
+    messagePlaceholder: "हमें अपना संदेश भेजें...",
+    sendMessage: "संदेश भेजें",
+    messageSent: "✓ संदेश सफलतापूर्वक भेजा गया!",
+    securityNote: "आपकी जानकारी पूरी तरह सुरक्षित है और कभी साझा नहीं की जाएगी।",
+    ourLocation: "हमारा स्थान",
+    addressLabel: "पता:",
+    phoneLabel: "फ़ोन नंबर:",
+    emailLabel: "ईमेल:",
+    socialLabel: "सोशल मीडिया",
+    faqBadge: "प्रश्न और उत्तर",
+    faqTitle: "अक्सर पूछे जाने वाले प्रश्न",
+    faqSubtitle: "अपना ट्रैफ़िक कनेक्ट करने से पहले ध्यान में रखने योग्य व्यावहारिक विवरण।",
+    faqs: [
+      {
+        question: "होलसेल एसएमएस किसके लिए बनाया गया है?",
+        answer:
+          "टेलीकॉम ऑपरेटर्स, एसएमएस एग्रीगेटर्स, सीपीएएस प्रदाताओं और उद्यमों के लिए जिन्हें उच्च मात्रा वाले ए2पी एसएमएस की आवश्यकता होती है।",
       },
-      messaging: {
-        name: "Mensagens",
-        tagline: "Soluções de mensagens para uma comunicação confiável.",
+      {
+        question: "क्या हम अपने मौजूदा प्लेटफॉर्म का उपयोग जारी रख सकते हैं?",
+        answer:
+          "हाँ। हम एसएमपीपी या रेस्ट एपीआई के माध्यम से आपके मौजूदा प्लेटफॉर्म के साथ सीधा कनेक्शन सक्षम कर सकते हैं।",
       },
-      omnichannel: {
-        name: "Omnichannel",
-        tagline: "Conecte-se com clientes nos canais que eles já utilizam.",
+      {
+        question: "कवरेज और सेंडर आईडी आवश्यकताएं कैसे काम करती हैं?",
+        answer:
+          "प्रत्येक देश में नियम और सेंडर आईडी पंजीकरण अलग होते हैं। अपने गंतव्य देश साझा करें ताकि हम आवश्यकताओं की समीक्षा कर सकें।",
       },
-    },
-    productItems: {
-      "wholesale-voice": { title: "Voz no Atacado", description: "Conectividade de voz global confiável" },
-      "ai-voice": { title: "Voz com IA", description: "Soluções de voz automatizadas inteligentes" },
-      "virtual-numbers": { title: "Números Virtuais (DID)", description: "Números locais, presença global" },
-      "wholesale-sms": { title: "SMS no Atacado", description: "Entrega global de SMS com alta taxa de sucesso" },
-      "rcs": { title: "Mensagens RCS Business", description: "Mensagens ricas e interativas para empresas" },
-      "otp-sms": { title: "SMS OTP", description: "Entrega rápida de códigos de verificação" },
-      "whatsapp": { title: "WhatsApp Business", description: "Atendimento inteligente via WhatsApp" },
-      "voice-calls": { title: "Chamadas de Voz", description: "Comunicação de voz empresarial de alta qualidade" },
-      "telegram": { title: "Telegram", description: "Engajamento de clientes via Telegram" },
-      "instagram": { title: "Instagram", description: "Mensagens diretas no Instagram" },
-      "facebook": { title: "Facebook", description: "Atendimento no Facebook Messenger" },
-      "tiktok": { title: "TikTok", description: "Interação com clientes no TikTok" },
-      "live-chat": { title: "Chat ao Vivo", description: "Conversas em tempo real no site" },
-      "rcs-messaging": { title: "Mensagens RCS", description: "Mensagens interativas e modernas" },
-      "email": { title: "E-mail Corporativo", description: "Envio de e-mails transacionais seguros" },
-    },
-    solutionItems: [
-      { title: "Portal Avançado de SMS", description: "Conectividade de mensagens global e confiável" },
-      { title: "Solução Completa de Discador", description: "Tráfego de chamadas corporativas e discagem inteligente" },
-      { title: "Número Internacional (DID)", description: "Números virtuais em mais de 100 países" },
-    ],
-  },
-
-  // Russian (Русский)
-  ru: {
-    products: "Продукты",
-    solutions: "Решения",
-    aboutUs: "О нас",
-    region: "Регион",
-    language: "Язык",
-    searchCountries: "Поиск стран...",
-    searchLanguages: "Поиск языков...",
-    noCountries: "Страны не найдены",
-    noLanguages: "Языки не найдены",
-    getStarted: "Начать",
-    contactUs: "Связаться с нами",
-    learnMore: "Подробнее",
-    exploreSolutions: "Все решения",
-    subscribe: "Подписаться",
-    newsletterTitle: "Получайте новости о продуктах и аналитику отрасли",
-    newsletterPlaceholder: "Введите адрес эл. почты",
-    quickLinks: "Быстрые ссылки",
-    productsCol: "Продукты",
-    solutionsCol: "Решения",
-    companyCol: "Компания",
-    contactCol: "Контакты",
-    privacyPolicy: "Политика конфиденциальности",
-    termsOfService: "Условия использования",
-    securityCompliance: "Безопасность и соответствие",
-    categories: {
-      voice: {
-        name: "Голосовая связь",
-        tagline: "Глобальная голосовая связь для потребностей вашего бизнеса.",
+      {
+        question: "शुरू करने के लिए हमें क्या साझा करना चाहिए?",
+        answer:
+          "आपके लक्षित देश, अपेक्षित ट्रैफ़िक वॉल्यूम, संदेश प्रकार और वर्तमान एकीकरण प्राथमिकताएं।",
       },
-      messaging: {
-        name: "Обмен сообщениями",
-        tagline: "Надежные решения для эффективного общения с клиентами.",
-      },
-      omnichannel: {
-        name: "Омниканальность",
-        tagline: "Общайтесь с клиентами в привычных для них каналах.",
-      },
-    },
-    productItems: {
-      "wholesale-voice": { title: "Оптовая голосовая связь", description: "Надежная международная телефония" },
-      "ai-voice": { title: "Голосовой ИИ", description: "Интеллектуальные автоматизированные звонки" },
-      "virtual-numbers": { title: "Виртуальные номера (DID)", description: "Локальные номера, глобальное присутствие" },
-      "wholesale-sms": { title: "Оптовые SMS", description: "Глобальная доставка SMS с высокой скоростью" },
-      "rcs": { title: "RCS-сообщения для бизнеса", description: "Интерактивные мультимедийные сообщения" },
-      "otp-sms": { title: "SMS с одноразовым паролем (OTP)", description: "Мгновенная доставка кодов верификации" },
-      "whatsapp": { title: "WhatsApp Business API", description: "Общение с клиентами в WhatsApp" },
-      "voice-calls": { title: "Голосовые звонки", description: "Корпоративная телефония высокого качества" },
-      "telegram": { title: "Telegram", description: "Взаимодействие с клиентами через Telegram" },
-      "instagram": { title: "Instagram", description: "Сообщения директ в Instagram" },
-      "facebook": { title: "Facebook", description: "Клиентская поддержка в Facebook" },
-      "tiktok": { title: "TikTok", description: "Взаимодействие с аудиторией в TikTok" },
-      "live-chat": { title: "Онлайн-чат", description: "Чат на сайте в режиме реального времени" },
-      "rcs-messaging": { title: "RCS-связь", description: "Современные интерактивные сообщения" },
-      "email": { title: "Корпоративный Email", description: "Надежные транзакционные рассылки" },
-    },
-    solutionItems: [
-      { title: "Продвинутый SMS-портал", description: "Глобальная и надежная платформа рассылок" },
-      { title: "Комплексный автодозвон (Dialer)", description: "Корпоративный трафик и предиктивный дозвон" },
-      { title: "Международные номера (DID)", description: "Виртуальные номера в более чем 100 странах" },
     ],
   },
 };
@@ -677,3 +576,10 @@ export const navTranslations: Record<string, NavTranslations> = {
 export const getNavTranslations = (lang: string): NavTranslations => {
   return navTranslations[lang] || navTranslations["en"];
 };
+
+export const getContactTranslations = (lang: string): ContactTranslations => {
+  return contactTranslations[lang] || contactTranslations["en"];
+};
+
+export { getVoiceTranslations } from "./voiceTranslations";
+export type { VoiceTranslations } from "./voiceTranslations";

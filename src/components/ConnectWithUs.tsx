@@ -43,7 +43,7 @@ export const ConnectWithUs: React.FC = () => {
             <div className="flex flex-wrap items-center gap-3 sm:gap-4 pt-2">
               {/* Get Started Button */}
               <a
-                href="#get-started"
+                href="/contact"
                 className="inline-flex items-center justify-center gap-2 px-8 sm:px-12 py-3 sm:py-3.5 rounded-full bg-[#83184d] hover:bg-[#721240] text-white text-[14.5px] sm:text-[15.5px] font-medium transition duration-150 shadow-md shadow-[#83184d]/25 active:scale-[0.98]"
               >
                 {t.getStarted}
@@ -52,7 +52,7 @@ export const ConnectWithUs: React.FC = () => {
 
               {/* Contact Us Button */}
               <a
-                href="#contact"
+                href="/contact"
                 className="inline-flex items-center justify-center px-8 sm:px-12 py-3 sm:py-3.5 rounded-full border border-[#7e995f] hover:bg-[#f4f8f2] text-[#1e2d42] text-[14.5px] sm:text-[15.5px] font-medium transition duration-150 active:scale-[0.98]"
               >
                 {t.contactUs}

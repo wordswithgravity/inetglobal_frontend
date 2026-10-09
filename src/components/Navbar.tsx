@@ -122,19 +122,19 @@ export const Navbar: React.FC = () => {
           key: "wholesale-voice",
           title: t.productItems?.["wholesale-voice"]?.title || "Wholesale Voice",
           description: t.productItems?.["wholesale-voice"]?.description || "Reliable global voice connectivity",
-          href: "#wholesale-voice",
+          href: "/voice",
         },
         {
           key: "ai-voice",
-          title: t.productItems?.["ai-voice"]?.title || "AI Voice",
+          title: t.productItems?.["ai-voice"]?.title || "Ai Voice",
           description: t.productItems?.["ai-voice"]?.description || "Intelligent automated voice solutions",
-          href: "#ai-voice",
+          href: "/voice",
         },
         {
           key: "virtual-numbers",
           title: t.productItems?.["virtual-numbers"]?.title || "Virtual Numbers (DID)",
           description: t.productItems?.["virtual-numbers"]?.description || "Local numbers, global presence",
-          href: "#virtual-numbers",
+          href: "/voice",
         },
       ],
     },
@@ -148,19 +148,19 @@ export const Navbar: React.FC = () => {
           key: "wholesale-sms",
           title: t.productItems?.["wholesale-sms"]?.title || "Wholesale SMS",
           description: t.productItems?.["wholesale-sms"]?.description || "Global SMS delivery solutions",
-          href: "#wholesale-sms",
+          href: "/",
         },
         {
           key: "rcs",
           title: t.productItems?.["rcs"]?.title || "RCS Business Messaging",
           description: t.productItems?.["rcs"]?.description || "Rich interactive business messaging",
-          href: "#rcs",
+          href: "/",
         },
         {
           key: "otp-sms",
           title: t.productItems?.["otp-sms"]?.title || "OTP SMS",
           description: t.productItems?.["otp-sms"]?.description || "Secure verification message delivery",
-          href: "#otp-sms",
+          href: "/",
         },
       ],
     },
@@ -174,55 +174,55 @@ export const Navbar: React.FC = () => {
           key: "whatsapp",
           title: t.productItems?.["whatsapp"]?.title || "WhatsApp Business",
           description: t.productItems?.["whatsapp"]?.description || "Connect through WhatsApp conversations",
-          href: "#whatsapp",
+          href: "/",
         },
         {
           key: "voice-calls",
           title: t.productItems?.["voice-calls"]?.title || "Voice Calls",
           description: t.productItems?.["voice-calls"]?.description || "Business voice communication",
-          href: "#voice-calls",
+          href: "/voice",
         },
         {
           key: "telegram",
           title: t.productItems?.["telegram"]?.title || "Telegram",
           description: t.productItems?.["telegram"]?.description || "Engage customers through Telegram",
-          href: "#telegram",
+          href: "/",
         },
         {
           key: "instagram",
           title: t.productItems?.["instagram"]?.title || "Instagram",
           description: t.productItems?.["instagram"]?.description || "Connect through Instagram messaging",
-          href: "#instagram",
+          href: "/",
         },
         {
           key: "facebook",
           title: t.productItems?.["facebook"]?.title || "Facebook",
           description: t.productItems?.["facebook"]?.description || "Connect through Facebook messaging",
-          href: "#facebook",
+          href: "/",
         },
         {
           key: "tiktok",
           title: t.productItems?.["tiktok"]?.title || "TikTok",
           description: t.productItems?.["tiktok"]?.description || "Engage customers through TikTok",
-          href: "#tiktok",
+          href: "/",
         },
         {
           key: "live-chat",
           title: t.productItems?.["live-chat"]?.title || "Live Chat Plugin",
           description: t.productItems?.["live-chat"]?.description || "Real-time website customer conversations",
-          href: "#live-chat",
+          href: "/",
         },
         {
           key: "rcs-messaging",
           title: t.productItems?.["rcs-messaging"]?.title || "RCS",
           description: t.productItems?.["rcs-messaging"]?.description || "Rich conversational messaging",
-          href: "#rcs-messaging",
+          href: "/",
         },
         {
           key: "email",
           title: t.productItems?.["email"]?.title || "Email",
           description: t.productItems?.["email"]?.description || "Integrated business email communication",
-          href: "#email",
+          href: "/",
         },
       ],
     },
@@ -236,17 +236,17 @@ export const Navbar: React.FC = () => {
     {
       title: t.solutionItems?.[0]?.title || "Advance SMS Portal",
       description: t.solutionItems?.[0]?.description || "Reliable global messaging connectivity",
-      href: "#advance-sms-portal",
+      href: "/",
     },
     {
       title: t.solutionItems?.[1]?.title || "Complete Dialer Solution",
       description: t.solutionItems?.[1]?.description || "Enterprise call traffic & predictive dialing",
-      href: "#complete-dialer",
+      href: "/voice",
     },
     {
       title: t.solutionItems?.[2]?.title || "International Number (DID)",
       description: t.solutionItems?.[2]?.description || "Virtual numbers across 100+ countries",
-      href: "#internation-number",
+      href: "/voice",
     },
   ];
 
@@ -260,7 +260,7 @@ export const Navbar: React.FC = () => {
         <div className="grid grid-cols-2 md:grid-cols-3 items-center h-20 w-full">
           {/* DIV 1: Brand Logo (Left) */}
           <div className="flex items-center justify-start">
-            <a href="#" className="flex items-center gap-2 group">
+            <a href="/" className="flex items-center gap-2 group">
               <Logo />
             </a>
           </div>
@@ -338,7 +338,7 @@ export const Navbar: React.FC = () => {
 
               {/* About Us */}
               <a
-                href="#about"
+                href="/"
                 className="text-[#374151] hover:text-[#5f8a1a] transition-colors py-2 font-medium"
               >
                 {t.aboutUs}
@@ -527,12 +527,12 @@ export const Navbar: React.FC = () => {
               )}
             </div>
 
-            {/* Primary Action Button */}
+            {/* Primary Action Button (Contact Us) */}
             <a
-              href="#get-started"
+              href="/contact"
               className="px-5 py-2 rounded-full bg-[#83184d] text-white text-[14px] font-medium hover:bg-[#721240] transition duration-150 shadow-md shadow-[#83184d]/20 active:scale-[0.98] shrink-0"
             >
-              {t.getStarted}
+              {t.contactUs}
             </a>
           </div>
 
@@ -564,93 +564,87 @@ export const Navbar: React.FC = () => {
         {/* PRODUCTS MEGA MENU (Desktop) */}
         {activeDropdown === "products" && (
           <div className="hidden md:block absolute left-0 right-0 top-full pt-3 z-50">
-            <div className="w-full rounded-[24px] bg-white shadow-[0_20px_50px_rgba(16,32,56,0.14)] border border-slate-200/80 p-8 animate-in fade-in duration-200">
+            <div className="w-full rounded-[24px] bg-white shadow-[0_20px_50px_rgba(16,32,56,0.14)] border border-slate-200/80 p-6 sm:p-8 animate-in fade-in duration-200">
               <div className="grid grid-cols-12 gap-8">
-                {/* Left Side: Product Category Navigation Tabs (3 cols) */}
-                <div className="col-span-3 space-y-1.5 border-r border-slate-100 pr-6">
-                  <div className="text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-2 px-3">
-                    {t.productsCol}
-                  </div>
-                  {productCategories.map((category) => (
-                    <button
-                      key={category.id}
-                      onClick={() => setActiveProductTab(category.id)}
-                      className={`w-full flex items-center justify-between px-4 py-3 rounded-xl text-left transition-all duration-150 cursor-pointer ${
-                        activeProductTab === category.id
-                          ? "bg-[#558117] text-white font-semibold shadow-md shadow-[#558117]/25"
-                          : "text-[#102038] hover:bg-slate-50 font-medium"
-                      }`}
-                    >
-                      <div className="flex items-center gap-3">
-                        <span
-                          className={
-                            activeProductTab === category.id
-                              ? "text-white"
-                              : "text-slate-400"
-                          }
-                        >
-                          {category.icon}
-                        </span>
-                        <span className="text-[14.5px]">{category.name}</span>
-                      </div>
-                      <ChevronRight
-                        className={`w-4 h-4 transition-transform ${
-                          activeProductTab === category.id
-                            ? "text-white translate-x-0.5"
-                            : "text-slate-300"
+                {/* Left Side: Product Category Navigation Tabs (4 cols / w-[260px]) */}
+                <div className="col-span-3 space-y-2 border-r border-slate-100 pr-6">
+                  {productCategories.map((category) => {
+                    const isActive = activeProductTab === category.id;
+                    return (
+                      <button
+                        key={category.id}
+                        onClick={() => setActiveProductTab(category.id)}
+                        className={`w-full flex items-center justify-between px-4 py-3 rounded-2xl text-left transition-all duration-150 cursor-pointer ${
+                          isActive
+                            ? "bg-[#102038] text-white font-semibold shadow-sm"
+                            : "text-[#374151] hover:bg-slate-50 font-medium"
                         }`}
-                      />
-                    </button>
-                  ))}
+                      >
+                        <div className="flex items-center gap-3">
+                          <span
+                            className={
+                              isActive ? "text-[#789d26]" : "text-slate-400"
+                            }
+                          >
+                            {category.id === "voice" ? (
+                              <Phone className="w-4 h-4" />
+                            ) : category.id === "messaging" ? (
+                              <MessageSquare className="w-4 h-4" />
+                            ) : (
+                              <span className="w-4 h-4 flex items-center justify-center rounded-full border-[1.75px] border-current">
+                                <span className="w-1.5 h-1.5 rounded-full bg-current"></span>
+                              </span>
+                            )}
+                          </span>
+                          <span className="text-[14.5px]">{category.name}</span>
+                        </div>
+                        <ChevronRight
+                          className={`w-4 h-4 transition-transform ${
+                            isActive
+                              ? "text-[#789d26] translate-x-0.5"
+                              : "text-slate-300"
+                          }`}
+                        />
+                      </button>
+                    );
+                  })}
                 </div>
 
-                {/* Right Side: Category Items Grid (9 cols) */}
-                <div className="col-span-9 pl-2 flex flex-col justify-between">
-                  <div className="space-y-4">
-                    <div className="border-b border-slate-100 pb-3">
-                      <h3 className="text-lg font-bold text-[#102038]">
-                        {currentCategory.name}
-                      </h3>
-                      <p className="text-xs text-slate-400 mt-0.5">
-                        {currentCategory.tagline}
-                      </p>
-                    </div>
-
-                    <div className="grid grid-cols-3 gap-3">
-                      {currentCategory.items.map((item, idx) => (
-                        <a
-                          key={idx}
-                          href={item.href}
-                          onClick={() => setActiveDropdown(null)}
-                          className="group flex items-start gap-3 p-3 rounded-xl border border-transparent hover:border-slate-200 hover:bg-[#f9fbf7] transition-all duration-150"
-                        >
-                          <div className="w-8 h-8 rounded-lg bg-[#ebf6dc] text-[#558117] flex items-center justify-center shrink-0 group-hover:bg-[#558117] group-hover:text-white transition-colors duration-150">
-                            {currentCategory.icon}
-                          </div>
-                          <div className="space-y-0.5">
-                            <h4 className="text-[13.5px] font-semibold text-[#102038] group-hover:text-[#558117] transition-colors">
-                              {item.title}
-                            </h4>
-                            <p className="text-[11.5px] text-slate-400 group-hover:text-slate-500 leading-snug">
-                              {item.description}
-                            </p>
-                          </div>
-                        </a>
-                      ))}
-                    </div>
+                {/* Right Side: Category Items 2-Column Grid (9 cols) */}
+                <div className="col-span-9 pl-4">
+                  <div className="pb-3">
+                    <h3 className="text-[19px] font-bold text-[#102038]">
+                      {currentCategory.name}
+                    </h3>
+                    <p className="text-[13px] text-slate-400 mt-0.5">
+                      {currentCategory.tagline}
+                    </p>
                   </div>
 
-                  <div className="pt-4 border-t border-slate-100 flex items-center justify-between text-xs text-slate-400">
-                    <span>
-                      iNet Global — {t.categories?.voice?.tagline}
-                    </span>
-                    <a
-                      href="#contact"
-                      onClick={() => setActiveDropdown(null)}
-                      className="text-[#558117] font-semibold hover:underline"
-                    >
-                      {t.contactUs} →
-                    </a>
+                  <div className="w-full h-[1px] bg-slate-100 mb-6" />
+
+                  {/* 2-Column Items Grid matching screenshot */}
+                  <div className="grid grid-cols-2 gap-x-12 gap-y-5">
+                    {currentCategory.items.map((item, idx) => (
+                      <a
+                        key={idx}
+                        href={item.href}
+                        onClick={() => setActiveDropdown(null)}
+                        className="group flex items-start gap-3.5 p-1.5 rounded-xl hover:bg-[#f9fbf7] transition-all duration-150"
+                      >
+                        <div className="w-10 h-10 rounded-full bg-[#ebf6dc] text-[#558117] flex items-center justify-center shrink-0 group-hover:bg-[#558117] group-hover:text-white transition-colors duration-150">
+                          <PhoneCall className="w-4 h-4" />
+                        </div>
+                        <div className="space-y-0.5">
+                          <h4 className="text-[14.5px] font-semibold text-[#102038] group-hover:text-[#558117] transition-colors">
+                            {item.title}
+                          </h4>
+                          <p className="text-[12.5px] text-slate-400 group-hover:text-slate-500 leading-snug">
+                            {item.description}
+                          </p>
+                        </div>
+                      </a>
+                    ))}
                   </div>
                 </div>
               </div>
@@ -834,7 +828,7 @@ export const Navbar: React.FC = () => {
               </div>
 
               <a
-                href="#about"
+                href="/"
                 onClick={() => setMobileMenuOpen(false)}
                 className="block p-2.5 rounded-xl hover:bg-slate-50 font-medium text-sm text-[#102038]"
               >
@@ -845,11 +839,11 @@ export const Navbar: React.FC = () => {
             {/* Mobile CTA Button */}
             <div className="pt-4">
               <a
-                href="#get-started"
+                href="/contact"
                 onClick={() => setMobileMenuOpen(false)}
                 className="w-full flex items-center justify-center py-3.5 rounded-full bg-[#83184d] text-white font-semibold text-sm shadow-md"
               >
-                {t.getStarted}
+                {t.contactUs}
               </a>
             </div>
           </div>

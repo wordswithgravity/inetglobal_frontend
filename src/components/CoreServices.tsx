@@ -61,7 +61,7 @@ const ServiceCard: React.FC<ServiceCardProps> = ({
       {/* Learn More Link */}
       <div className="pt-8">
         <a
-          href={`#${title.toLowerCase().replace(/\s+/g, "-")}`}
+          href="/voice"
           className="inline-flex items-center gap-1.5 text-[14px] font-semibold text-[#83184d] hover:text-[#6b103e] transition-colors group"
         >
           <span>{learnMoreText}</span>
