@@ -1,5 +1,6 @@
 import React from "react";
 import { Phone, MessageSquare, Hash, Check, ArrowRight } from "lucide-react";
+import { theme } from "../theme";
 
 interface ServiceCardProps {
   icon: React.ReactNode;
@@ -17,9 +18,7 @@ const ServiceCard: React.FC<ServiceCardProps> = ({
   features,
 }) => {
   return (
-    <div
-      className="bg-white rounded-[26px] p-8 sm:p-9 flex flex-col justify-between transition-all duration-300 border border-gray-100 shadow-sm hover:shadow-xl hover:border-gray-200"
-    >
+    <div className={theme.classes.serviceCard}>
       <div className="space-y-6">
         {/* Icon Badge */}
         <div
@@ -29,12 +28,12 @@ const ServiceCard: React.FC<ServiceCardProps> = ({
         </div>
 
         {/* Title */}
-        <h3 className="text-xl sm:text-2xl font-bold text-[#102038] tracking-tight">
+        <h3 className={theme.typography.cardHeading + ` text-[${theme.colors.text.heading}]`}>
           {title}
         </h3>
 
         {/* Description */}
-        <p className="text-[14px] sm:text-[15px] text-[#556578] leading-relaxed">
+        <p className={`text-[14px] sm:text-[15px] text-[${theme.colors.text.secondary}] leading-relaxed`}>
           {description}
         </p>
 
@@ -45,7 +44,7 @@ const ServiceCard: React.FC<ServiceCardProps> = ({
               key={index}
               className="flex items-center gap-2.5 text-[13px] sm:text-[14px] text-[#4b5563]"
             >
-              <Check className="w-4 h-4 text-[#789d26] stroke-[2.5] shrink-0" />
+              <Check className={`w-4 h-4 text-[${theme.colors.accent.DEFAULT}] stroke-[2.5] shrink-0`} />
               <span>{feature}</span>
             </li>
           ))}
@@ -56,7 +55,7 @@ const ServiceCard: React.FC<ServiceCardProps> = ({
       <div className="pt-8">
         <a
           href={`#${title.toLowerCase().replace(/\s+/g, "-")}`}
-          className="inline-flex items-center gap-1.5 text-[14px] font-semibold text-[#83184d] hover:text-[#6b103e] transition-colors group"
+          className={`inline-flex items-center gap-1.5 text-[14px] font-semibold text-[${theme.colors.primary.DEFAULT}] hover:text-[${theme.colors.primary.hover}] transition-colors group`}
         >
           <span>Learn more</span>
           <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
@@ -78,7 +77,7 @@ export const CoreServices: React.FC = () => {
         "Global coverage",
       ],
       icon: <Phone className="w-6 h-6 text-white fill-white" />,
-      iconBg: "bg-[#658a1f]",
+      iconBg: `bg-[${theme.colors.accent.dark}]`,
     },
     {
       title: "Messaging",
@@ -89,8 +88,8 @@ export const CoreServices: React.FC = () => {
         "Flexible route options",
         "Global coverage",
       ],
-      icon: <MessageSquare className="w-5 h-5 text-[#83184d] fill-[#83184d]" />,
-      iconBg: "bg-[#f9e9f1]",
+      icon: <MessageSquare className={`w-5 h-5 text-[${theme.colors.primary.DEFAULT}] fill-[${theme.colors.primary.DEFAULT}]`} />,
+      iconBg: `bg-[${theme.colors.primary.light}]`,
     },
     {
       title: "Omnichannels",
@@ -101,30 +100,30 @@ export const CoreServices: React.FC = () => {
         "Flexible route options",
         "Global coverage",
       ],
-      icon: <Hash className="w-6 h-6 text-[#658a1f] stroke-[2.5]" />,
-      iconBg: "bg-[#eaf3de]",
+      icon: <Hash className={`w-6 h-6 text-[${theme.colors.accent.DEFAULT}] stroke-[2.5]`} />,
+      iconBg: `bg-[${theme.colors.accent.paleBg}]`,
     },
   ];
 
   return (
-    <section className="w-full bg-white py-12 sm:py-16 lg:py-20 px-3 sm:px-6 lg:px-8">
-      <div className="max-w-[1440px] mx-auto space-y-10 sm:space-y-14">
+    <section className={`w-full bg-white ${theme.layout.sectionPy} ${theme.layout.sectionPx}`}>
+      <div className={`${theme.layout.maxWidth} mx-auto space-y-10 sm:space-y-14`}>
         
         {/* Section Header */}
-        <div className="max-w-3xl space-y-3 sm:space-y-4">
+        <div className={theme.classes.sectionHeader}>
           <div className="flex items-center gap-2">
-            <span className="w-5 h-[2px] bg-[#698a22]"></span>
-            <span className="text-[12px] sm:text-[13px] font-bold tracking-wider text-[#698a22] uppercase">
+            <span className={theme.classes.badgeLine}></span>
+            <span className={theme.classes.sectionBadge}>
               CORE SERVICE
             </span>
           </div>
 
-          <h2 className="text-2xl sm:text-3xl lg:text-[40px] xl:text-[42px] font-bold text-[#102038] tracking-tight leading-[1.18]">
+          <h2 className={theme.classes.sectionTitle}>
             Communication Solutions For <br className="hidden sm:inline" />
             Every Customer Journey
           </h2>
 
-          <p className="text-[15px] sm:text-[16px] text-[#556578] leading-relaxed max-w-2xl">
+          <p className={theme.classes.sectionDescription}>
             Modular telecom infrastructure engineered for high availability
             voice, messaging, and virtual numbers.
           </p>

@@ -13,6 +13,7 @@ import {
   MessageSquare,
   MapPin,
 } from "lucide-react";
+import { theme } from "../theme";
 
 interface SolutionItem {
   id: string;
@@ -284,8 +285,8 @@ export const BusinessSolutions: React.FC = () => {
   }, []);
 
   return (
-    <section className="w-full bg-[#f3f5f0] py-16 px-2 sm:px-4">
-      <div className="max-w-[1440px] mx-auto space-y-10">
+    <section className={`w-full bg-[${theme.colors.light.solutionsBg}] ${theme.layout.sectionPy} ${theme.layout.sectionPx}`}>
+      <div className={`${theme.layout.maxWidth} mx-auto space-y-10`}>
         {/* Section Header (centered) */}
         <div className="flex flex-col items-center text-center">
           <div className="flex items-center gap-2">
@@ -315,8 +316,8 @@ export const BusinessSolutions: React.FC = () => {
                 onClick={() => setActiveTab(tab.id)}
                 className={`w-full h-[50px] sm:h-[54px] px-5 sm:px-6 flex items-center justify-center gap-2.5 sm:gap-3 rounded-full text-[14.5px] sm:text-[15.5px] font-medium border transition-all duration-200 cursor-pointer ${
                   isActive
-                    ? "bg-[#12243d] text-white border-[#6f9a1f] shadow-md shadow-slate-900/10"
-                    : "bg-white/80 sm:bg-transparent text-[#364152] border-[#d3d9d0] hover:bg-white hover:border-[#bcc7b6]"
+                    ? theme.classes.pillTabActive
+                    : theme.classes.pillTabInactive
                 }`}
               >
                 <span

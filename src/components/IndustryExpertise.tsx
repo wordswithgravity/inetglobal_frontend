@@ -7,6 +7,7 @@ import {
   Compass,
   ChevronRight,
 } from "lucide-react";
+import { theme } from "../theme";
 
 import ecommerceImg from "../assets/Ecommerce.png";
 import educationImg from "../assets/Education.png";
@@ -111,14 +112,14 @@ export const IndustryExpertise: React.FC = () => {
     <section
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
-      className="w-full bg-white pt-10 sm:pt-14 lg:pt-16 pb-16 sm:pb-20 lg:pb-24 px-3 sm:px-6 lg:px-8 overflow-hidden"
+      className={`w-full bg-white pt-10 sm:pt-14 lg:pt-16 pb-16 sm:pb-20 lg:pb-24 ${theme.layout.sectionPx} overflow-hidden`}
     >
-      <div className="max-w-[1440px] mx-auto space-y-8 lg:space-y-12">
+      <div className={`${theme.layout.maxWidth} mx-auto space-y-8 lg:space-y-12`}>
         {/* Section Header */}
         <div className="max-w-3xl space-y-3">
           <div className="flex items-center gap-2">
-            <span className="w-5 h-[1.5px] bg-[#5f8a1a]" />
-            <span className="text-[12px] sm:text-[12.5px] font-semibold tracking-wide text-[#5f8a1a] uppercase">
+            <span className={theme.classes.badgeLine} />
+            <span className={theme.classes.sectionBadge}>
               Industry Expertise
             </span>
           </div>

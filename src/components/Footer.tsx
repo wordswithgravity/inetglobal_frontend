@@ -1,11 +1,12 @@
 import React from "react";
 import { Mail, Phone, MapPin } from "lucide-react";
+import { theme } from "../theme";
 import logoImg from "../assets/logo.png";
 
 export const Footer: React.FC = () => {
   return (
-    <footer className="w-full bg-[#0d1b33] text-slate-300 font-sans pt-12 sm:pt-16 pb-8 px-4 sm:px-6 lg:px-8 border-t border-slate-800">
-      <div className="max-w-[1440px] mx-auto space-y-12 sm:space-y-14">
+    <footer className={`w-full bg-[${theme.colors.dark.footer}] text-slate-300 font-sans pt-12 sm:pt-16 pb-8 ${theme.layout.sectionPx} border-t border-slate-800`}>
+      <div className={`${theme.layout.maxWidth} mx-auto space-y-12 sm:space-y-14`}>
         
         {/* Top Grid: 5 Columns */}
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-12 gap-8 lg:gap-8">

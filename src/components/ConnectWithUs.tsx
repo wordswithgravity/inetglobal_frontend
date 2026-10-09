@@ -1,18 +1,19 @@
 import React from "react";
 import { ArrowRight } from "lucide-react";
+import { theme } from "../theme";
 import Iphone from "./Iphone";
 import peopleImg from "../assets/people.png";
 
 export const ConnectWithUs: React.FC = () => {
   return (
-    <section className="w-full bg-white pt-10 sm:pt-16 lg:pt-20 pb-0 px-3 sm:px-6 lg:px-8 overflow-hidden">
-      <div className="max-w-[1440px] mx-auto">
+    <section className={`w-full bg-white pt-10 sm:pt-16 lg:pt-20 pb-0 ${theme.layout.sectionPx} overflow-hidden`}>
+      <div className={`${theme.layout.maxWidth} mx-auto`}>
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-end">
           {/* Left Column: Heading & Content (7 cols) */}
           <div className="lg:col-span-7 space-y-4 pb-6 sm:pb-12 lg:pb-16">
             <div className="flex items-center gap-2">
-              <span className="w-5 h-[2px] bg-[#698a22]"></span>
-              <span className="text-[12px] sm:text-[13px] font-bold tracking-wider text-[#698a22] uppercase">
+              <span className={theme.classes.badgeLine}></span>
+              <span className={theme.classes.sectionBadge}>
                 CONNECT WITH US
               </span>
             </div>
@@ -36,7 +37,7 @@ export const ConnectWithUs: React.FC = () => {
               {/* Get Started Button */}
               <a
                 href="#get-started"
-                className="inline-flex items-center justify-center gap-2 px-8 sm:px-12 py-3 sm:py-3.5 rounded-full bg-[#83184d] hover:bg-[#721240] text-white text-[14.5px] sm:text-[15.5px] font-medium transition duration-150 shadow-md shadow-[#83184d]/25 active:scale-[0.98]"
+                className={theme.classes.primaryButton}
               >
                 Get Started
                 <ArrowRight className="w-4 h-4" />
@@ -45,7 +46,7 @@ export const ConnectWithUs: React.FC = () => {
               {/* Contact Us Button */}
               <a
                 href="#contact"
-                className="inline-flex items-center justify-center px-8 sm:px-12 py-3 sm:py-3.5 rounded-full border border-[#7e995f] hover:bg-[#f4f8f2] text-[#1e2d42] text-[14.5px] sm:text-[15.5px] font-medium transition duration-150 active:scale-[0.98]"
+                className={theme.classes.secondaryButton}
               >
                 Contact Us
               </a>

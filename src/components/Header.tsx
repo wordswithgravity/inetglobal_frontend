@@ -1,25 +1,26 @@
 import React from "react";
 import { ArrowRight } from "lucide-react";
+import { theme } from "../theme";
 import globeImg from "../assets/globe.png";
 
 export const Header: React.FC = () => {
   return (
-    <section className="w-full bg-[#EEF2EB] pt-6 sm:pt-10 pb-12 sm:pb-16 lg:pb-20 px-3 sm:px-6 lg:px-8 transition-colors overflow-hidden">
-      <div className="max-w-[1440px] mx-auto">
+    <section className={`w-full bg-[${theme.colors.light.heroBg}] pt-6 sm:pt-10 pb-12 sm:pb-16 lg:pb-20 ${theme.layout.sectionPx} transition-colors overflow-hidden`}>
+      <div className={theme.layout.maxWidth + " mx-auto"}>
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 sm:gap-10 lg:gap-12 items-center">
           {/* Left Column: Heading & Content (5 cols) */}
           <div className="lg:col-span-5 space-y-4 sm:space-y-6 text-left">
-            <span className="text-[12px] sm:text-[14px] font-bold tracking-wider text-[#698a22] uppercase">
+            <span className={theme.classes.sectionBadge}>
               GLOBAL COMMUNICATIONS INFRASTRUCTURE
             </span>
 
-            <h1 className="text-3xl sm:text-5xl lg:text-[58px] xl:text-[64px] font-semibold text-[#102038] tracking-tight leading-[1.12]">
+            <h1 className={`text-3xl sm:text-5xl lg:text-[58px] xl:text-[64px] font-semibold text-[${theme.colors.text.heading}] tracking-tight leading-[1.12]`}>
               Global <br className="hidden sm:inline" />
               Communication, <br className="hidden sm:inline" />
               Built For Business.
             </h1>
 
-            <p className="text-[15px] sm:text-[17px] text-[#4e5e70] leading-relaxed max-w-xl">
+            <p className={`text-[15px] sm:text-[17px] text-[${theme.colors.text.body}] leading-relaxed max-w-xl`}>
               Reliable voice, messaging and virtual numbers for companies that
               need to stay connected across borders, across teams, and across
               every customer touchpoint.
@@ -29,7 +30,7 @@ export const Header: React.FC = () => {
               {/* Get Started Button */}
               <a
                 href="#get-started"
-                className="inline-flex items-center justify-center gap-2 px-7 sm:px-8 py-3 sm:py-3.5 rounded-full bg-[#83184d] hover:bg-[#721240] text-white text-[14.5px] sm:text-[16px] font-medium transition duration-150 shadow-md shadow-[#83184d]/25 active:scale-[0.98]"
+                className={theme.classes.primaryButton}
               >
                 Get Started
                 <ArrowRight className="w-4 h-4" />
@@ -38,7 +39,7 @@ export const Header: React.FC = () => {
               {/* Explore Service Button */}
               <a
                 href="#explore"
-                className="inline-flex items-center justify-center px-7 sm:px-8 py-3 sm:py-3.5 rounded-full border border-[#7e995f] hover:bg-[#e4ece0] text-[#1e2d42] text-[14.5px] sm:text-[16px] font-medium transition duration-150 active:scale-[0.98]"
+                className={theme.classes.secondaryButton}
               >
                 Explore Service
               </a>
