@@ -501,23 +501,96 @@ export const Navbar: React.FC = () => {
 
       {/* Mobile Menu Drawer */}
       {mobileMenuOpen && (
-        <div className="md:hidden border-t border-gray-100 bg-white px-4 pt-3 pb-6 space-y-4">
-          <div className="space-y-2">
-            <a
-              href="#products"
-              className="block px-3 py-2 rounded-lg text-base font-medium text-gray-800 hover:bg-gray-50"
-            >
-              Products
-            </a>
-            <a
-              href="#solutions"
-              className="block px-3 py-2 rounded-lg text-base font-medium text-gray-800 hover:bg-gray-50"
-            >
-              Solutions
-            </a>
+        <div className="md:hidden border-t border-gray-100 bg-white px-4 pt-3 pb-6 space-y-4 max-h-[80vh] overflow-y-auto">
+          <div className="space-y-1">
+            {/* Products Accordion */}
+            <div>
+              <button
+                type="button"
+                onClick={() =>
+                  setActiveDropdown((prev) =>
+                    prev === "mobile-products" ? null : "mobile-products"
+                  )
+                }
+                className="flex items-center justify-between w-full px-3 py-2.5 rounded-lg text-[15px] font-medium text-gray-800 hover:bg-gray-50 cursor-pointer"
+              >
+                <span>Products</span>
+                <ChevronDown
+                  className={`w-4 h-4 text-gray-400 transition-transform ${
+                    activeDropdown === "mobile-products" ? "rotate-180 text-[#5f8a1a]" : ""
+                  }`}
+                />
+              </button>
+
+              {activeDropdown === "mobile-products" && (
+                <div className="pl-4 pr-2 py-2 space-y-2 border-l-2 border-[#5f8a1a]/40 ml-3">
+                  {productCategories.map((category) => (
+                    <div key={category.id} className="space-y-1.5 py-1">
+                      <div className="text-[12.5px] font-semibold text-[#5f8a1a] uppercase tracking-wider">
+                        {category.name}
+                      </div>
+                      {category.items.map((item, idx) => (
+                        <a
+                          key={idx}
+                          href={item.href}
+                          onClick={() => {
+                            setMobileMenuOpen(false);
+                            setActiveDropdown(null);
+                          }}
+                          className="block py-1 text-[13.5px] text-gray-600 hover:text-gray-900"
+                        >
+                          {item.title}
+                        </a>
+                      ))}
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+
+            {/* Solutions Accordion */}
+            <div>
+              <button
+                type="button"
+                onClick={() =>
+                  setActiveDropdown((prev) =>
+                    prev === "mobile-solutions" ? null : "mobile-solutions"
+                  )
+                }
+                className="flex items-center justify-between w-full px-3 py-2.5 rounded-lg text-[15px] font-medium text-gray-800 hover:bg-gray-50 cursor-pointer"
+              >
+                <span>Solutions</span>
+                <ChevronDown
+                  className={`w-4 h-4 text-gray-400 transition-transform ${
+                    activeDropdown === "mobile-solutions" ? "rotate-180 text-[#5f8a1a]" : ""
+                  }`}
+                />
+              </button>
+
+              {activeDropdown === "mobile-solutions" && (
+                <div className="pl-4 pr-2 py-2 space-y-1.5 border-l-2 border-[#5f8a1a]/40 ml-3">
+                  {solutionItems.map((item, idx) => (
+                    <a
+                      key={idx}
+                      href={item.href}
+                      onClick={() => {
+                        setMobileMenuOpen(false);
+                        setActiveDropdown(null);
+                      }}
+                      className="block py-1.5 text-[13.5px] text-gray-600 hover:text-gray-900"
+                    >
+                      {item.title}
+                    </a>
+                  ))}
+                </div>
+              )}
+            </div>
+
+            {/* About Us */}
             <a
               href="#about"
-              className="block px-3 py-2 rounded-lg text-base font-medium text-gray-800 hover:bg-gray-50"
+              onClick={() => setMobileMenuOpen(false)}
+              className="block px-3 py-2.5 rounded-lg text-[15px] font-medium text-gray-800 hover:bg-gray-50"
             >
               About Us
             </a>
@@ -538,6 +611,13 @@ export const Navbar: React.FC = () => {
               </span>
               <ChevronDown className="w-4 h-4 text-gray-400" />
             </button>
+            <a
+              href="#contact"
+              onClick={() => setMobileMenuOpen(false)}
+              className="w-full text-center py-2.5 rounded-full bg-[#83184d] text-white text-[14px] font-medium shadow-sm"
+            >
+              Contact Us
+            </a>
           </div>
         </div>
       )}

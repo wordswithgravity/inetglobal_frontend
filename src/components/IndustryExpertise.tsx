@@ -111,19 +111,19 @@ export const IndustryExpertise: React.FC = () => {
     <section
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
-      className="w-full bg-white pt-10 lg:pt-14 pb-20 px-2 sm:px-4 overflow-hidden"
+      className="w-full bg-white pt-10 sm:pt-14 lg:pt-16 pb-16 sm:pb-20 lg:pb-24 px-3 sm:px-6 lg:px-8 overflow-hidden"
     >
-      <div className="max-w-[1440px] mx-auto space-y-8 lg:space-y-10">
+      <div className="max-w-[1440px] mx-auto space-y-8 lg:space-y-12">
         {/* Section Header */}
         <div className="max-w-3xl space-y-3">
           <div className="flex items-center gap-2">
             <span className="w-5 h-[1.5px] bg-[#5f8a1a]" />
-            <span className="text-[12.5px] font-semibold tracking-wide text-[#5f8a1a] uppercase">
+            <span className="text-[12px] sm:text-[12.5px] font-semibold tracking-wide text-[#5f8a1a] uppercase">
               Industry Expertise
             </span>
           </div>
 
-          <h2 className="text-[30px] sm:text-[36px] lg:text-[38px] font-bold text-[#12223b] tracking-tight leading-[1.2]">
+          <h2 className="text-2xl sm:text-3xl lg:text-[38px] font-bold text-[#12223b] tracking-tight leading-[1.2]">
             Communication Solutions Built <br className="hidden sm:inline" />
             For Every Industry
           </h2>
@@ -135,22 +135,22 @@ export const IndustryExpertise: React.FC = () => {
         </div>
 
         {/* 2-Column Layout */}
-        <div className="grid grid-cols-1 lg:grid-cols-[380px_1fr] gap-10 lg:gap-14 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-[380px_1fr] gap-8 sm:gap-10 lg:gap-14 items-center">
           {/* Left: Large Tabs */}
-          <div className="flex flex-col gap-4 lg:gap-5 w-full lg:w-[380px]">
+          <div className="flex flex-col gap-3 sm:gap-4 lg:gap-5 w-full lg:w-[380px]">
             {industries.map((item) => {
               const isActive = item.id === activeId;
               return (
                 <button
                   key={item.id}
                   onClick={() => setActiveId(item.id)}
-                  className={`w-full flex items-center justify-between pl-7 pr-6 h-[58px] sm:h-[62px] rounded-full text-[16.5px] sm:text-[17.5px] font-medium transition-all duration-200 cursor-pointer border ${
+                  className={`w-full flex items-center justify-between pl-5 sm:pl-7 pr-4 sm:pr-6 h-[52px] sm:h-[58px] lg:h-[62px] rounded-full text-[15px] sm:text-[16.5px] lg:text-[17.5px] font-medium transition-all duration-200 cursor-pointer border ${
                     isActive
                       ? "bg-[#102038] text-white border-[#739b20] ring-1.5 ring-[#739b20] shadow-md shadow-slate-900/10"
                       : "bg-white text-[#1e2d42] border-[#d3d9de] hover:border-[#b6c2b0] hover:bg-[#f7faf5]"
                   }`}
                 >
-                  <div className="flex items-center gap-4">
+                  <div className="flex items-center gap-3 sm:gap-4">
                     <span
                       className={isActive ? "text-[#84cc16]" : "text-slate-500"}
                     >
@@ -159,7 +159,7 @@ export const IndustryExpertise: React.FC = () => {
                     <span>{item.name}</span>
                   </div>
                   <ChevronRight
-                    className={`w-5 h-5 transition-transform ${
+                    className={`w-4 sm:w-5 h-4 sm:h-5 transition-transform ${
                       isActive
                         ? "text-[#84cc16] translate-x-0.5"
                         : "text-slate-400"
@@ -171,7 +171,7 @@ export const IndustryExpertise: React.FC = () => {
           </div>
 
           {/* Right: Card deck */}
-          <div className="relative flex items-center justify-center h-[590px] lg:h-[620px] select-none">
+          <div className="relative flex items-center justify-center min-h-[500px] sm:min-h-[560px] lg:h-[620px] select-none">
             {industries.map((item, idx) => {
               const offset = getOffset(idx);
               const dist = Math.abs(offset);
@@ -191,14 +191,14 @@ export const IndustryExpertise: React.FC = () => {
                       ["--ih" as string]: "57%",
                     } as React.CSSProperties
                   }
-                  className={`absolute w-[min(570px,100%)] h-auto md:h-[var(--h)] rounded-[30px] overflow-hidden bg-white flex flex-col transition-all duration-500 ease-out cursor-pointer ${
+                  className={`absolute w-[min(570px,100%)] h-[490px] sm:h-[540px] md:h-[var(--h)] rounded-[26px] sm:rounded-[30px] overflow-hidden bg-white flex flex-col transition-all duration-500 ease-out cursor-pointer ${
                     isCenter
                       ? "block shadow-[0_20px_60px_-10px_rgba(15,23,42,0.25)] border border-gray-100"
                       : "hidden md:flex border border-slate-200/70"
                   }`}
                 >
                   {/* Illustration */}
-                  <div className="w-full shrink-0 h-[255px] md:h-[var(--ih)] bg-gradient-to-b bg-[#66dd0b] overflow-hidden flex items-center justify-center">
+                  <div className="w-full shrink-0 h-[210px] sm:h-[240px] md:h-[var(--ih)] bg-gradient-to-b bg-[#66dd0b] overflow-hidden flex items-center justify-center">
                     <img
                       src={item.image}
                       alt={item.title}
@@ -208,12 +208,12 @@ export const IndustryExpertise: React.FC = () => {
                   </div>
 
                   {/* Text + CTA */}
-                  <div className="bg-white flex-1 px-8 pt-7 pb-8 text-center space-y-3.5 overflow-hidden flex flex-col justify-center">
-                    <h3 className="text-[25px] md:text-[29px] font-semibold text-[#12223b] tracking-tight leading-tight">
+                  <div className="bg-white flex-1 px-5 sm:px-8 pt-5 sm:pt-7 pb-6 sm:pb-8 text-center space-y-3 sm:space-y-3.5 overflow-hidden flex flex-col justify-center">
+                    <h3 className="text-[21px] sm:text-[25px] md:text-[29px] font-semibold text-[#102038] tracking-tight leading-tight">
                       {item.title}
                     </h3>
 
-                    <p className="text-[15px] md:text-[16px] text-[#5b6878] leading-[1.55] max-w-[460px] mx-auto">
+                    <p className="text-[14px] sm:text-[15px] md:text-[16px] text-[#5b6878] leading-[1.55] max-w-[460px] mx-auto">
                       {item.description}
                     </p>
 
@@ -223,7 +223,7 @@ export const IndustryExpertise: React.FC = () => {
                         onClick={(e) => {
                           if (!isCenter) e.preventDefault();
                         }}
-                        className="inline-flex items-center justify-center px-14 py-3 rounded-full text-[15.5px] font-medium text-white bg-[#8b1a5e] hover:bg-[#751450] shadow-md shadow-[#8b1a5e]/25 transition duration-150 active:scale-[0.98]"
+                        className="inline-flex items-center justify-center px-10 sm:px-14 py-2.5 sm:py-3 rounded-full text-[14.5px] sm:text-[15.5px] font-medium text-white bg-[#8b1a5e] hover:bg-[#751450] shadow-md shadow-[#8b1a5e]/25 transition duration-150 active:scale-[0.98]"
                       >
                         Contact Us
                       </a>

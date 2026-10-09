@@ -4,41 +4,41 @@ import logoImg from "../assets/logo.png";
 
 export const Footer: React.FC = () => {
   return (
-    <footer className="w-full bg-[#0d1b33] text-slate-300 font-sans pt-16 pb-8 px-4 sm:px-6 lg:px-12 border-t border-slate-800">
-      <div className="max-w-[1440px] mx-auto space-y-14">
+    <footer className="w-full bg-[#0d1b33] text-slate-300 font-sans pt-12 sm:pt-16 pb-8 px-4 sm:px-6 lg:px-8 border-t border-slate-800">
+      <div className="max-w-[1440px] mx-auto space-y-12 sm:space-y-14">
         
         {/* Top Grid: 5 Columns */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 lg:gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-12 gap-8 lg:gap-8">
           
           {/* Column 1: Brand Info & Newsletter (4 cols) */}
-          <div className="lg:col-span-4 space-y-6">
+          <div className="sm:col-span-2 md:col-span-3 lg:col-span-4 space-y-6">
             {/* Logo */}
             <div className="flex items-center gap-3">
               <img
                 src={logoImg}
                 alt="iNet Global"
-                className="h-10 w-auto object-contain shrink-0 drop-shadow-xs"
+                className="h-9 sm:h-10 w-auto object-contain shrink-0 drop-shadow-xs"
               />
-              <span className="text-2xl font-bold tracking-tight text-white select-none">
+              <span className="text-xl sm:text-2xl font-bold tracking-tight text-white select-none">
                 iNet Global
               </span>
             </div>
 
             {/* Description */}
-            <p className="text-[14.5px] text-slate-400 leading-relaxed max-w-sm">
+            <p className="text-[14px] sm:text-[14.5px] text-slate-400 leading-relaxed max-w-sm">
               Global communication infrastructure for businesses that need
               reliable voice, messaging and omnichannel connectivity.
             </p>
 
             {/* Newsletter Subscription */}
             <div className="space-y-3 pt-1">
-              <p className="text-[14px] text-slate-300 font-medium">
+              <p className="text-[13.5px] sm:text-[14px] text-slate-300 font-medium">
                 Get product updates & industry insights
               </p>
 
               <form
                 onSubmit={(e) => e.preventDefault()}
-                className="flex items-center gap-2 max-w-md"
+                className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 max-w-md"
               >
                 <input
                   type="email"
@@ -47,7 +47,7 @@ export const Footer: React.FC = () => {
                 />
                 <button
                   type="submit"
-                  className="px-6 py-2.5 rounded-full bg-[#83184d] hover:bg-[#721240] text-white text-[13.5px] font-medium transition duration-150 shadow-md shadow-[#83184d]/25 cursor-pointer shrink-0"
+                  className="px-6 py-2.5 rounded-full bg-[#83184d] hover:bg-[#721240] text-white text-[13.5px] font-medium transition duration-150 shadow-md shadow-[#83184d]/25 cursor-pointer shrink-0 text-center"
                 >
                   Subscribe
                 </button>

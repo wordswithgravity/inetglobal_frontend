@@ -79,7 +79,6 @@ export const CoreServices: React.FC = () => {
       ],
       icon: <Phone className="w-6 h-6 text-white fill-white" />,
       iconBg: "bg-[#658a1f]",
-      isActive: true,
     },
     {
       title: "Messaging",
@@ -92,7 +91,6 @@ export const CoreServices: React.FC = () => {
       ],
       icon: <MessageSquare className="w-5 h-5 text-[#83184d] fill-[#83184d]" />,
       iconBg: "bg-[#f9e9f1]",
-      isActive: false,
     },
     {
       title: "Omnichannels",
@@ -105,16 +103,15 @@ export const CoreServices: React.FC = () => {
       ],
       icon: <Hash className="w-6 h-6 text-[#658a1f] stroke-[2.5]" />,
       iconBg: "bg-[#eaf3de]",
-      isActive: false,
     },
   ];
 
   return (
-    <section className="w-full bg-white py-16 px-2 sm:px-4">
-      <div className="max-w-[1440px] mx-auto space-y-12 sm:space-y-14">
+    <section className="w-full bg-white py-12 sm:py-16 lg:py-20 px-3 sm:px-6 lg:px-8">
+      <div className="max-w-[1440px] mx-auto space-y-10 sm:space-y-14">
         
         {/* Section Header */}
-        <div className="max-w-3xl space-y-4">
+        <div className="max-w-3xl space-y-3 sm:space-y-4">
           <div className="flex items-center gap-2">
             <span className="w-5 h-[2px] bg-[#698a22]"></span>
             <span className="text-[12px] sm:text-[13px] font-bold tracking-wider text-[#698a22] uppercase">
@@ -122,7 +119,7 @@ export const CoreServices: React.FC = () => {
             </span>
           </div>
 
-          <h2 className="text-3xl sm:text-4xl lg:text-[42px] font-bold text-[#102038] tracking-tight leading-[1.18]">
+          <h2 className="text-2xl sm:text-3xl lg:text-[40px] xl:text-[42px] font-bold text-[#102038] tracking-tight leading-[1.18]">
             Communication Solutions For <br className="hidden sm:inline" />
             Every Customer Journey
           </h2>
@@ -134,7 +131,7 @@ export const CoreServices: React.FC = () => {
         </div>
 
         {/* 3-Column Service Cards Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-7">
           {services.map((service, index) => (
             <ServiceCard key={index} {...service} />
           ))}
