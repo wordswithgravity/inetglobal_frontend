@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Building2,
   BriefcaseMedical,
@@ -84,16 +84,36 @@ const LEVELS = [
 
 export const IndustryExpertise: React.FC = () => {
   const [activeId, setActiveId] = useState<string>("banking");
+  const [isPaused, setIsPaused] = useState<boolean>(false);
 
   const n = industries.length;
   const activeIndex = industries.findIndex((item) => item.id === activeId);
+
+  // Auto-loop every 4 seconds when not paused
+  useEffect(() => {
+    if (isPaused) return;
+
+    const timer = setInterval(() => {
+      setActiveId((prev) => {
+        const currentIndex = industries.findIndex((item) => item.id === prev);
+        const nextIndex = (currentIndex + 1) % n;
+        return industries[nextIndex].id;
+      });
+    }, 4000);
+
+    return () => clearInterval(timer);
+  }, [isPaused, n]);
 
   // circular offset in range -2..2
   const getOffset = (idx: number) => ((idx - activeIndex + n + 2) % n) - 2;
 
   return (
-    <section className="w-full bg-white py-14 lg:py-20 px-2 sm:px-4 overflow-hidden">
-      <div className="max-w-[1440px] mx-auto space-y-12 lg:space-y-16">
+    <section
+      onMouseEnter={() => setIsPaused(true)}
+      onMouseLeave={() => setIsPaused(false)}
+      className="w-full bg-white pt-10 lg:pt-14 pb-20 px-2 sm:px-4 overflow-hidden"
+    >
+      <div className="max-w-[1440px] mx-auto space-y-8 lg:space-y-10">
         {/* Section Header */}
         <div className="max-w-3xl space-y-3">
           <div className="flex items-center gap-2">

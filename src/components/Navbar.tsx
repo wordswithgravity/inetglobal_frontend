@@ -1,5 +1,16 @@
-import React, { useState } from "react";
-import { Globe, ChevronDown, Menu, X } from "lucide-react";
+import React, { useState, useRef, useEffect } from "react";
+import {
+  Globe,
+  ChevronDown,
+  ChevronUp,
+  ChevronRight,
+  Menu,
+  X,
+  Phone,
+  MessageSquare,
+  Layers,
+  PhoneCall,
+} from "lucide-react";
 
 import logoImg from "../assets/logo.png";
 
@@ -9,7 +20,9 @@ export interface NavItem {
   children?: { label: string; href: string; description?: string }[];
 }
 
-export const Logo: React.FC<{ className?: string }> = ({ className = "h-12" }) => {
+export const Logo: React.FC<{ className?: string }> = ({
+  className = "h-12",
+}) => {
   return (
     <div className={`flex items-center gap-3 ${className}`}>
       <img
@@ -24,20 +37,174 @@ export const Logo: React.FC<{ className?: string }> = ({ className = "h-12" }) =
   );
 };
 
+interface ProductSubItem {
+  title: string;
+  description: string;
+  href: string;
+}
+
+interface ProductCategory {
+  id: string;
+  name: string;
+  icon: React.ReactNode;
+  tagline: string;
+  items: ProductSubItem[];
+}
+
+const productCategories: ProductCategory[] = [
+  {
+    id: "voice",
+    name: "Voice",
+    icon: <Phone className="w-[18px] h-[18px]" />,
+    tagline: "Global voice connectivity built around your business.",
+    items: [
+      {
+        title: "Wholesale Voice",
+        description: "Reliable global voice connectivity",
+        href: "#wholesale-voice",
+      },
+      {
+        title: "Ai Voice",
+        description: "Intelligent automated voice solutions",
+        href: "#ai-voice",
+      },
+      {
+        title: "Virtual Numbers (DID)",
+        description: "Local numbers, global presence",
+        href: "#virtual-numbers",
+      },
+    ],
+  },
+  {
+    id: "messaging",
+    name: "Messaging",
+    icon: <MessageSquare className="w-[18px] h-[18px]" />,
+    tagline: "Messaging solutions designed for reliable customer communication.",
+    items: [
+      {
+        title: "Wholesale SMS",
+        description: "Global SMS delivery solutions",
+        href: "#wholesale-sms",
+      },
+      {
+        title: "RCS Business Messaging",
+        description: "Rich interactive business messaging",
+        href: "#rcs",
+      },
+      {
+        title: "OTP SMS",
+        description: "Secure verification message delivery",
+        href: "#otp-sms",
+      },
+    ],
+  },
+  {
+    id: "omnichannel",
+    name: "Omnichannel",
+    icon: <Layers className="w-[18px] h-[18px]" />,
+    tagline: "Connect with customers across the channels they already use.",
+    items: [
+      {
+        title: "WhatsApp Business",
+        description: "Connect through WhatsApp conversations",
+        href: "#whatsapp",
+      },
+      {
+        title: "Voice Calls",
+        description: "Business voice communication",
+        href: "#voice-calls",
+      },
+      {
+        title: "Telegram",
+        description: "Engage customers through Telegram",
+        href: "#telegram",
+      },
+      {
+        title: "Instagram",
+        description: "Connect through Instagram messaging",
+        href: "#instagram",
+      },
+      {
+        title: "Facebook",
+        description: "Connect through Facebook messaging",
+        href: "#facebook",
+      },
+      {
+        title: "TikTok",
+        description: "Engage customers through TikTok",
+        href: "#tiktok",
+      },
+      {
+        title: "Live Chat Plugin",
+        description: "Real-time website customer conversations",
+        href: "#live-chat",
+      },
+      {
+        title: "RCS",
+        description: "Rich conversational messaging",
+        href: "#rcs-messaging",
+      },
+      {
+        title: "Email",
+        description: "Integrated business email communication",
+        href: "#email",
+      },
+    ],
+  },
+];
+
+const solutionItems = [
+  {
+    title: "Advance Sms portal",
+    description: "Reliable global voice connectivity",
+    href: "#advance-sms-portal",
+  },
+  {
+    title: "Complete Dialer Solution",
+    description: "Reliable global voice connectivity",
+    href: "#complete-dialer",
+  },
+  {
+    title: "Internation Number (DID)",
+    description: "Reliable global voice connectivity",
+    href: "#internation-number",
+  },
+];
+
 export const Navbar: React.FC = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
+  const [activeProductTab, setActiveProductTab] = useState<string>("voice");
+
+  const navRef = useRef<HTMLElement>(null);
+
+  // Close dropdown on outside click
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (navRef.current && !navRef.current.contains(event.target as Node)) {
+        setActiveDropdown(null);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
 
   const toggleDropdown = (name: string) => {
     setActiveDropdown((prev) => (prev === name ? null : name));
   };
 
+  const currentCategory =
+    productCategories.find((cat) => cat.id === activeProductTab) ||
+    productCategories[0];
+
   return (
-    <header className="w-full bg-white border-b border-gray-100 sticky top-0 z-50">
-      <div className="max-w-[1440px] mx-auto px-2 sm:px-4">
-        {/* Three equal columns: 1 (Left), 2 (Center), 3 (Right) with equal space between */}
+    <header
+      ref={navRef}
+      className="w-full bg-white border-b border-gray-100 sticky top-0 z-50 shadow-xs"
+    >
+      <div className="max-w-[1440px] mx-auto px-2 sm:px-4 relative">
+        {/* Three equal columns: 1 (Left), 2 (Center), 3 (Right) */}
         <div className="grid grid-cols-2 md:grid-cols-3 items-center h-20 w-full">
-          
           {/* DIV 1: Brand Logo (Left) */}
           <div className="flex items-center justify-start">
             <a href="#" className="flex items-center gap-2 group">
@@ -46,74 +213,75 @@ export const Navbar: React.FC = () => {
           </div>
 
           {/* DIV 2: Desktop Navigation Links (Center) */}
-          <div className="hidden md:flex items-center justify-center">
-            <nav className="flex items-center space-x-8 text-[15px] text-[#374151] font-normal">
-              {/* Products Dropdown */}
-              <div className="relative">
+          <div className="hidden md:flex items-center justify-center h-full">
+            <nav className="flex items-center space-x-8 text-[15.5px] font-normal h-full">
+              {/* Products Dropdown Trigger */}
+              <div className="relative h-full flex items-center">
                 <button
                   type="button"
                   onClick={() => toggleDropdown("products")}
-                  className="flex items-center gap-1.5 hover:text-[#7e174b] transition-colors py-2 cursor-pointer focus:outline-none"
+                  className={`flex items-center gap-1.5 transition-colors py-2 cursor-pointer focus:outline-none font-medium ${
+                    activeDropdown === "products"
+                      ? "text-[#5f8a1a]"
+                      : "text-[#374151] hover:text-[#5f8a1a]"
+                  }`}
                 >
                   <span>Products</span>
-                  <ChevronDown className="w-4 h-4 text-gray-400 group-hover:text-gray-600 transition-transform duration-200" />
+                  {activeDropdown === "products" ? (
+                    <ChevronUp className="w-4 h-4 text-[#5f8a1a]" />
+                  ) : (
+                    <ChevronDown className="w-4 h-4 text-gray-400" />
+                  )}
                 </button>
-
-                {activeDropdown === "products" && (
-                  <div className="absolute left-1/2 -translate-x-1/2 mt-2 w-56 rounded-xl bg-white shadow-lg ring-1 ring-black/5 py-2 z-50 border border-gray-100">
-                    <a
-                      href="#cloud"
-                      className="block px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50 hover:text-[#7e174b]"
-                    >
-                      Cloud Connectivity
-                    </a>
-                    <a
-                      href="#sdwan"
-                      className="block px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50 hover:text-[#7e174b]"
-                    >
-                      SD-WAN Solutions
-                    </a>
-                    <a
-                      href="#security"
-                      className="block px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50 hover:text-[#7e174b]"
-                    >
-                      Cybersecurity & SASE
-                    </a>
-                  </div>
-                )}
               </div>
 
-              {/* Solutions Dropdown */}
-              <div className="relative">
+              {/* Solutions Dropdown Trigger */}
+              <div className="relative h-full flex items-center">
                 <button
                   type="button"
                   onClick={() => toggleDropdown("solutions")}
-                  className="flex items-center gap-1.5 hover:text-[#7e174b] transition-colors py-2 cursor-pointer focus:outline-none"
+                  className={`flex items-center gap-1.5 transition-colors py-2 cursor-pointer focus:outline-none font-medium ${
+                    activeDropdown === "solutions"
+                      ? "text-[#5f8a1a]"
+                      : "text-[#374151] hover:text-[#5f8a1a]"
+                  }`}
                 >
                   <span>Solutions</span>
-                  <ChevronDown className="w-4 h-4 text-gray-400 group-hover:text-gray-600 transition-transform duration-200" />
+                  {activeDropdown === "solutions" ? (
+                    <ChevronUp className="w-4 h-4 text-[#5f8a1a]" />
+                  ) : (
+                    <ChevronDown className="w-4 h-4 text-gray-400" />
+                  )}
                 </button>
 
+                {/* Solutions Dropdown Card */}
                 {activeDropdown === "solutions" && (
-                  <div className="absolute left-1/2 -translate-x-1/2 mt-2 w-56 rounded-xl bg-white shadow-lg ring-1 ring-black/5 py-2 z-50 border border-gray-100">
-                    <a
-                      href="#enterprise"
-                      className="block px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50 hover:text-[#7e174b]"
-                    >
-                      Enterprise Networking
-                    </a>
-                    <a
-                      href="#datacenter"
-                      className="block px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50 hover:text-[#7e174b]"
-                    >
-                      Data Center Interconnect
-                    </a>
-                    <a
-                      href="#remote"
-                      className="block px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50 hover:text-[#7e174b]"
-                    >
-                      Remote Workforce
-                    </a>
+                  <div className="absolute left-1/2 -translate-x-1/2 top-full pt-3 z-50">
+                    <div className="w-[330px] rounded-[24px] bg-white shadow-[0_20px_50px_rgba(16,32,56,0.14)] border border-slate-200/80 p-5 space-y-2 animate-in fade-in duration-200">
+                      {solutionItems.map((item, idx) => (
+                        <a
+                          key={idx}
+                          href={item.href}
+                          onClick={() => setActiveDropdown(null)}
+                          className="group flex items-start gap-3.5 p-2 rounded-xl hover:bg-[#f9fbf7] transition-all duration-150"
+                        >
+                          {/* Light Green Circular Icon Badge */}
+                          <div className="w-10 h-10 rounded-full bg-[#ebf6dc] text-[#558117] flex items-center justify-center shrink-0 group-hover:bg-[#558117] group-hover:text-white transition-colors duration-150">
+                            <PhoneCall className="w-4 h-4" />
+                          </div>
+
+                          {/* Text details */}
+                          <div className="space-y-0.5">
+                            <h4 className="text-[14.5px] font-semibold text-[#102038] group-hover:text-[#558117] transition-colors">
+                              {item.title}
+                            </h4>
+                            <p className="text-[12.5px] text-slate-400 group-hover:text-slate-500 leading-snug">
+                              {item.description}
+                            </p>
+                          </div>
+                        </a>
+                      ))}
+                    </div>
                   </div>
                 )}
               </div>
@@ -121,7 +289,7 @@ export const Navbar: React.FC = () => {
               {/* About Us */}
               <a
                 href="#about"
-                className="hover:text-[#7e174b] transition-colors py-2"
+                className="text-[#374151] hover:text-[#5f8a1a] transition-colors py-2 font-medium"
               >
                 About Us
               </a>
@@ -129,9 +297,9 @@ export const Navbar: React.FC = () => {
           </div>
 
           {/* DIV 3: Selectors & CTA Button (Right) */}
-          <div className="hidden md:flex items-center justify-end gap-3">
+          <div className="hidden md:flex items-center justify-end gap-3 h-full">
             {/* Region Selector */}
-            <div className="relative">
+            <div className="relative h-full flex items-center">
               <button
                 type="button"
                 onClick={() => toggleDropdown("region")}
@@ -143,25 +311,39 @@ export const Navbar: React.FC = () => {
               </button>
 
               {activeDropdown === "region" && (
-                <div className="absolute right-0 mt-2 w-44 rounded-xl bg-white shadow-lg ring-1 ring-black/5 py-2 z-50 border border-gray-100">
-                  <button className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">
-                    Global (All)
-                  </button>
-                  <button className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">
-                    North America
-                  </button>
-                  <button className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">
-                    Asia Pacific
-                  </button>
-                  <button className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">
-                    Europe
-                  </button>
+                <div className="absolute right-0 top-full pt-2 z-50">
+                  <div className="w-44 rounded-xl bg-white shadow-lg ring-1 ring-black/5 py-2 border border-gray-100">
+                    <button
+                      onClick={() => setActiveDropdown(null)}
+                      className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 cursor-pointer"
+                    >
+                      Global (All)
+                    </button>
+                    <button
+                      onClick={() => setActiveDropdown(null)}
+                      className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 cursor-pointer"
+                    >
+                      North America
+                    </button>
+                    <button
+                      onClick={() => setActiveDropdown(null)}
+                      className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 cursor-pointer"
+                    >
+                      Asia Pacific
+                    </button>
+                    <button
+                      onClick={() => setActiveDropdown(null)}
+                      className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 cursor-pointer"
+                    >
+                      Europe
+                    </button>
+                  </div>
                 </div>
               )}
             </div>
 
             {/* Language Selector */}
-            <div className="relative">
+            <div className="relative h-full flex items-center">
               <button
                 type="button"
                 onClick={() => toggleDropdown("language")}
@@ -173,19 +355,33 @@ export const Navbar: React.FC = () => {
               </button>
 
               {activeDropdown === "language" && (
-                <div className="absolute right-0 mt-2 w-36 rounded-xl bg-white shadow-lg ring-1 ring-black/5 py-2 z-50 border border-gray-100">
-                  <button className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">
-                    English
-                  </button>
-                  <button className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">
-                    Español
-                  </button>
-                  <button className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">
-                    日本語
-                  </button>
-                  <button className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">
-                    Deutsch
-                  </button>
+                <div className="absolute right-0 top-full pt-2 z-50">
+                  <div className="w-36 rounded-xl bg-white shadow-lg ring-1 ring-black/5 py-2 border border-gray-100">
+                    <button
+                      onClick={() => setActiveDropdown(null)}
+                      className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 cursor-pointer"
+                    >
+                      English
+                    </button>
+                    <button
+                      onClick={() => setActiveDropdown(null)}
+                      className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 cursor-pointer"
+                    >
+                      Español
+                    </button>
+                    <button
+                      onClick={() => setActiveDropdown(null)}
+                      className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 cursor-pointer"
+                    >
+                      日本語
+                    </button>
+                    <button
+                      onClick={() => setActiveDropdown(null)}
+                      className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 cursor-pointer"
+                    >
+                      Deutsch
+                    </button>
+                  </div>
                 </div>
               )}
             </div>
@@ -199,7 +395,7 @@ export const Navbar: React.FC = () => {
             </a>
           </div>
 
-          {/* Mobile Menu Button (Mobile view fallback) */}
+          {/* Mobile Menu Button */}
           <div className="flex md:hidden items-center justify-end gap-2">
             <a
               href="#contact"
@@ -211,10 +407,96 @@ export const Navbar: React.FC = () => {
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               className="p-2 rounded-lg text-gray-600 hover:text-gray-900 hover:bg-gray-100"
             >
-              {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+              {mobileMenuOpen ? (
+                <X className="w-6 h-6" />
+              ) : (
+                <Menu className="w-6 h-6" />
+              )}
             </button>
           </div>
         </div>
+
+        {/* PRODUCTS MEGA MENU DROPDOWN */}
+        {activeDropdown === "products" && (
+          <div className="hidden md:block absolute left-0 right-0 top-full pt-2 z-50">
+            <div className="w-full bg-white rounded-[24px] shadow-[0_20px_50px_rgba(16,32,56,0.14)] border border-slate-200/80 p-6 lg:p-8 flex gap-8 items-stretch animate-in fade-in duration-200">
+              {/* Left Column: Category Tabs (Voice, Messaging, Omnichannel) */}
+              <div className="w-[240px] lg:w-[270px] shrink-0 space-y-2 border-r border-slate-100 pr-6">
+                {productCategories.map((category) => {
+                  const isActive = activeProductTab === category.id;
+                  return (
+                    <button
+                      key={category.id}
+                      type="button"
+                      onClick={() => setActiveProductTab(category.id)}
+                      className={`w-full flex items-center justify-between px-4 py-3.5 rounded-[12px] text-[15px] font-medium transition-all duration-150 cursor-pointer ${
+                        isActive
+                          ? "bg-[#102038] text-white shadow-sm"
+                          : "text-slate-600 hover:text-slate-900 hover:bg-slate-50"
+                      }`}
+                    >
+                      <div className="flex items-center gap-3">
+                        <span
+                          className={
+                            isActive ? "text-[#84cc16]" : "text-slate-400"
+                          }
+                        >
+                          {category.icon}
+                        </span>
+                        <span>{category.name}</span>
+                      </div>
+                      <ChevronRight
+                        className={`w-4 h-4 ${
+                          isActive ? "text-[#84cc16]" : "text-slate-400"
+                        }`}
+                      />
+                    </button>
+                  );
+                })}
+              </div>
+
+              {/* Right Column: Category Details & Items Grid */}
+              <div className="flex-1 pl-2 space-y-6">
+                {/* Title & Tagline Header */}
+                <div className="space-y-1 border-b border-slate-100 pb-4">
+                  <h3 className="text-[20px] font-bold text-[#102038] tracking-tight">
+                    {currentCategory.name}
+                  </h3>
+                  <p className="text-[13.5px] text-slate-400 font-normal">
+                    {currentCategory.tagline}
+                  </p>
+                </div>
+
+                {/* Sub-items Grid */}
+                <div className="grid grid-cols-2 gap-x-8 gap-y-6 pt-1">
+                  {currentCategory.items.map((item, idx) => (
+                    <a
+                      key={idx}
+                      href={item.href}
+                      onClick={() => setActiveDropdown(null)}
+                      className="group flex items-start gap-3.5 p-2 rounded-xl hover:bg-[#f9fbf7] transition-all duration-150"
+                    >
+                      {/* Light Green Circular Icon Badge */}
+                      <div className="w-10 h-10 rounded-full bg-[#ebf6dc] text-[#558117] flex items-center justify-center shrink-0 group-hover:bg-[#558117] group-hover:text-white transition-colors duration-150">
+                        <PhoneCall className="w-4 h-4" />
+                      </div>
+
+                      {/* Text details */}
+                      <div className="space-y-0.5">
+                        <h4 className="text-[14.5px] font-semibold text-[#102038] group-hover:text-[#558117] transition-colors">
+                          {item.title}
+                        </h4>
+                        <p className="text-[12.5px] text-slate-400 group-hover:text-slate-500 leading-snug">
+                          {item.description}
+                        </p>
+                      </div>
+                    </a>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
 
       {/* Mobile Menu Drawer */}

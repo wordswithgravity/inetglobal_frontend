@@ -7,7 +7,6 @@ interface ServiceCardProps {
   title: string;
   description: string;
   features: string[];
-  isActive?: boolean;
 }
 
 const ServiceCard: React.FC<ServiceCardProps> = ({
@@ -16,15 +15,10 @@ const ServiceCard: React.FC<ServiceCardProps> = ({
   title,
   description,
   features,
-  isActive = false,
 }) => {
   return (
     <div
-      className={`bg-white rounded-[26px] p-8 sm:p-9 flex flex-col justify-between transition-all duration-300 hover:shadow-xl ${
-        isActive
-          ? "border-2 border-[#6f9421] shadow-lg shadow-[#6f9421]/10"
-          : "border border-gray-100 shadow-sm hover:border-gray-200"
-      }`}
+      className="bg-white rounded-[26px] p-8 sm:p-9 flex flex-col justify-between transition-all duration-300 border border-gray-100 shadow-sm hover:shadow-xl hover:border-gray-200"
     >
       <div className="space-y-6">
         {/* Icon Badge */}

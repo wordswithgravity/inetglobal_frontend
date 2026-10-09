@@ -4,6 +4,8 @@ import Header from "../components/Header";
 import CoreServices from "../components/CoreServices";
 import BusinessSolutions from "../components/BusinessSolutions";
 import IndustryExpertise from "../components/IndustryExpertise";
+import ConnectWithUs from "../components/ConnectWithUs";
+import Footer from "../components/Footer";
 
 export const Home: React.FC = () => {
   return (
@@ -21,9 +23,15 @@ export const Home: React.FC = () => {
       <BusinessSolutions />
 
       {/* Industry Expertise Section */}
+      <IndustryExpertise />
+
+      {/* Connect With Us Section */}
       <main className="flex-1">
-        <IndustryExpertise />
+        <ConnectWithUs />
       </main>
+
+      {/* Footer Section */}
+      <Footer />
     </div>
   );
 };
