@@ -12,6 +12,7 @@ interface ServiceCardProps {
   description: string;
   features: string[];
   learnMoreText?: string;
+  href?: string;
 }
 
 const ServiceCard: React.FC<ServiceCardProps> = ({
@@ -21,6 +22,7 @@ const ServiceCard: React.FC<ServiceCardProps> = ({
   description,
   features,
   learnMoreText = "Learn more",
+  href = "/voice",
 }) => {
   return (
     <div
@@ -61,7 +63,7 @@ const ServiceCard: React.FC<ServiceCardProps> = ({
       {/* Learn More Link */}
       <div className="pt-8">
         <a
-          href="/voice"
+          href={href}
           className="inline-flex items-center gap-1.5 text-[14px] font-semibold text-[#83184d] hover:text-[#6b103e] transition-colors group"
         >
           <span>{learnMoreText}</span>
@@ -84,14 +86,17 @@ export const CoreServices: React.FC = () => {
     {
       icon: <Phone className="w-6 h-6 text-white fill-white" />,
       iconBg: "bg-[#658a1f]",
+      href: "/voice",
     },
     {
       icon: <MessageSquare className="w-5 h-5 text-[#83184d] fill-[#83184d]" />,
       iconBg: "bg-[#f9e9f1]",
+      href: "/messaging",
     },
     {
       icon: <Hash className="w-6 h-6 text-[#658a1f] stroke-[2.5]" />,
       iconBg: "bg-[#eaf3de]",
+      href: "/voice",
     },
   ];
 
@@ -129,6 +134,7 @@ export const CoreServices: React.FC = () => {
                 features={service.features}
                 icon={iconConfig.icon}
                 iconBg={iconConfig.iconBg}
+                href={iconConfig.href}
                 learnMoreText={t.learnMore}
               />
             );

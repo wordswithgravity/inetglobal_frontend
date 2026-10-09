@@ -2,9 +2,10 @@ import { useState, useEffect } from "react";
 import Home from "./pages/Home";
 import Contact from "./pages/Contact";
 import VoiceServices from "./pages/VoiceServices";
+import MessagingServices from "./pages/MessagingServices";
 
 export default function App() {
-  const getInitialPage = (): "home" | "contact" | "voice" => {
+  const getInitialPage = (): "home" | "contact" | "voice" | "messaging" => {
     // If URL has a leftover hash, clean it to standard path
     if (window.location.hash) {
       const cleanHash = window.location.hash.replace(/^#\/?/, "").toLowerCase();
@@ -21,6 +22,17 @@ export default function App() {
       ) {
         window.history.replaceState(null, "", "/voice");
         return "voice";
+      }
+      if (
+        cleanHash === "messaging" ||
+        cleanHash === "messaging-services" ||
+        cleanHash === "wholesale-sms" ||
+        cleanHash === "rcs" ||
+        cleanHash === "otp-sms" ||
+        cleanHash === "sms"
+      ) {
+        window.history.replaceState(null, "", "/messaging");
+        return "messaging";
       }
       window.history.replaceState(null, "", "/");
       return "home";
@@ -40,10 +52,20 @@ export default function App() {
     ) {
       return "voice";
     }
+    if (
+      path === "/messaging" ||
+      path === "/messaging-services" ||
+      path === "/wholesale-sms" ||
+      path === "/rcs" ||
+      path === "/otp-sms" ||
+      path === "/sms"
+    ) {
+      return "messaging";
+    }
     return "home";
   };
 
-  const [currentPage, setCurrentPage] = useState<"home" | "contact" | "voice">(
+  const [currentPage, setCurrentPage] = useState<"home" | "contact" | "voice" | "messaging">(
     getInitialPage
   );
 
@@ -62,6 +84,15 @@ export default function App() {
           cleanHash === "virtual-numbers"
         ) {
           targetPath = "/voice";
+        } else if (
+          cleanHash === "messaging" ||
+          cleanHash === "messaging-services" ||
+          cleanHash === "wholesale-sms" ||
+          cleanHash === "rcs" ||
+          cleanHash === "otp-sms" ||
+          cleanHash === "sms"
+        ) {
+          targetPath = "/messaging";
         }
         window.history.replaceState(null, "", targetPath);
       }
@@ -79,6 +110,16 @@ export default function App() {
         path === "/virtual-numbers"
       ) {
         setCurrentPage("voice");
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      } else if (
+        path === "/messaging" ||
+        path === "/messaging-services" ||
+        path === "/wholesale-sms" ||
+        path === "/rcs" ||
+        path === "/otp-sms" ||
+        path === "/sms"
+      ) {
+        setCurrentPage("messaging");
         window.scrollTo({ top: 0, behavior: "smooth" });
       } else {
         setCurrentPage("home");
@@ -115,6 +156,9 @@ export default function App() {
   }
   if (currentPage === "voice") {
     return <VoiceServices />;
+  }
+  if (currentPage === "messaging") {
+    return <MessagingServices />;
   }
   return <Home />;
 }

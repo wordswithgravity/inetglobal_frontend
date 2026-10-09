@@ -16,7 +16,7 @@ export const Header: React.FC = () => {
       <div className="max-w-[1440px] mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 sm:gap-10 lg:gap-12 items-center">
           {/* Left Column: Heading & Content (5 cols) */}
-          <div className="lg:col-span-5 space-y-4 sm:space-y-6 text-left">
+          <div className="lg:col-span-5 space-y-4 sm:space-y-6 text-left relative z-20">
             <span className="text-[12px] sm:text-[14px] font-bold tracking-wider text-[#698a22] uppercase">
               {content.badge}
             </span>

@@ -583,3 +583,7 @@ export const getContactTranslations = (lang: string): ContactTranslations => {
 
 export { getVoiceTranslations } from "./voiceTranslations";
 export type { VoiceTranslations } from "./voiceTranslations";
+
+export { getMessagingTranslations } from "./messagingTranslations";
+export type { MessagingTranslations } from "./messagingTranslations";
+

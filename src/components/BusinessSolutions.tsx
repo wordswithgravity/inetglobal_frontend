@@ -432,7 +432,7 @@ export const BusinessSolutions: React.FC = () => {
 
               <div className="mt-[30px]">
                 <a
-                  href="#explore-solution"
+                  href="/messaging"
                   className="inline-flex items-center justify-center gap-2 w-[180px] h-[45px] rounded-full bg-[#8b1a5e] hover:bg-[#751450] text-white text-[14.5px] font-medium transition duration-150 shadow-lg shadow-[#8b1a5e]/30 active:scale-[0.98]"
                 >
                   Explore Solution

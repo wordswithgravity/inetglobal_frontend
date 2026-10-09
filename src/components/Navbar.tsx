@@ -148,19 +148,19 @@ export const Navbar: React.FC = () => {
           key: "wholesale-sms",
           title: t.productItems?.["wholesale-sms"]?.title || "Wholesale SMS",
           description: t.productItems?.["wholesale-sms"]?.description || "Global SMS delivery solutions",
-          href: "/",
+          href: "/messaging",
         },
         {
           key: "rcs",
           title: t.productItems?.["rcs"]?.title || "RCS Business Messaging",
           description: t.productItems?.["rcs"]?.description || "Rich interactive business messaging",
-          href: "/",
+          href: "/messaging",
         },
         {
           key: "otp-sms",
           title: t.productItems?.["otp-sms"]?.title || "OTP SMS",
           description: t.productItems?.["otp-sms"]?.description || "Secure verification message delivery",
-          href: "/",
+          href: "/messaging",
         },
       ],
     },
@@ -236,7 +236,7 @@ export const Navbar: React.FC = () => {
     {
       title: t.solutionItems?.[0]?.title || "Advance SMS Portal",
       description: t.solutionItems?.[0]?.description || "Reliable global messaging connectivity",
-      href: "/",
+      href: "/messaging",
     },
     {
       title: t.solutionItems?.[1]?.title || "Complete Dialer Solution",
