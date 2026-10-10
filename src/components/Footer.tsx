@@ -157,7 +157,7 @@ export const Footer: React.FC = () => {
                 </a>
               </li>
               <li>
-                <a href="/voice" className="text-slate-400 hover:text-white transition">
+                <a href="/dialer" className="text-slate-400 hover:text-white transition">
                   {t.solutionItems?.[1]?.title || "Complete Dialer Solution"}
                 </a>
               </li>
@@ -191,7 +191,7 @@ export const Footer: React.FC = () => {
             </h4>
             <ul className="space-y-2.5 text-[14px]">
               <li>
-                <a href="/" className="text-slate-400 hover:text-white transition">
+                <a href="/about" className="text-slate-400 hover:text-white transition">
                   {t.aboutUs}
                 </a>
               </li>

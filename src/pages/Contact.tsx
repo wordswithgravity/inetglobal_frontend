@@ -6,6 +6,7 @@ import { useAppSelector } from "../store/hooks";
 import { getContactTranslations } from "../data/translations";
 import { getRegionContent } from "../data/regionContent";
 import ladyinphoneImg from "../assets/ladyinphone.png";
+import mapImg from "../assets/map.png";
 
 export const Contact: React.FC = () => {
   const { selectedRegion, availableRegions } = useAppSelector(
@@ -356,78 +357,11 @@ export const Contact: React.FC = () => {
             <div className="lg:col-span-5 bg-[#EEF2EB] rounded-[28px] p-6 sm:p-8 space-y-6 border border-[#e0e8dc]">
               {/* Map Preview Graphic */}
               <div className="w-full h-[210px] sm:h-[220px] rounded-2xl overflow-hidden relative shadow-inner bg-[#2c3427] border border-[#3e4838]">
-                {/* Stylized Vector Dark Map */}
-                <svg
+                <img
+                  src={mapImg}
+                  alt="Location Map"
                   className="w-full h-full object-cover"
-                  viewBox="0 0 400 240"
-                  fill="none"
-                >
-                  <rect width="400" height="240" fill="#32382d" />
-                  {/* Landmass shapes */}
-                  <path
-                    d="M 20 0 L 180 0 L 220 70 L 320 60 L 370 140 L 400 130 L 400 240 L 0 240 Z"
-                    fill="#3b4234"
-                  />
-                  {/* Roads / Streets */}
-                  <path
-                    d="M 0 120 Q 150 160 300 100 T 400 80"
-                    stroke="#485240"
-                    strokeWidth="4"
-                  />
-                  <path
-                    d="M 120 0 Q 160 140 280 240"
-                    stroke="#485240"
-                    strokeWidth="3.5"
-                  />
-                  <path
-                    d="M 60 240 Q 180 180 240 40"
-                    stroke="#485240"
-                    strokeWidth="3"
-                  />
-                  <path
-                    d="M 200 80 L 340 180"
-                    stroke="#485240"
-                    strokeWidth="2.5"
-                  />
-
-                  {/* Street Names */}
-                  <text
-                    x="270"
-                    y="65"
-                    fill="#6e7a64"
-                    fontSize="9"
-                    fontWeight="600"
-                  >
-                    Victoria
-                  </text>
-                  <text
-                    x="180"
-                    y="185"
-                    fill="#6e7a64"
-                    fontSize="8"
-                    fontWeight="500"
-                  >
-                    FINANCIAL PARK
-                  </text>
-
-                  {/* Red Location Pin */}
-                  <g transform="translate(260, 105)">
-                    {/* Pulsing ring */}
-                    <circle
-                      cx="0"
-                      cy="0"
-                      r="14"
-                      fill="#ef4444"
-                      opacity="0.25"
-                    />
-                    {/* Pin Shape */}
-                    <path
-                      d="M 0 -18 C -7 -18 -12 -12 -12 -5 C -12 4 0 16 0 16 C 0 16 12 4 12 -5 C 12 -12 7 -18 0 -18 Z"
-                      fill="#ef4444"
-                    />
-                    <circle cx="0" cy="-6" r="4.5" fill="#ffffff" />
-                  </g>
-                </svg>
+                />
               </div>
 
               {/* Office Details - Dynamic based on Redux Region Content */}

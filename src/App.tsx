@@ -9,6 +9,8 @@ import WholeSaleMessage from "./pages/wholeSaleMessage";
 import WhatsappBusiness from "./pages/whatsappBusiness";
 import OTP_SMS from "./pages/OTP_SMS";
 import VirtualDID from "./pages/VirtualDID";
+import DailerSolution from "./pages/DailerSolution";
+import AboutUs from "./pages/AboutUs";
 import { useAppSelector } from "./store/hooks";
 
 export default function App() {
@@ -24,13 +26,21 @@ export default function App() {
     document.documentElement.dir = dir;
     document.documentElement.lang = selectedLanguage;
   }, [selectedLanguage, availableLanguages]);
-  const getInitialPage = (): "home" | "contact" | "voice" | "messaging" | "omnichannel" | "wholesale-voice" | "wholesale-message" | "whatsapp" | "otp-sms" | "virtual-did" => {
+  const getInitialPage = (): "home" | "contact" | "voice" | "messaging" | "omnichannel" | "wholesale-voice" | "wholesale-message" | "whatsapp" | "otp-sms" | "virtual-did" | "dialer" | "about" => {
     // If URL has a leftover hash, clean it to standard path
     if (window.location.hash) {
       const cleanHash = window.location.hash.replace(/^#\/?/, "").toLowerCase();
       if (cleanHash === "contact") {
         window.history.replaceState(null, "", "/contact");
         return "contact";
+      }
+      if (
+        cleanHash === "about" ||
+        cleanHash === "about-us" ||
+        cleanHash === "aboutus"
+      ) {
+        window.history.replaceState(null, "", "/about");
+        return "about";
       }
       if (
         cleanHash === "wholesale-voice" ||
@@ -76,6 +86,17 @@ export default function App() {
         return "virtual-did";
       }
       if (
+        cleanHash === "dialer" ||
+        cleanHash === "dailer" ||
+        cleanHash === "dialer-solution" ||
+        cleanHash === "dailer-solution" ||
+        cleanHash === "dailersolution" ||
+        cleanHash === "call-center-dialer"
+      ) {
+        window.history.replaceState(null, "", "/dialer");
+        return "dialer";
+      }
+      if (
         cleanHash === "voice" ||
         cleanHash === "voice-services" ||
         cleanHash === "ai-voice"
@@ -110,6 +131,13 @@ export default function App() {
 
     if (path === "/contact") {
       return "contact";
+    }
+    if (
+      path === "/about" ||
+      path === "/about-us" ||
+      path === "/aboutus"
+    ) {
+      return "about";
     }
     if (
       path === "/wholesale-voice" ||
@@ -150,6 +178,16 @@ export default function App() {
       return "virtual-did";
     }
     if (
+      path === "/dialer" ||
+      path === "/dailer" ||
+      path === "/dialer-solution" ||
+      path === "/dailer-solution" ||
+      path === "/dailersolution" ||
+      path === "/call-center-dialer"
+    ) {
+      return "dialer";
+    }
+    if (
       path === "/voice" ||
       path === "/voice-services" ||
       path === "/ai-voice"
@@ -175,7 +213,7 @@ export default function App() {
     return "home";
   };
 
-  const [currentPage, setCurrentPage] = useState<"home" | "contact" | "voice" | "messaging" | "omnichannel" | "wholesale-voice" | "wholesale-message" | "whatsapp" | "otp-sms" | "virtual-did">(
+  const [currentPage, setCurrentPage] = useState<"home" | "contact" | "voice" | "messaging" | "omnichannel" | "wholesale-voice" | "wholesale-message" | "whatsapp" | "otp-sms" | "virtual-did" | "dialer" | "about">(
     getInitialPage
   );
 
@@ -186,6 +224,13 @@ export default function App() {
         const cleanHash = window.location.hash.replace(/^#\/?/, "").toLowerCase();
         let targetPath = "/";
         if (cleanHash === "contact") targetPath = "/contact";
+        else if (
+          cleanHash === "about" ||
+          cleanHash === "about-us" ||
+          cleanHash === "aboutus"
+        ) {
+          targetPath = "/about";
+        }
         else if (
           cleanHash === "wholesale-voice" ||
           cleanHash === "whole-sale-voice"
@@ -220,6 +265,15 @@ export default function App() {
         ) {
           targetPath = "/virtual-did";
         } else if (
+          cleanHash === "dialer" ||
+          cleanHash === "dailer" ||
+          cleanHash === "dialer-solution" ||
+          cleanHash === "dailer-solution" ||
+          cleanHash === "dailersolution" ||
+          cleanHash === "call-center-dialer"
+        ) {
+          targetPath = "/dialer";
+        } else if (
           cleanHash === "voice" ||
           cleanHash === "voice-services" ||
           cleanHash === "ai-voice"
@@ -247,6 +301,13 @@ export default function App() {
 
       if (path === "/contact") {
         setCurrentPage("contact");
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      } else if (
+        path === "/about" ||
+        path === "/about-us" ||
+        path === "/aboutus"
+      ) {
+        setCurrentPage("about");
         window.scrollTo({ top: 0, behavior: "smooth" });
       } else if (
         path === "/wholesale-voice" ||
@@ -285,6 +346,16 @@ export default function App() {
         path === "/did-portal"
       ) {
         setCurrentPage("virtual-did");
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      } else if (
+        path === "/dialer" ||
+        path === "/dailer" ||
+        path === "/dialer-solution" ||
+        path === "/dailer-solution" ||
+        path === "/dailersolution" ||
+        path === "/call-center-dialer"
+      ) {
+        setCurrentPage("dialer");
         window.scrollTo({ top: 0, behavior: "smooth" });
       } else if (
         path === "/voice" ||
@@ -342,6 +413,9 @@ export default function App() {
   if (currentPage === "contact") {
     return <Contact />;
   }
+  if (currentPage === "about") {
+    return <AboutUs />;
+  }
   if (currentPage === "wholesale-voice") {
     return <WholeSaleVoice />;
   }
@@ -356,6 +430,9 @@ export default function App() {
   }
   if (currentPage === "virtual-did") {
     return <VirtualDID />;
+  }
+  if (currentPage === "dialer") {
+    return <DailerSolution />;
   }
   if (currentPage === "voice") {
     return <VoiceServices />;

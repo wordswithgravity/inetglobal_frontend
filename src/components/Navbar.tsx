@@ -241,7 +241,7 @@ export const Navbar: React.FC = () => {
     {
       title: t.solutionItems?.[1]?.title || "Complete Dialer Solution",
       description: t.solutionItems?.[1]?.description || "Enterprise call traffic & predictive dialing",
-      href: "/voice",
+      href: "/dialer",
     },
     {
       title: t.solutionItems?.[2]?.title || "International Number (DID)",
@@ -338,7 +338,7 @@ export const Navbar: React.FC = () => {
 
               {/* About Us */}
               <a
-                href="/"
+                href="/about"
                 className="text-[#374151] hover:text-[#5f8a1a] transition-colors py-2 font-medium"
               >
                 {t.aboutUs}
@@ -828,7 +828,7 @@ export const Navbar: React.FC = () => {
               </div>
 
               <a
-                href="/"
+                href="/about"
                 onClick={() => setMobileMenuOpen(false)}
                 className="block p-2.5 rounded-xl hover:bg-slate-50 font-medium text-sm text-[#102038]"
               >
