@@ -27,7 +27,7 @@ export const Hero: React.FC<HeroProps> = ({ t }) => {
   ];
 
   return (
-    <section className="relative w-full bg-[#f8faf6] overflow-hidden pt-12 pb-16 sm:pt-16 sm:pb-20 lg:pt-20 lg:pb-24 border-b border-slate-200/70">
+    <section className="relative w-full bg-[#EEF2EB] overflow-hidden pt-12 pb-16 sm:pt-16 sm:pb-20 lg:pt-20 lg:pb-24 border-b border-slate-200/70">
       {/* Background ambient subtle gradients */}
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute top-[-10%] right-[-5%] w-[600px] h-[600px] bg-[#698a22]/10 rounded-full blur-3xl" />
@@ -104,11 +104,17 @@ export const Hero: React.FC<HeroProps> = ({ t }) => {
                     <div className="space-y-3 py-3 flex-1 flex flex-col justify-center">
                       <div className="bg-white rounded-2xl p-3 shadow-xs border border-slate-100 space-y-1.5 text-left">
                         <div className="flex items-center justify-between text-[9.5px] text-slate-500">
-                          <span className="font-bold text-[#102038]">Security Alert</span>
+                          <span className="font-bold text-[#102038]">
+                            Security Alert
+                          </span>
                           <span>Just now</span>
                         </div>
                         <p className="text-[11px] text-slate-800 leading-snug">
-                          Your verification code is <span className="font-bold text-[#83184d]">849201</span>. Valid for 5 minutes.
+                          Your verification code is{" "}
+                          <span className="font-bold text-[#83184d]">
+                            849201
+                          </span>
+                          . Valid for 5 minutes.
                         </p>
                         <div className="flex items-center gap-1 text-[8.5px] text-emerald-600 font-semibold pt-0.5">
                           <CheckCircle2 className="w-3 h-3" />
@@ -118,11 +124,14 @@ export const Hero: React.FC<HeroProps> = ({ t }) => {
 
                       <div className="bg-white rounded-2xl p-3 shadow-xs border border-slate-100 space-y-1.5 text-left">
                         <div className="flex items-center justify-between text-[9.5px] text-slate-500">
-                          <span className="font-bold text-[#102038]">Order Shipping</span>
+                          <span className="font-bold text-[#102038]">
+                            Order Shipping
+                          </span>
                           <span>10:42 AM</span>
                         </div>
                         <p className="text-[11px] text-slate-800 leading-snug">
-                          Hi Alex, package #9821 has been dispatched with express tracking.
+                          Hi Alex, package #9821 has been dispatched with
+                          express tracking.
                         </p>
                       </div>
                     </div>
@@ -130,7 +139,9 @@ export const Hero: React.FC<HeroProps> = ({ t }) => {
                     {/* Bottom Status */}
                     <div className="bg-white border border-gray-200 rounded-full px-3 py-1.5 flex items-center justify-between text-[10px] text-slate-500">
                       <span>Gateway status</span>
-                      <span className="text-emerald-600 font-bold">● 99.99% Online</span>
+                      <span className="text-emerald-600 font-bold">
+                        ● 99.99% Online
+                      </span>
                     </div>
                   </div>
                 </Iphone>

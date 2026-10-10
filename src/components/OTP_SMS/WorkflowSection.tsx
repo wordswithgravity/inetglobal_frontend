@@ -1,5 +1,11 @@
 import React from "react";
-import { ArrowRight, PenSquare, GitMerge, Globe2, LineChart } from "lucide-react";
+import {
+  ArrowRight,
+  PenSquare,
+  GitMerge,
+  Globe2,
+  LineChart,
+} from "lucide-react";
 import type { OtpSmsTranslation } from "../../data/otpSmsTranslations";
 
 interface WorkflowSectionProps {
@@ -36,7 +42,7 @@ export const WorkflowSection: React.FC<WorkflowSectionProps> = ({ t }) => {
           {t.workflowSteps.map((step, idx) => (
             <div
               key={idx}
-              className="bg-[#f8faf6] rounded-2xl p-6 sm:p-7 border border-slate-200/80 hover:border-[#698a22]/50 shadow-sm hover:shadow-md transition-all duration-300 flex flex-col justify-between relative group"
+              className="bg-[#EEF2EB] rounded-2xl p-6 sm:p-7 border border-slate-200/80 hover:border-[#698a22]/50 shadow-sm hover:shadow-md transition-all duration-300 flex flex-col justify-between relative group"
             >
               <div>
                 {/* Step Top Bar */}

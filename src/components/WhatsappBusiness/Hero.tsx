@@ -16,7 +16,7 @@ interface HeroProps {
 
 export const Hero: React.FC<HeroProps> = ({ t }) => {
   return (
-    <section className="relative w-full bg-[#f8faf6] overflow-hidden pt-12 pb-16 sm:pt-16 sm:pb-20 lg:pt-20 lg:pb-24">
+    <section className="relative w-full bg-[#EEF2EB] overflow-hidden pt-12 pb-16 sm:pt-16 sm:pb-20 lg:pt-20 lg:pb-24">
       {/* Background ambient subtle gradients */}
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute top-[-10%] right-[-5%] w-[600px] h-[600px] bg-[#698a22]/10 rounded-full blur-3xl" />

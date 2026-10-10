@@ -26,7 +26,7 @@ export const KeyFeatures: React.FC<KeyFeaturesProps> = ({ t }) => {
   return (
     <section
       id="features"
-      className="w-full bg-[#f8faf6] py-16 sm:py-20 lg:py-24 border-b border-slate-200/70"
+      className="w-full bg-[#EEF2EB] py-16 sm:py-20 lg:py-24 border-b border-slate-200/70"
     >
       <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}

@@ -17,7 +17,7 @@ export const EnterpriseSection: React.FC<EnterpriseSectionProps> = ({ t }) => {
   const { card1, card2, card3 } = t.enterpriseCards;
 
   return (
-    <section className="w-full bg-[#f8faf6] py-16 sm:py-24 lg:py-28 border-b border-slate-200/70">
+    <section className="w-full bg-[#EEF2EB] py-16 sm:py-24 lg:py-28 border-b border-slate-200/70">
       <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-14 sm:mb-20">
@@ -160,13 +160,17 @@ export const EnterpriseSection: React.FC<EnterpriseSectionProps> = ({ t }) => {
               {/* 2 Stats */}
               <div className="grid grid-cols-2 gap-2 mb-2.5">
                 <div className="bg-white p-2.5 rounded-lg border border-slate-200/70">
-                  <div className="text-[11px] text-slate-600">{card2.stat1Label}</div>
+                  <div className="text-[11px] text-slate-600">
+                    {card2.stat1Label}
+                  </div>
                   <div className="text-[13px] font-bold text-[#102038]">
                     {card2.stat1Val}
                   </div>
                 </div>
                 <div className="bg-white p-2.5 rounded-lg border border-slate-200/70">
-                  <div className="text-[11px] text-slate-600">{card2.stat2Label}</div>
+                  <div className="text-[11px] text-slate-600">
+                    {card2.stat2Label}
+                  </div>
                   <div className="text-[13px] font-bold text-emerald-600 flex items-center gap-0.5">
                     <ArrowUpRight className="w-3.5 h-3.5" />
                     {card2.stat2Val}

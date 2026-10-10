@@ -10,7 +10,7 @@ export const MonitoringSection: React.FC<MonitoringSectionProps> = ({ t }) => {
   const { monitoringStats } = t;
 
   return (
-    <section className="w-full bg-[#f8faf6] py-16 sm:py-24 lg:py-28 border-b border-slate-200/70">
+    <section className="w-full bg-[#EEF2EB] py-16 sm:py-24 lg:py-28 border-b border-slate-200/70">
       <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <div className="text-left max-w-3xl mb-12 sm:mb-16">
@@ -31,7 +31,7 @@ export const MonitoringSection: React.FC<MonitoringSectionProps> = ({ t }) => {
         {/* 2-Column Content */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
           {/* Left Column: DID Overview & Activity Chart Card */}
-          <div className="lg:col-span-7 bg-[#f8faf6] rounded-3xl p-6 sm:p-8 border border-slate-200/90 shadow-md text-left space-y-6">
+          <div className="lg:col-span-7 bg-[#EEF2EB] rounded-3xl p-6 sm:p-8 border border-slate-200/90 shadow-md text-left space-y-6">
             {/* Header */}
             <div className="flex items-center justify-between pb-3 border-b border-slate-200/70">
               <h3 className="text-lg font-bold text-[#102038]">

@@ -53,7 +53,7 @@ export const ManagementSection: React.FC<ManagementSectionProps> = ({ t }) => {
 
               {/* Form Row: Sender ID & Audience */}
               <div className="grid grid-cols-2 gap-3 pt-1">
-                <div className="bg-[#f8faf6] rounded-xl p-3 border border-slate-200/70">
+                <div className="bg-[#EEF2EB] rounded-xl p-3 border border-slate-200/70">
                   <div className="text-[10.5px] font-semibold text-slate-500 uppercase tracking-wider">
                     {t.campaignCard.senderLabel}
                   </div>
@@ -61,7 +61,7 @@ export const ManagementSection: React.FC<ManagementSectionProps> = ({ t }) => {
                     {t.campaignCard.senderVal}
                   </div>
                 </div>
-                <div className="bg-[#f8faf6] rounded-xl p-3 border border-slate-200/70">
+                <div className="bg-[#EEF2EB] rounded-xl p-3 border border-slate-200/70">
                   <div className="text-[10.5px] font-semibold text-slate-500 uppercase tracking-wider">
                     {t.campaignCard.audienceLabel}
                   </div>
@@ -72,7 +72,7 @@ export const ManagementSection: React.FC<ManagementSectionProps> = ({ t }) => {
               </div>
 
               {/* Message Box */}
-              <div className="bg-[#f8faf6] rounded-xl p-3.5 border border-slate-200/70 space-y-2">
+              <div className="bg-[#EEF2EB] rounded-xl p-3.5 border border-slate-200/70 space-y-2">
                 <div className="text-[10.5px] font-semibold text-slate-500 uppercase tracking-wider">
                   {t.campaignCard.messageLabel}
                 </div>
@@ -98,9 +98,11 @@ export const ManagementSection: React.FC<ManagementSectionProps> = ({ t }) => {
                   </span>
                 </div>
 
-                <div className="bg-[#f8faf6] rounded-xl p-3 border border-slate-200/70 text-[12px] space-y-1">
+                <div className="bg-[#EEF2EB] rounded-xl p-3 border border-slate-200/70 text-[12px] space-y-1">
                   <p className="text-slate-800">{t.campaignCard.inboundText}</p>
-                  <p className="text-[10px] text-slate-400">{t.campaignCard.inboundTime}</p>
+                  <p className="text-[10px] text-slate-400">
+                    {t.campaignCard.inboundTime}
+                  </p>
                 </div>
 
                 <div className="bg-[#fce7f3]/60 rounded-xl p-3 border border-[#fbcfe8] text-[12px] text-slate-800">

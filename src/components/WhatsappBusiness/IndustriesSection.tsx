@@ -22,7 +22,7 @@ export const IndustriesSection: React.FC<IndustriesSectionProps> = ({ t }) => {
   ];
 
   return (
-    <section className="w-full bg-[#f8faf6] py-16 sm:py-20 lg:py-24 border-b border-slate-200/70">
+    <section className="w-full bg-[#EEF2EB] py-16 sm:py-20 lg:py-24 border-b border-slate-200/70">
       <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="text-left max-w-3xl mb-12 sm:mb-16">

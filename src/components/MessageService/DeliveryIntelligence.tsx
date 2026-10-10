@@ -16,11 +16,11 @@ export const DeliveryIntelligence: React.FC<DeliveryIntelligenceProps> = ({
   t,
 }) => {
   const [activeTab, setActiveTab] = useState<"log" | "routes" | "destinations">(
-    "log"
+    "log",
   );
 
   return (
-    <section className="w-full bg-[#f8faf6] py-16 sm:py-20 lg:py-24 border-b border-slate-200/70">
+    <section className="w-full bg-[#EEF2EB] py-16 sm:py-20 lg:py-24 border-b border-slate-200/70">
       <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8">
         {/* Top Split: Intelligence Overview + Message Visibility Card */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-12 items-center mb-20">

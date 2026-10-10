@@ -102,7 +102,7 @@ export const IncomingCallManagement: React.FC<IncomingCallManagementProps> = ({
               </div>
 
               {/* Journey Step 1 */}
-              <div className="bg-[#f8faf6] rounded-xl p-3.5 border border-slate-200/80 flex items-center gap-3.5">
+              <div className="bg-[#EEF2EB] rounded-xl p-3.5 border border-slate-200/80 flex items-center gap-3.5">
                 <div className="w-9 h-9 rounded-lg bg-[#698a22] text-white flex items-center justify-center shrink-0">
                   <Phone className="w-4 h-4" />
                 </div>
@@ -122,7 +122,7 @@ export const IncomingCallManagement: React.FC<IncomingCallManagementProps> = ({
               </div>
 
               {/* Journey Step 2 */}
-              <div className="bg-[#f8faf6] rounded-xl p-3.5 border border-slate-200/80 flex items-center gap-3.5">
+              <div className="bg-[#EEF2EB] rounded-xl p-3.5 border border-slate-200/80 flex items-center gap-3.5">
                 <div className="w-9 h-9 rounded-lg bg-[#102038] text-white flex items-center justify-center shrink-0">
                   <Clock className="w-4 h-4" />
                 </div>
@@ -142,7 +142,7 @@ export const IncomingCallManagement: React.FC<IncomingCallManagementProps> = ({
               </div>
 
               {/* Journey Step 3 */}
-              <div className="bg-[#f8faf6] rounded-xl p-3.5 border border-slate-200/80 flex items-center gap-3.5">
+              <div className="bg-[#EEF2EB] rounded-xl p-3.5 border border-slate-200/80 flex items-center gap-3.5">
                 <div className="w-9 h-9 rounded-lg bg-[#83184d] text-white flex items-center justify-center shrink-0">
                   <Users className="w-4 h-4" />
                 </div>

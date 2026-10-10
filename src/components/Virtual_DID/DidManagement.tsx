@@ -50,7 +50,7 @@ export const DidManagement: React.FC<DidManagementProps> = ({ t }) => {
   });
 
   return (
-    <section className="w-full bg-[#f8faf6] py-16 sm:py-24 lg:py-28 border-b border-slate-200/70">
+    <section className="w-full bg-[#EEF2EB] py-16 sm:py-24 lg:py-28 border-b border-slate-200/70">
       <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <div className="text-left max-w-3xl mb-12 sm:mb-16">
@@ -71,7 +71,7 @@ export const DidManagement: React.FC<DidManagementProps> = ({ t }) => {
         {/* 2-Column Content */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-start">
           {/* Left Column: 10 Checklist Items */}
-          <div className="lg:col-span-4 bg-[#f8faf6] rounded-2xl p-6 sm:p-7 border border-slate-200/80 text-left">
+          <div className="lg:col-span-4 bg-[#EEF2EB] rounded-2xl p-6 sm:p-7 border border-slate-200/80 text-left">
             <div className="flex items-center gap-2.5 mb-6">
               <div className="w-8 h-8 rounded-lg bg-[#698a22]/15 flex items-center justify-center text-[#698a22]">
                 <Sliders className="w-4 h-4" />
