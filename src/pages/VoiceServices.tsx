@@ -233,7 +233,7 @@ export const VoiceServices: React.FC = () => {
 
               <div className="pt-6 sm:pt-8 text-left">
                 <a
-                  href="/contact"
+                  href="/wholesale-voice"
                   className="inline-flex items-center gap-2 text-[14px] font-semibold text-[#83184d] group-hover:text-[#721240] transition"
                 >
                   {t.services.wholesale.learnMore}

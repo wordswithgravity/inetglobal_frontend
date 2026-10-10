@@ -122,7 +122,7 @@ export const Navbar: React.FC = () => {
           key: "wholesale-voice",
           title: t.productItems?.["wholesale-voice"]?.title || "Wholesale Voice",
           description: t.productItems?.["wholesale-voice"]?.description || "Reliable global voice connectivity",
-          href: "/voice",
+          href: "/wholesale-voice",
         },
         {
           key: "ai-voice",
@@ -134,7 +134,7 @@ export const Navbar: React.FC = () => {
           key: "virtual-numbers",
           title: t.productItems?.["virtual-numbers"]?.title || "Virtual Numbers (DID)",
           description: t.productItems?.["virtual-numbers"]?.description || "Local numbers, global presence",
-          href: "/voice",
+          href: "/virtual-did",
         },
       ],
     },
@@ -148,7 +148,7 @@ export const Navbar: React.FC = () => {
           key: "wholesale-sms",
           title: t.productItems?.["wholesale-sms"]?.title || "Wholesale SMS",
           description: t.productItems?.["wholesale-sms"]?.description || "Global SMS delivery solutions",
-          href: "/messaging",
+          href: "/wholesale-message",
         },
         {
           key: "rcs",
@@ -160,7 +160,7 @@ export const Navbar: React.FC = () => {
           key: "otp-sms",
           title: t.productItems?.["otp-sms"]?.title || "OTP SMS",
           description: t.productItems?.["otp-sms"]?.description || "Secure verification message delivery",
-          href: "/messaging",
+          href: "/otp-sms",
         },
       ],
     },
@@ -174,7 +174,7 @@ export const Navbar: React.FC = () => {
           key: "whatsapp",
           title: t.productItems?.["whatsapp"]?.title || "WhatsApp Business",
           description: t.productItems?.["whatsapp"]?.description || "Connect through WhatsApp conversations",
-          href: "/",
+          href: "/whatsapp",
         },
         {
           key: "voice-calls",
@@ -186,31 +186,31 @@ export const Navbar: React.FC = () => {
           key: "telegram",
           title: t.productItems?.["telegram"]?.title || "Telegram",
           description: t.productItems?.["telegram"]?.description || "Engage customers through Telegram",
-          href: "/",
+          href: "/omnichannel",
         },
         {
           key: "instagram",
           title: t.productItems?.["instagram"]?.title || "Instagram",
           description: t.productItems?.["instagram"]?.description || "Connect through Instagram messaging",
-          href: "/",
+          href: "/omnichannel",
         },
         {
           key: "facebook",
           title: t.productItems?.["facebook"]?.title || "Facebook",
           description: t.productItems?.["facebook"]?.description || "Connect through Facebook messaging",
-          href: "/",
+          href: "/omnichannel",
         },
         {
           key: "tiktok",
           title: t.productItems?.["tiktok"]?.title || "TikTok",
           description: t.productItems?.["tiktok"]?.description || "Engage customers through TikTok",
-          href: "/",
+          href: "/omnichannel",
         },
         {
           key: "live-chat",
           title: t.productItems?.["live-chat"]?.title || "Live Chat Plugin",
           description: t.productItems?.["live-chat"]?.description || "Real-time website customer conversations",
-          href: "/",
+          href: "/omnichannel",
         },
         {
           key: "rcs-messaging",
@@ -236,7 +236,7 @@ export const Navbar: React.FC = () => {
     {
       title: t.solutionItems?.[0]?.title || "Advance SMS Portal",
       description: t.solutionItems?.[0]?.description || "Reliable global messaging connectivity",
-      href: "/messaging",
+      href: "/otp-sms",
     },
     {
       title: t.solutionItems?.[1]?.title || "Complete Dialer Solution",
@@ -246,7 +246,7 @@ export const Navbar: React.FC = () => {
     {
       title: t.solutionItems?.[2]?.title || "International Number (DID)",
       description: t.solutionItems?.[2]?.description || "Virtual numbers across 100+ countries",
-      href: "/voice",
+      href: "/virtual-did",
     },
   ];
 

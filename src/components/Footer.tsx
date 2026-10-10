@@ -108,7 +108,7 @@ export const Footer: React.FC = () => {
             </h4>
             <ul className="space-y-2.5 text-[14px]">
               <li>
-                <a href="/voice" className="text-slate-400 hover:text-white transition">
+                <a href="/wholesale-voice" className="text-slate-400 hover:text-white transition">
                   {t.productItems?.["wholesale-voice"]?.title || "Wholesale Voice"}
                 </a>
               </li>
@@ -118,12 +118,12 @@ export const Footer: React.FC = () => {
                 </a>
               </li>
               <li>
-                <a href="/voice" className="text-slate-400 hover:text-white transition">
+                <a href="/virtual-did" className="text-slate-400 hover:text-white transition">
                   {t.productItems?.["virtual-numbers"]?.title || "Virtual Numbers (DID)"}
                 </a>
               </li>
               <li>
-                <a href="/messaging" className="text-slate-400 hover:text-white transition">
+                <a href="/wholesale-message" className="text-slate-400 hover:text-white transition">
                   {t.productItems?.["wholesale-sms"]?.title || "Wholesale SMS"}
                 </a>
               </li>
@@ -133,12 +133,12 @@ export const Footer: React.FC = () => {
                 </a>
               </li>
               <li>
-                <a href="/messaging" className="text-slate-400 hover:text-white transition">
+                <a href="/otp-sms" className="text-slate-400 hover:text-white transition">
                   {t.productItems?.["otp-sms"]?.title || "OTP SMS"}
                 </a>
               </li>
               <li>
-                <a href="/" className="text-slate-400 hover:text-white transition">
+                <a href="/whatsapp" className="text-slate-400 hover:text-white transition">
                   {t.productItems?.["whatsapp"]?.title || "WhatsApp Business"}
                 </a>
               </li>
@@ -152,7 +152,7 @@ export const Footer: React.FC = () => {
             </h4>
             <ul className="space-y-2.5 text-[14px]">
               <li>
-                <a href="/messaging" className="text-slate-400 hover:text-white transition">
+                <a href="/otp-sms" className="text-slate-400 hover:text-white transition">
                   {t.solutionItems?.[0]?.title || "Advance SMS Portal"}
                 </a>
               </li>
@@ -162,7 +162,7 @@ export const Footer: React.FC = () => {
                 </a>
               </li>
               <li>
-                <a href="/voice" className="text-slate-400 hover:text-white transition">
+                <a href="/virtual-did" className="text-slate-400 hover:text-white transition">
                   {t.solutionItems?.[2]?.title || "International Number (DID)"}
                 </a>
               </li>

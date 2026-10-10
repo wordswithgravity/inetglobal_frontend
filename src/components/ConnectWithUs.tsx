@@ -10,16 +10,16 @@ import { getNavTranslations } from "../data/translations";
 export const ConnectWithUs: React.FC = () => {
   const selectedRegion = useAppSelector((state) => state.region.selectedRegion);
   const selectedLanguage = useAppSelector(
-    (state) => state.language.selectedLanguage
+    (state) => state.language.selectedLanguage,
   );
   const content = getRegionContent(
     selectedRegion,
-    selectedLanguage
+    selectedLanguage,
   ).connectWithUs;
   const t = getNavTranslations(selectedLanguage);
 
   return (
-    <section className="w-full bg-white pt-10 sm:pt-16 lg:pt-20 pb-0 px-3 sm:px-6 lg:px-8 overflow-hidden">
+    <section className="w-full bg-[#EEF2EB] pt-10 sm:pt-16 lg:pt-20 pb-0 px-3 sm:px-6 lg:px-8 overflow-hidden">
       <div className="max-w-[1440px] mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-end">
           {/* Left Column: Heading & Content (7 cols) */}

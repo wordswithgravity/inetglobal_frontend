@@ -573,12 +573,15 @@ export const contactTranslations: Record<string, ContactTranslations> = {
   },
 };
 
+import { allNavTranslations } from "./allNavTranslations";
+import { allContactTranslations, getFullContactTranslations } from "./allContactTranslations";
+
 export const getNavTranslations = (lang: string): NavTranslations => {
-  return navTranslations[lang] || navTranslations["en"];
+  return allNavTranslations[lang] || navTranslations[lang] || navTranslations["en"];
 };
 
 export const getContactTranslations = (lang: string): ContactTranslations => {
-  return contactTranslations[lang] || contactTranslations["en"];
+  return allContactTranslations[lang] || getFullContactTranslations(lang) || contactTranslations[lang] || contactTranslations["en"];
 };
 
 export { getVoiceTranslations } from "./voiceTranslations";

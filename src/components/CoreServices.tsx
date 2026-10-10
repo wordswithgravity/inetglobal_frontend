@@ -96,7 +96,7 @@ export const CoreServices: React.FC = () => {
     {
       icon: <Hash className="w-6 h-6 text-[#658a1f] stroke-[2.5]" />,
       iconBg: "bg-[#eaf3de]",
-      href: "/voice",
+      href: "/omnichannel",
     },
   ];
 

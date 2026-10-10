@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import {
   ArrowRight,
+  ArrowLeft,
   MessageSquare,
   Check,
   BarChart3,
@@ -13,27 +14,38 @@ import {
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import { useAppSelector } from "../store/hooks";
-import { getMessagingTranslations } from "../data/messagingTranslations";
+import { getOmnichannelTranslations } from "../data/omnichannelTranslations";
 import globeImg from "../assets/globe.png";
 import logoImg from "../assets/logo.png";
 import Iphone from "../components/Iphone";
 
-export const MessagingServices: React.FC = () => {
+export const OmniChannel: React.FC = () => {
   const { selectedRegion, availableRegions } = useAppSelector(
-    (state) => state.region,
+    (state) => state.region
   );
   const { selectedLanguage } = useAppSelector((state) => state.language);
   const [isApiHovered, setIsApiHovered] = useState(false);
+  const carouselRef = useRef<HTMLDivElement>(null);
 
   const currentRegion =
     availableRegions.find((r) => r.id === selectedRegion) ||
     availableRegions[0];
 
-  const t = getMessagingTranslations(
+  const t = getOmnichannelTranslations(
     selectedLanguage,
     selectedRegion,
-    currentRegion?.name,
+    currentRegion?.name
   );
+
+  const scrollCarousel = (direction: "left" | "right") => {
+    if (carouselRef.current) {
+      const scrollAmount = 380;
+      carouselRef.current.scrollBy({
+        left: direction === "left" ? -scrollAmount : scrollAmount,
+        behavior: "smooth",
+      });
+    }
+  };
 
   return (
     <div className="min-h-screen bg-white text-slate-900 flex flex-col font-sans selection:bg-[#83184d] selection:text-white">
@@ -41,7 +53,7 @@ export const MessagingServices: React.FC = () => {
       <Navbar />
 
       {/* ========================================================================= */}
-      {/* SECTION 1: HERO (CONNECT INSTANTLY WITH RELIABLE SMS COMMUNICATION)       */}
+      {/* SECTION 1: HERO (CONNECT EVERY CUSTOMER CONVERSATION THROUGH ONE PLATFORM) */}
       {/* ========================================================================= */}
       <section className="w-full bg-[#EEF2EB] pt-8 sm:pt-14 pb-14 sm:pb-20 px-4 sm:px-6 lg:px-8 overflow-hidden">
         <div className="max-w-[1440px] mx-auto">
@@ -74,7 +86,7 @@ export const MessagingServices: React.FC = () => {
               </div>
             </div>
 
-            {/* Right Graphic Column: Phone with Live Chat & Floating Badges */}
+            {/* Right Graphic Column: Phone with Omnichannel Chat & Floating Badges */}
             <div className="lg:col-span-6 flex justify-center items-center relative py-6 lg:py-4 z-10">
               <div className="relative w-full max-w-[560px] sm:max-w-[660px] lg:max-w-[720px] flex items-center justify-center min-h-[460px] sm:min-h-[520px]">
                 {/* Background Ambient Glow */}
@@ -89,7 +101,7 @@ export const MessagingServices: React.FC = () => {
                   />
                 </div>
 
-                {/* iPhone Container with Live Chat Conversation */}
+                {/* iPhone Container with Live Omnichannel Conversation */}
                 <div className="relative z-10 w-[240px] sm:w-[270px] lg:w-[290px] drop-shadow-2xl">
                   <Iphone className="w-full">
                     <div className="w-full h-full bg-slate-50 flex flex-col justify-between font-sans text-slate-800 p-3 pt-7 select-none">
@@ -140,7 +152,7 @@ export const MessagingServices: React.FC = () => {
 
                       {/* Bottom Input Preview */}
                       <div className="bg-white border border-gray-200 rounded-full px-3 py-1.5 flex items-center justify-between text-[10.5px] text-slate-400">
-                        <span>Type a message...</span>
+                        <span>{t.chatScreen.typeMessage}</span>
                         <div className="w-5 h-5 rounded-full bg-[#83184d] text-white flex items-center justify-center">
                           <Send className="w-2.5 h-2.5" />
                         </div>
@@ -150,50 +162,49 @@ export const MessagingServices: React.FC = () => {
                 </div>
 
                 {/* Floating Location/Service Badges Attached to Phone */}
-                {/* 1. Top-Right Badge (Wholesale SMS) */}
-                <a
-                  href="/wholesale-message"
-                  className="absolute top-6 -right-2 sm:-right-6 bg-white/95 backdrop-blur-xs rounded-2xl py-2 px-3.5 shadow-lg border border-gray-100 flex items-center gap-2.5 z-20 max-w-[210px] text-left transition hover:shadow-xl hover:-translate-y-0.5 group cursor-pointer"
-                >
-                  <div className="w-7 h-7 rounded-full bg-[#698a22] flex items-center justify-center text-white shrink-0 group-hover:scale-110 transition-transform">
+                {/* 1. Top-Right Badge (Wholesale SMS / WhatsApp) */}
+                <div className="absolute top-6 -right-2 sm:-right-6 bg-white/95 backdrop-blur-xs rounded-2xl py-2 px-3.5 shadow-lg border border-gray-100 flex items-center gap-2.5 z-20 max-w-[210px] text-left transition hover:shadow-xl hover:-translate-y-0.5">
+                  <div className="w-7 h-7 rounded-full bg-[#698a22] flex items-center justify-center text-white shrink-0">
                     <MessageSquare className="w-3.5 h-3.5" />
                   </div>
                   <div className="leading-tight">
-                    <div className="text-[12px] font-bold text-[#102038] group-hover:text-[#698a22] transition-colors">
+                    <div className="text-[12px] font-bold text-[#102038]">
                       {t.floatingBadges.wholesale.title}
                     </div>
                     <div className="text-[10px] text-slate-500 truncate">
                       {t.floatingBadges.wholesale.desc}
                     </div>
                   </div>
-                </a>
+                </div>
 
-                {/* 2. Middle-Right Badge (RCS Business Messaging) */}
+                {/* 2. Middle-Right Badge (Telegram) */}
                 <div className="absolute top-1/2 -translate-y-1/2 -right-4 sm:-right-8 bg-white/95 backdrop-blur-xs rounded-2xl py-2 px-3.5 shadow-lg border border-gray-100 flex items-center gap-2.5 z-20 max-w-[220px] text-left transition hover:shadow-xl hover:-translate-y-0.5">
-                  <div className="w-7 h-7 rounded-full bg-[#fce7f3] text-[#83184d] flex items-center justify-center shrink-0">
-                    <MessageSquare className="w-3.5 h-3.5" />
+                  <div className="w-7 h-7 rounded-full bg-[#83184d] text-white flex items-center justify-center shrink-0">
+                    <Send className="w-3.5 h-3.5" />
                   </div>
                   <div className="leading-tight">
                     <div className="text-[12px] font-bold text-[#102038]">
-                      {t.floatingBadges.rcs.title}
+                      {t.floatingBadges.telegram.title}
                     </div>
                     <div className="text-[10px] text-slate-500 truncate">
-                      {t.floatingBadges.rcs.desc}
+                      {t.floatingBadges.telegram.desc}
                     </div>
                   </div>
                 </div>
 
-                {/* 3. Bottom-Right Badge (OTP SMS) */}
+                {/* 3. Bottom-Right Badge (Facebook) */}
                 <div className="absolute bottom-6 -right-2 sm:-right-6 bg-white/95 backdrop-blur-xs rounded-2xl py-2 px-3.5 shadow-lg border border-gray-100 flex items-center gap-2.5 z-20 max-w-[210px] text-left transition hover:shadow-xl hover:-translate-y-0.5">
-                  <div className="w-7 h-7 rounded-full bg-[#698a22] flex items-center justify-center text-white shrink-0">
-                    <MessageSquare className="w-3.5 h-3.5" />
+                  <div className="w-7 h-7 rounded-full bg-[#1877F2] flex items-center justify-center text-white shrink-0">
+                    <svg className="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
+                      <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
+                    </svg>
                   </div>
                   <div className="leading-tight">
                     <div className="text-[12px] font-bold text-[#102038]">
-                      {t.floatingBadges.otp.title}
+                      {t.floatingBadges.facebook.title}
                     </div>
                     <div className="text-[10px] text-slate-500 truncate">
-                      {t.floatingBadges.otp.desc}
+                      {t.floatingBadges.facebook.desc}
                     </div>
                   </div>
                 </div>
@@ -204,173 +215,157 @@ export const MessagingServices: React.FC = () => {
       </section>
 
       {/* ========================================================================= */}
-      {/* SECTION 2: OUR CORE SERVICE (SMS SOLUTIONS BUILT FOR EVERY INDUSTRY)      */}
+      {/* SECTION 2: WHY OUR SERVICE (OMNICHANNEL SERVICES THAT WORKS) CAROUSEL      */}
       {/* ========================================================================= */}
       <section
-        id="core-services"
+        id="omnichannel-services"
         className="w-full bg-white py-16 sm:py-24 px-4 sm:px-6 lg:px-8"
       >
-        <div className="max-w-[1440px] mx-auto space-y-12 sm:space-y-16">
-          {/* Section Heading */}
-          <div className="text-left max-w-3xl space-y-2.5">
-            <div className="flex items-center gap-2">
-              <span className="w-5 h-[2px] bg-[#698a22]" />
-              <span className="text-[12px] sm:text-[13px] font-bold tracking-wider text-[#698a22] uppercase">
-                {t.coreServiceBadge}
-              </span>
+        <div className="max-w-[1440px] mx-auto space-y-10 sm:space-y-14">
+          {/* Section Heading with Carousel Controls */}
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
+            <div className="text-left max-w-3xl space-y-2.5">
+              <div className="flex items-center gap-2">
+                <span className="w-5 h-[2px] bg-[#698a22]" />
+                <span className="text-[12px] sm:text-[13px] font-bold tracking-wider text-[#698a22] uppercase">
+                  {t.whyServiceBadge}
+                </span>
+              </div>
+
+              <h2 className="text-2xl sm:text-4xl lg:text-[42px] font-bold text-[#102038] tracking-tight leading-tight">
+                {t.whyServiceTitle}
+              </h2>
+
+              <p className="text-[14.5px] sm:text-[16px] text-slate-600 leading-relaxed max-w-2xl">
+                {t.whyServiceSubtitle}
+              </p>
             </div>
 
-            <h2 className="text-2xl sm:text-4xl lg:text-[42px] font-bold text-[#102038] tracking-tight leading-tight">
-              {t.coreServiceTitle}
-            </h2>
-
-            <p className="text-[14.5px] sm:text-[16px] text-slate-600 leading-relaxed max-w-2xl">
-              {t.coreServiceSubtitle}
-            </p>
+            {/* Carousel Arrow Buttons */}
+            <div className="flex items-center gap-3 self-start md:self-end">
+              <button
+                onClick={() => scrollCarousel("left")}
+                aria-label="Previous channels"
+                className="w-10 h-10 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-700 flex items-center justify-center transition cursor-pointer active:scale-95 shadow-xs"
+              >
+                <ArrowLeft className="w-4 h-4" />
+              </button>
+              <button
+                onClick={() => scrollCarousel("right")}
+                aria-label="Next channels"
+                className="w-10 h-10 rounded-full bg-[#83184d] hover:bg-[#721240] text-white flex items-center justify-center transition cursor-pointer active:scale-95 shadow-xs shadow-[#83184d]/25"
+              >
+                <ArrowRight className="w-4 h-4" />
+              </button>
+            </div>
           </div>
 
-          {/* 3 Core Cards Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 items-stretch">
-            {/* Card 1: Wholesale SMS */}
-            <div className="bg-white rounded-[28px] p-7 sm:p-8 border border-gray-200 shadow-xs hover:border-[#698a22] hover:shadow-xl transition-all duration-200 flex flex-col justify-between group">
-              <div className="space-y-5">
-                <div className="w-14 h-14 rounded-full bg-[#698a22] flex items-center justify-center text-white shadow-md">
-                  <MessageSquare className="w-7 h-7" />
-                </div>
-
-                <div className="space-y-2.5 text-left">
-                  <h3 className="text-xl sm:text-2xl font-bold text-[#102038]">
-                    {t.services.wholesaleSms.title}
-                  </h3>
-                  <p className="text-[13.5px] sm:text-[14.5px] text-slate-600 leading-relaxed">
-                    {t.services.wholesaleSms.description}
-                  </p>
-                </div>
-
-                {/* Checkpoints */}
-                <div className="space-y-2 pt-2 text-left">
-                  {[
-                    t.services.wholesaleSms.bullet1,
-                    t.services.wholesaleSms.bullet2,
-                    t.services.wholesaleSms.bullet3,
-                  ].map((bullet, idx) => (
-                    <div
-                      key={idx}
-                      className="flex items-center gap-2.5 text-[13px] sm:text-[13.5px] text-slate-700"
-                    >
-                      <Check className="w-4 h-4 text-[#698a22] shrink-0 stroke-[2.5]" />
-                      <span>{bullet}</span>
+          {/* Cards Carousel Container */}
+          <div
+            ref={carouselRef}
+            className="flex gap-6 lg:gap-8 overflow-x-auto scrollbar-none scroll-smooth pb-4 pt-1 items-stretch"
+            style={{ scrollSnapType: "x mandatory" }}
+          >
+            {t.channels.map((channel, idx) => {
+              // Custom channel icon render
+              const renderChannelIcon = () => {
+                if (channel.id === "whatsapp") {
+                  return (
+                    <div className="w-14 h-14 rounded-full bg-[#698a22] flex items-center justify-center text-white shadow-md">
+                      <MessageSquare className="w-7 h-7" />
                     </div>
-                  ))}
-                </div>
-              </div>
-
-              <div className="pt-6 sm:pt-8 text-left">
-                <a
-                  href="/wholesale-message"
-                  className="inline-flex items-center gap-2 text-[14px] font-semibold text-[#83184d] group-hover:text-[#721240] transition"
-                >
-                  {t.services.wholesaleSms.learnMore}
-                  <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
-                </a>
-              </div>
-            </div>
-
-            {/* Card 2: RCS Business Messaging */}
-            <div className="bg-white rounded-[28px] p-7 sm:p-8 border border-gray-200 shadow-xs hover:border-[#698a22] hover:shadow-xl transition-all duration-200 flex flex-col justify-between group">
-              <div className="space-y-5">
-                <div className="w-14 h-14 rounded-full bg-[#fce7f3] flex items-center justify-center text-[#83184d]">
-                  <MessageSquare className="w-7 h-7" />
-                </div>
-
-                <div className="space-y-2.5 text-left">
-                  <h3 className="text-xl sm:text-2xl font-bold text-[#102038]">
-                    {t.services.rcsMessaging.title}
-                  </h3>
-                  <p className="text-[13.5px] sm:text-[14.5px] text-slate-600 leading-relaxed">
-                    {t.services.rcsMessaging.description}
-                  </p>
-                </div>
-
-                {/* Checkpoints */}
-                <div className="space-y-2 pt-2 text-left">
-                  {[
-                    t.services.rcsMessaging.bullet1,
-                    t.services.rcsMessaging.bullet2,
-                    t.services.rcsMessaging.bullet3,
-                  ].map((bullet, idx) => (
-                    <div
-                      key={idx}
-                      className="flex items-center gap-2.5 text-[13px] sm:text-[13.5px] text-slate-700"
-                    >
-                      <Check className="w-4 h-4 text-[#698a22] shrink-0 stroke-[2.5]" />
-                      <span>{bullet}</span>
+                  );
+                }
+                if (channel.id === "telegram") {
+                  return (
+                    <div className="w-14 h-14 rounded-full bg-[#fdf2f8] flex items-center justify-center text-[#83184d]">
+                      <Send className="w-6 h-6 -translate-x-0.5" />
                     </div>
-                  ))}
-                </div>
-              </div>
-
-              <div className="pt-6 sm:pt-8 text-left">
-                <a
-                  href="/contact"
-                  className="inline-flex items-center gap-2 text-[14px] font-semibold text-[#83184d] group-hover:text-[#721240] transition"
-                >
-                  {t.services.rcsMessaging.learnMore}
-                  <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
-                </a>
-              </div>
-            </div>
-
-            {/* Card 3: OTP SMS */}
-            <div className="bg-white rounded-[28px] p-7 sm:p-8 border border-gray-200 shadow-xs hover:border-[#698a22] hover:shadow-xl transition-all duration-200 flex flex-col justify-between group">
-              <div className="space-y-5">
-                <div className="w-14 h-14 rounded-full bg-[#ecf4e6] flex items-center justify-center text-[#698a22]">
-                  <MessageSquare className="w-7 h-7" />
-                </div>
-
-                <div className="space-y-2.5 text-left">
-                  <h3 className="text-xl sm:text-2xl font-bold text-[#102038]">
-                    {t.services.otpSms.title}
-                  </h3>
-                  <p className="text-[13.5px] sm:text-[14.5px] text-slate-600 leading-relaxed">
-                    {t.services.otpSms.description}
-                  </p>
-                </div>
-
-                {/* Checkpoints */}
-                <div className="space-y-2 pt-2 text-left">
-                  {[
-                    t.services.otpSms.bullet1,
-                    t.services.otpSms.bullet2,
-                    t.services.otpSms.bullet3,
-                  ].map((bullet, idx) => (
-                    <div
-                      key={idx}
-                      className="flex items-center gap-2.5 text-[13px] sm:text-[13.5px] text-slate-700"
-                    >
-                      <Check className="w-4 h-4 text-[#698a22] shrink-0 stroke-[2.5]" />
-                      <span>{bullet}</span>
+                  );
+                }
+                if (channel.id === "instagram") {
+                  return (
+                    <div className="w-14 h-14 rounded-full bg-[#edf4e8] flex items-center justify-center text-[#698a22]">
+                      <svg className="w-6 h-6 fill-current" viewBox="0 0 24 24">
+                        <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
+                      </svg>
                     </div>
-                  ))}
-                </div>
-              </div>
+                  );
+                }
+                if (channel.id === "facebook") {
+                  return (
+                    <div className="w-14 h-14 rounded-full bg-[#e8f0fe] flex items-center justify-center text-[#1877F2]">
+                      <svg className="w-6 h-6 fill-current" viewBox="0 0 24 24">
+                        <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
+                      </svg>
+                    </div>
+                  );
+                }
+                return (
+                  <div className="w-14 h-14 rounded-full bg-[#fce7f3] flex items-center justify-center text-[#83184d]">
+                    <MessageSquare className="w-6 h-6" />
+                  </div>
+                );
+              };
 
-              <div className="pt-6 sm:pt-8 text-left">
-                <a
-                  href="/contact"
-                  className="inline-flex items-center gap-2 text-[14px] font-semibold text-[#83184d] group-hover:text-[#721240] transition"
+              const isFirst = idx === 0;
+
+              return (
+                <div
+                  key={channel.id}
+                  style={{ scrollSnapAlign: "start" }}
+                  className={`min-w-[300px] sm:min-w-[340px] md:min-w-[380px] lg:flex-1 bg-white rounded-[28px] p-7 sm:p-8 border ${
+                    isFirst
+                      ? "border-[#698a22] shadow-md ring-1 ring-[#698a22]/20"
+                      : "border-gray-200 shadow-xs"
+                  } hover:border-[#698a22] hover:shadow-xl transition-all duration-200 flex flex-col justify-between group`}
                 >
-                  {t.services.otpSms.learnMore}
-                  <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
-                </a>
-              </div>
-            </div>
+                  <div className="space-y-5">
+                    {renderChannelIcon()}
+
+                    <div className="space-y-2.5 text-left">
+                      <h3 className="text-xl sm:text-2xl font-bold text-[#102038]">
+                        {channel.title}
+                      </h3>
+                      <p className="text-[13.5px] sm:text-[14.5px] text-slate-600 leading-relaxed">
+                        {channel.description}
+                      </p>
+                    </div>
+
+                    {/* Bullet Checkpoints */}
+                    <div className="space-y-2 pt-2 text-left">
+                      {[channel.bullet1, channel.bullet2, channel.bullet3].map(
+                        (bullet, bIdx) => (
+                          <div
+                            key={bIdx}
+                            className="flex items-center gap-2.5 text-[13px] sm:text-[13.5px] text-slate-700"
+                          >
+                            <Check className="w-4 h-4 text-[#698a22] shrink-0 stroke-[2.5]" />
+                            <span>{bullet}</span>
+                          </div>
+                        )
+                      )}
+                    </div>
+                  </div>
+
+                  <div className="pt-6 sm:pt-8 text-left">
+                    <a
+                      href={channel.id === "whatsapp" ? "/whatsapp" : "/contact"}
+                      className="inline-flex items-center gap-2 text-[14px] font-semibold text-[#83184d] group-hover:text-[#721240] transition"
+                    >
+                      {channel.learnMore}
+                      <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+                    </a>
+                  </div>
+                </div>
+              );
+            })}
           </div>
         </div>
       </section>
 
       {/* ========================================================================= */}
-      {/* SECTION 3: WHY CHOOSE OUR SMS SOLUTIONS (CONSTELLATION CARDS LAYOUT)      */}
+      {/* SECTION 3: WHY CHOOSE OUR OMNICHANNEL SOLUTIONS (CONSTELLATION LAYOUT)   */}
       {/* ========================================================================= */}
       <section className="w-full bg-[#EEF2EB] py-16 sm:py-24 px-4 sm:px-6 lg:px-8">
         <div className="max-w-[1440px] mx-auto space-y-12 sm:space-y-16">
@@ -478,7 +473,7 @@ export const MessagingServices: React.FC = () => {
       </section>
 
       {/* ========================================================================= */}
-      {/* SECTION 4: WHAT OUR SMS SERVICES PROVIDES (5-CARDS ROW)                   */}
+      {/* SECTION 4: WHAT OUR SERVICES PROVIDE (5-CARDS ROW)                        */}
       {/* ========================================================================= */}
       <section className="w-full bg-white py-16 sm:py-24 px-4 sm:px-6 lg:px-8">
         <div className="max-w-[1440px] mx-auto space-y-12 sm:space-y-16">
@@ -593,4 +588,4 @@ export const MessagingServices: React.FC = () => {
   );
 };
 
-export default MessagingServices;
+export default OmniChannel;
