@@ -34,9 +34,21 @@ export const WhyOurService: React.FC<WhyOurServiceProps> = ({ t }) => {
       case "whatsapp":
         return "/whatsapp";
       case "voice-calls":
-        return "/voice";
+        return "/voice-calls";
+      case "telegram":
+        return "/telegram";
+      case "instagram":
+        return "/instagram";
+      case "facebook":
+        return "/facebook";
+      case "tiktok":
+        return "/tiktok";
+      case "live-chat":
+        return "/livechat-plugin";
       case "rcs":
         return "/rcs";
+      case "email":
+        return "/email";
       default:
         return "/contact";
     }

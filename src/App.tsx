@@ -13,7 +13,14 @@ import InternationalNumberDID from "./pages/InternationalNumberDID";
 import DailerSolution from "./pages/DailerSolution";
 import AboutUS from "./pages/AboutUS";
 import AIVoice from "./pages/AIVoice";
-import RCS_Business_Messaging from "./pages/RCS_Business_Messaging";
+import Instagram from "./pages/instagram";
+import Facebook from "./pages/facebook";
+import Tiktok from "./pages/tiktok";
+import Email from "./pages/email";
+import LivechatPlugin from "./pages/livechatPlugin";
+import Telegram from "./pages/telegram";
+import VoiceCalls from "./pages/voiceCalls";
+import RCS from "./pages/rcs";
 import { useAppSelector } from "./store/hooks";
 
 export default function App() {
@@ -46,7 +53,14 @@ export default function App() {
     | "dialer"
     | "about"
     | "ai-voice"
-    | "rcs" => {
+    | "rcs"
+    | "instagram"
+    | "facebook"
+    | "tiktok"
+    | "email"
+    | "livechat-plugin"
+    | "telegram"
+    | "voice-calls" => {
     // If URL has a leftover hash, clean it to standard path
     if (window.location.hash) {
       const cleanHash = window.location.hash.replace(/^#\/?/, "").toLowerCase();
@@ -156,10 +170,41 @@ export default function App() {
         window.history.replaceState(null, "", "/messaging");
         return "messaging";
       }
+      if (cleanHash === "instagram") {
+        window.history.replaceState(null, "", "/instagram");
+        return "instagram";
+      }
+      if (cleanHash === "facebook") {
+        window.history.replaceState(null, "", "/facebook");
+        return "facebook";
+      }
+      if (cleanHash === "tiktok") {
+        window.history.replaceState(null, "", "/tiktok");
+        return "tiktok";
+      }
+      if (cleanHash === "email") {
+        window.history.replaceState(null, "", "/email");
+        return "email";
+      }
+      if (
+        cleanHash === "livechat-plugin" ||
+        cleanHash === "livechat" ||
+        cleanHash === "live-chat"
+      ) {
+        window.history.replaceState(null, "", "/livechat-plugin");
+        return "livechat-plugin";
+      }
+      if (cleanHash === "telegram") {
+        window.history.replaceState(null, "", "/telegram");
+        return "telegram";
+      }
+      if (cleanHash === "voice-calls" || cleanHash === "voicecalls") {
+        window.history.replaceState(null, "", "/voice-calls");
+        return "voice-calls";
+      }
       if (
         cleanHash === "omnichannel" ||
         cleanHash === "omnichannel-services" ||
-        cleanHash === "telegram" ||
         cleanHash === "omnichannel-messaging"
       ) {
         window.history.replaceState(null, "", "/omnichannel");
@@ -255,10 +300,34 @@ export default function App() {
     ) {
       return "messaging";
     }
+    if (path === "/instagram") {
+      return "instagram";
+    }
+    if (path === "/facebook") {
+      return "facebook";
+    }
+    if (path === "/tiktok") {
+      return "tiktok";
+    }
+    if (path === "/email") {
+      return "email";
+    }
+    if (
+      path === "/livechat-plugin" ||
+      path === "/livechat" ||
+      path === "/live-chat"
+    ) {
+      return "livechat-plugin";
+    }
+    if (path === "/telegram") {
+      return "telegram";
+    }
+    if (path === "/voice-calls" || path === "/voicecalls") {
+      return "voice-calls";
+    }
     if (
       path === "/omnichannel" ||
       path === "/omnichannel-services" ||
-      path === "/telegram" ||
       path === "/omnichannel-messaging"
     ) {
       return "omnichannel";
@@ -282,6 +351,13 @@ export default function App() {
     | "about"
     | "ai-voice"
     | "rcs"
+    | "instagram"
+    | "facebook"
+    | "tiktok"
+    | "email"
+    | "livechat-plugin"
+    | "telegram"
+    | "voice-calls"
   >(getInitialPage);
 
   useEffect(() => {
@@ -368,6 +444,27 @@ export default function App() {
           cleanHash === "rcsbusinessmessaging"
         ) {
           targetPath = "/rcs";
+        } else if (cleanHash === "instagram") {
+          targetPath = "/instagram";
+        } else if (cleanHash === "facebook") {
+          targetPath = "/facebook";
+        } else if (cleanHash === "tiktok") {
+          targetPath = "/tiktok";
+        } else if (cleanHash === "email") {
+          targetPath = "/email";
+        } else if (
+          cleanHash === "livechat-plugin" ||
+          cleanHash === "livechat" ||
+          cleanHash === "live-chat"
+        ) {
+          targetPath = "/livechat-plugin";
+        } else if (cleanHash === "telegram") {
+          targetPath = "/telegram";
+        } else if (
+          cleanHash === "voice-calls" ||
+          cleanHash === "voicecalls"
+        ) {
+          targetPath = "/voice-calls";
         } else if (
           cleanHash === "messaging" ||
           cleanHash === "messaging-services" ||
@@ -377,7 +474,6 @@ export default function App() {
         } else if (
           cleanHash === "omnichannel" ||
           cleanHash === "omnichannel-services" ||
-          cleanHash === "telegram" ||
           cleanHash === "omnichannel-messaging"
         ) {
           targetPath = "/omnichannel";
@@ -476,10 +572,37 @@ export default function App() {
       ) {
         setCurrentPage("messaging");
         window.scrollTo({ top: 0, behavior: "smooth" });
+      } else if (path === "/instagram") {
+        setCurrentPage("instagram");
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      } else if (path === "/facebook") {
+        setCurrentPage("facebook");
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      } else if (path === "/tiktok") {
+        setCurrentPage("tiktok");
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      } else if (path === "/email") {
+        setCurrentPage("email");
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      } else if (
+        path === "/livechat-plugin" ||
+        path === "/livechat" ||
+        path === "/live-chat"
+      ) {
+        setCurrentPage("livechat-plugin");
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      } else if (path === "/telegram") {
+        setCurrentPage("telegram");
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      } else if (
+        path === "/voice-calls" ||
+        path === "/voicecalls"
+      ) {
+        setCurrentPage("voice-calls");
+        window.scrollTo({ top: 0, behavior: "smooth" });
       } else if (
         path === "/omnichannel" ||
         path === "/omnichannel-services" ||
-        path === "/telegram" ||
         path === "/omnichannel-messaging"
       ) {
         setCurrentPage("omnichannel");
@@ -548,7 +671,28 @@ export default function App() {
     return <VoiceServices />;
   }
   if (currentPage === "rcs") {
-    return <RCS_Business_Messaging />;
+    return <RCS />;
+  }
+  if (currentPage === "instagram") {
+    return <Instagram />;
+  }
+  if (currentPage === "facebook") {
+    return <Facebook />;
+  }
+  if (currentPage === "tiktok") {
+    return <Tiktok />;
+  }
+  if (currentPage === "email") {
+    return <Email />;
+  }
+  if (currentPage === "livechat-plugin") {
+    return <LivechatPlugin />;
+  }
+  if (currentPage === "telegram") {
+    return <Telegram />;
+  }
+  if (currentPage === "voice-calls") {
+    return <VoiceCalls />;
   }
   if (currentPage === "messaging") {
     return <MessagingServices />;
