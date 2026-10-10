@@ -405,12 +405,12 @@ export const regionContentMap: Record<string, RegionContent> = {
     footer: {
       description:
         "Global communication infrastructure for businesses that need reliable voice, messaging and omnichannel connectivity.",
-      email: "hello@inetglobal.com",
+      email: "info@inetglobalservices.com",
       phone: "+1 800 123 4567",
       address: {
-        line1: "123 Innovation Drive,",
-        line2: "San Francisco, CA 94105,",
-        line3: "United States",
+        line1: "Tower, Financial Park Labuan,",
+        line2: "Jalan Merdeka, 87000 F.T of labuan,",
+        line3: "Malaysia",
       },
       copyright: "@2026 iNet Global Services. All right reserved.",
     },
@@ -721,7 +721,7 @@ export const regionContentMap: Record<string, RegionContent> = {
     footer: {
       description:
         "India's premier communication infrastructure delivering enterprise-grade Voice, SMS, DLT OTPs, and WhatsApp Business API across all Indian telecom circles.",
-      email: "india@inetglobal.com",
+      email: "info@inetglobalservices.com",
       phone: "+91 1800 123 4567",
       address: {
         line1: "Tower B, Cyber City,",
@@ -1037,7 +1037,7 @@ export const regionContentMap: Record<string, RegionContent> = {
     footer: {
       description:
         "China's enterprise communication infrastructure delivering carrier-grade Voice, 106 SMS, 400 Toll-Free numbers, and WeChat API integration across China Telecom, China Mobile, and China Unicom.",
-      email: "china@inetglobal.com",
+      email: "info@inetglobalservices.com",
       phone: "+86 800 123 4567",
       address: {
         line1: "Level 28, China World Tower,",
@@ -1354,7 +1354,7 @@ export const regionContentMap: Record<string, RegionContent> = {
     footer: {
       description:
         "US premier communication infrastructure delivering enterprise-grade Voice, A2P 10DLC SMS, Toll-Free numbers, and Omnichannel APIs across AT&T, Verizon, and T-Mobile.",
-      email: "us@inetglobal.com",
+      email: "info@inetglobalservices.com",
       phone: "+1 800 123 4567",
       address: {
         line1: "500 Howard Street, Suite 400,",

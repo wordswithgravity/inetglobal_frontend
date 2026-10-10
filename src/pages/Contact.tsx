@@ -382,7 +382,8 @@ export const Contact: React.FC = () => {
                     {t.addressLabel}
                   </span>
                   <p className="font-semibold text-[#102038]">
-                    {regionContent.footer.address.line1},{" "}
+                    {regionContent.footer.address.line1}{" "}
+                    {regionContent.footer.address.line2}{" "}
                     {regionContent.footer.address.line3}
                   </p>
                 </div>

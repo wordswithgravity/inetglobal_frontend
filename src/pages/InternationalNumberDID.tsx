@@ -13,7 +13,7 @@ import MonitoringSection from "../components/Virtual_DID/MonitoringSection";
 import ResellerSection from "../components/Virtual_DID/ResellerSection";
 import DidCta from "../components/Virtual_DID/DidCta";
 
-export const VirtualDID: React.FC = () => {
+export const InternationalNumberDID: React.FC = () => {
   const { selectedRegion, availableRegions } = useAppSelector(
     (state) => state.region
   );
@@ -67,4 +67,5 @@ export const VirtualDID: React.FC = () => {
   );
 };
 
-export default VirtualDID;
+export const VirtualDID = InternationalNumberDID;
+export default InternationalNumberDID;

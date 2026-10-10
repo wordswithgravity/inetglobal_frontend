@@ -84,10 +84,10 @@ export const AddressAndMap: React.FC<AddressAndMapProps> = ({
                   </div>
                   <div>
                     <div className="text-[12px] font-bold text-white">
-                      Financial Park Labuan
+                      Tower, Financial Park Labuan
                     </div>
                     <div className="text-[10.5px] text-slate-300">
-                      Jalan Merdeka, 87000 Victoria
+                      Jalan Merdeka, 87000 F.T of labuan, Malaysia
                     </div>
                   </div>
                 </div>

@@ -128,7 +128,7 @@ export const Navbar: React.FC = () => {
           key: "ai-voice",
           title: t.productItems?.["ai-voice"]?.title || "Ai Voice",
           description: t.productItems?.["ai-voice"]?.description || "Intelligent automated voice solutions",
-          href: "/voice",
+          href: "/ai-voice",
         },
         {
           key: "virtual-numbers",

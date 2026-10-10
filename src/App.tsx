@@ -8,31 +8,55 @@ import WholeSaleVoice from "./pages/wholeSaleVoice";
 import WholeSaleMessage from "./pages/wholeSaleMessage";
 import WhatsappBusiness from "./pages/whatsappBusiness";
 import OTP_SMS from "./pages/OTP_SMS";
-import VirtualDID from "./pages/VirtualDID";
+import InternationalNumberDID from "./pages/InternationalNumberDID";
 import DailerSolution from "./pages/DailerSolution";
-import AboutUs from "./pages/AboutUs";
+import AboutUS from "./pages/AboutUS";
+import AIVoice from "./pages/AIVoice";
 import { useAppSelector } from "./store/hooks";
 
 export default function App() {
   const { selectedLanguage, availableLanguages } = useAppSelector(
-    (state) => state.language
+    (state) => state.language,
   );
 
   useEffect(() => {
     const currentLang = availableLanguages.find(
-      (l) => l.id === selectedLanguage
+      (l) => l.id === selectedLanguage,
     );
-    const dir = currentLang?.dir || (selectedLanguage === "ar" || selectedLanguage === "he" ? "rtl" : "ltr");
+    const dir =
+      currentLang?.dir ||
+      (selectedLanguage === "ar" || selectedLanguage === "he" ? "rtl" : "ltr");
     document.documentElement.dir = dir;
     document.documentElement.lang = selectedLanguage;
   }, [selectedLanguage, availableLanguages]);
-  const getInitialPage = (): "home" | "contact" | "voice" | "messaging" | "omnichannel" | "wholesale-voice" | "wholesale-message" | "whatsapp" | "otp-sms" | "virtual-did" | "dialer" | "about" => {
+  const getInitialPage = ():
+    | "home"
+    | "contact"
+    | "voice"
+    | "messaging"
+    | "omnichannel"
+    | "wholesale-voice"
+    | "wholesale-message"
+    | "whatsapp"
+    | "otp-sms"
+    | "virtual-did"
+    | "dialer"
+    | "about"
+    | "ai-voice" => {
     // If URL has a leftover hash, clean it to standard path
     if (window.location.hash) {
       const cleanHash = window.location.hash.replace(/^#\/?/, "").toLowerCase();
       if (cleanHash === "contact") {
         window.history.replaceState(null, "", "/contact");
         return "contact";
+      }
+      if (
+        cleanHash === "ai-voice" ||
+        cleanHash === "aivoice" ||
+        cleanHash === "ai_voice"
+      ) {
+        window.history.replaceState(null, "", "/ai-voice");
+        return "ai-voice";
       }
       if (
         cleanHash === "about" ||
@@ -42,10 +66,7 @@ export default function App() {
         window.history.replaceState(null, "", "/about");
         return "about";
       }
-      if (
-        cleanHash === "wholesale-voice" ||
-        cleanHash === "whole-sale-voice"
-      ) {
+      if (cleanHash === "wholesale-voice" || cleanHash === "whole-sale-voice") {
         window.history.replaceState(null, "", "/wholesale-voice");
         return "wholesale-voice";
       }
@@ -132,17 +153,10 @@ export default function App() {
     if (path === "/contact") {
       return "contact";
     }
-    if (
-      path === "/about" ||
-      path === "/about-us" ||
-      path === "/aboutus"
-    ) {
+    if (path === "/about" || path === "/about-us" || path === "/aboutus") {
       return "about";
     }
-    if (
-      path === "/wholesale-voice" ||
-      path === "/whole-sale-voice"
-    ) {
+    if (path === "/wholesale-voice" || path === "/whole-sale-voice") {
       return "wholesale-voice";
     }
     if (
@@ -160,11 +174,7 @@ export default function App() {
     ) {
       return "whatsapp";
     }
-    if (
-      path === "/otp-sms" ||
-      path === "/otp_sms" ||
-      path === "/sms-portal"
-    ) {
+    if (path === "/otp-sms" || path === "/otp_sms" || path === "/sms-portal") {
       return "otp-sms";
     }
     if (
@@ -172,6 +182,9 @@ export default function App() {
       path === "/virtual_did" ||
       path === "/virtual-numbers" ||
       path === "/virtualdid" ||
+      path === "/international-number" ||
+      path === "/international-numbers" ||
+      path === "/internationalnumberdid" ||
       path === "/did" ||
       path === "/did-portal"
     ) {
@@ -187,11 +200,10 @@ export default function App() {
     ) {
       return "dialer";
     }
-    if (
-      path === "/voice" ||
-      path === "/voice-services" ||
-      path === "/ai-voice"
-    ) {
+    if (path === "/ai-voice" || path === "/aivoice" || path === "/ai_voice") {
+      return "ai-voice";
+    }
+    if (path === "/voice" || path === "/voice-services") {
       return "voice";
     }
     if (
@@ -213,25 +225,44 @@ export default function App() {
     return "home";
   };
 
-  const [currentPage, setCurrentPage] = useState<"home" | "contact" | "voice" | "messaging" | "omnichannel" | "wholesale-voice" | "wholesale-message" | "whatsapp" | "otp-sms" | "virtual-did" | "dialer" | "about">(
-    getInitialPage
-  );
+  const [currentPage, setCurrentPage] = useState<
+    | "home"
+    | "contact"
+    | "voice"
+    | "messaging"
+    | "omnichannel"
+    | "wholesale-voice"
+    | "wholesale-message"
+    | "whatsapp"
+    | "otp-sms"
+    | "virtual-did"
+    | "dialer"
+    | "about"
+    | "ai-voice"
+  >(getInitialPage);
 
   useEffect(() => {
     const handleLocationChange = () => {
       // Clean any hash if present
       if (window.location.hash) {
-        const cleanHash = window.location.hash.replace(/^#\/?/, "").toLowerCase();
+        const cleanHash = window.location.hash
+          .replace(/^#\/?/, "")
+          .toLowerCase();
         let targetPath = "/";
         if (cleanHash === "contact") targetPath = "/contact";
         else if (
+          cleanHash === "ai-voice" ||
+          cleanHash === "aivoice" ||
+          cleanHash === "ai_voice"
+        ) {
+          targetPath = "/ai-voice";
+        } else if (
           cleanHash === "about" ||
           cleanHash === "about-us" ||
           cleanHash === "aboutus"
         ) {
           targetPath = "/about";
-        }
-        else if (
+        } else if (
           cleanHash === "wholesale-voice" ||
           cleanHash === "whole-sale-voice"
         ) {
@@ -303,16 +334,20 @@ export default function App() {
         setCurrentPage("contact");
         window.scrollTo({ top: 0, behavior: "smooth" });
       } else if (
+        path === "/ai-voice" ||
+        path === "/aivoice" ||
+        path === "/ai_voice"
+      ) {
+        setCurrentPage("ai-voice");
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      } else if (
         path === "/about" ||
         path === "/about-us" ||
         path === "/aboutus"
       ) {
         setCurrentPage("about");
         window.scrollTo({ top: 0, behavior: "smooth" });
-      } else if (
-        path === "/wholesale-voice" ||
-        path === "/whole-sale-voice"
-      ) {
+      } else if (path === "/wholesale-voice" || path === "/whole-sale-voice") {
         setCurrentPage("wholesale-voice");
         window.scrollTo({ top: 0, behavior: "smooth" });
       } else if (
@@ -357,11 +392,7 @@ export default function App() {
       ) {
         setCurrentPage("dialer");
         window.scrollTo({ top: 0, behavior: "smooth" });
-      } else if (
-        path === "/voice" ||
-        path === "/voice-services" ||
-        path === "/ai-voice"
-      ) {
+      } else if (path === "/voice" || path === "/voice-services") {
         setCurrentPage("voice");
         window.scrollTo({ top: 0, behavior: "smooth" });
       } else if (
@@ -414,7 +445,10 @@ export default function App() {
     return <Contact />;
   }
   if (currentPage === "about") {
-    return <AboutUs />;
+    return <AboutUS />;
+  }
+  if (currentPage === "ai-voice") {
+    return <AIVoice />;
   }
   if (currentPage === "wholesale-voice") {
     return <WholeSaleVoice />;
@@ -429,7 +463,7 @@ export default function App() {
     return <OTP_SMS />;
   }
   if (currentPage === "virtual-did") {
-    return <VirtualDID />;
+    return <InternationalNumberDID />;
   }
   if (currentPage === "dialer") {
     return <DailerSolution />;

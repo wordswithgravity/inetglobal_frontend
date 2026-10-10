@@ -113,7 +113,7 @@ export const Footer: React.FC = () => {
                 </a>
               </li>
               <li>
-                <a href="/voice" className="text-slate-400 hover:text-white transition">
+                <a href="/ai-voice" className="text-slate-400 hover:text-white transition">
                   {t.productItems?.["ai-voice"]?.title || "AI Voice"}
                 </a>
               </li>
