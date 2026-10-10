@@ -91,51 +91,82 @@ const en: OmnichannelTranslation = {
     {
       id: "whatsapp",
       title: "WhatsApp Business",
-      description:
-        "International voice termination with route options designed around quality, coverage and cost.",
-      bullet1: "High- quality voice connections",
-      bullet2: "Flexible route options",
-      bullet3: "Global coverage",
+      description: "Connect through WhatsApp conversations",
+      bullet1: "Rich media & interactive catalogs",
+      bullet2: "Verified business profile",
+      bullet3: "Automated chatbot workflows",
+      learnMore: "Learn more",
+    },
+    {
+      id: "voice-calls",
+      title: "Voice Calls",
+      description: "Business voice communication",
+      bullet1: "Crystal-clear global voice termination",
+      bullet2: "Intelligent SIP & WebRTC routing",
+      bullet3: "Direct carrier connectivity",
       learnMore: "Learn more",
     },
     {
       id: "telegram",
       title: "Telegram",
-      description:
-        "Deliver critical transactional SMS, OTPs, and rich business messaging directly to handsets worldwide with high delivery assurance.",
-      bullet1: "High- quality voice connections",
-      bullet2: "Flexible route options",
-      bullet3: "Global coverage",
+      description: "Engage customers through Telegram",
+      bullet1: "Instant conversational messaging",
+      bullet2: "Secure bot-driven interactions",
+      bullet3: "Broadcast channels & groups",
       learnMore: "Learn more",
     },
     {
       id: "instagram",
       title: "Instagram",
-      description:
-        "Unify Voice, SMS, WhatsApp, and Verification into a single developer-friendly REST API suite designed for deployment.",
-      bullet1: "High- quality voice connections",
-      bullet2: "Flexible route options",
-      bullet3: "Global coverage",
+      description: "Connect through Instagram messaging",
+      bullet1: "Direct message automation",
+      bullet2: "Story mentions & quick replies",
+      bullet3: "E-commerce customer support",
       learnMore: "Learn more",
     },
     {
       id: "facebook",
-      title: "Facebook Messenger",
-      description:
-        "Engage with customers seamlessly on Facebook with conversational bots, rich media support, and automated responses.",
-      bullet1: "High- quality voice connections",
-      bullet2: "Flexible route options",
-      bullet3: "Global coverage",
+      title: "Facebook",
+      description: "Connect through Facebook messaging",
+      bullet1: "Automated Messenger conversations",
+      bullet2: "Rich media carousels & cards",
+      bullet3: "Unified customer inbox",
+      learnMore: "Learn more",
+    },
+    {
+      id: "tiktok",
+      title: "TikTok",
+      description: "Engage customers through TikTok",
+      bullet1: "Direct audience engagement",
+      bullet2: "Inquiry response & support",
+      bullet3: "Mobile-first social interaction",
+      learnMore: "Learn more",
+    },
+    {
+      id: "live-chat",
+      title: "Live Chat Plugin",
+      description: "Real-time website customer conversations",
+      bullet1: "Embeddable website widget",
+      bullet2: "Real-time visitor conversations",
+      bullet3: "Seamless agent handoff",
       learnMore: "Learn more",
     },
     {
       id: "rcs",
-      title: "RCS & Viber",
-      description:
-        "High-conversion next-generation rich channels with verified sender badges, action chips, and interactive cards.",
-      bullet1: "High- quality voice connections",
-      bullet2: "Flexible route options",
-      bullet3: "Global coverage",
+      title: "RCS",
+      description: "Rich conversational messaging",
+      bullet1: "Verified sender branding & logos",
+      bullet2: "Action buttons & suggested replies",
+      bullet3: "High-engagement carousels",
+      learnMore: "Learn more",
+    },
+    {
+      id: "email",
+      title: "Email",
+      description: "Integrated business email communication",
+      bullet1: "Integrated business communication",
+      bullet2: "Transactional receipts & alerts",
+      bullet3: "Unified omnichannel fallback",
       learnMore: "Learn more",
     },
   ],
@@ -1365,5 +1396,12 @@ export const getOmnichannelTranslations = (
   _regionId?: string,
   _regionName?: string
 ): OmnichannelTranslation => {
-  return translations[languageId] || translations["en"];
+  const trans = translations[languageId] || translations["en"];
+  return {
+    ...trans,
+    channels:
+      trans.channels && trans.channels.length === 9
+        ? trans.channels
+        : en.channels,
+  };
 };

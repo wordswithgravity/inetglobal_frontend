@@ -37,7 +37,7 @@ export const Hero: React.FC<HeroProps> = ({ t }) => {
       <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center mb-16">
           {/* Left Column: Content */}
-          <div className="lg:col-span-7 space-y-6 text-left">
+          <div className="lg:col-span-7 space-y-6 text-left relative z-20">
             {/* Tag Badge */}
             <div className="inline-flex items-center gap-2">
               <span className="w-5 h-[2px] bg-[#698a22]" />

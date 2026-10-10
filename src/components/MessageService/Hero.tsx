@@ -13,9 +13,9 @@ export const Hero: React.FC<HeroProps> = ({ t }) => {
       <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
           {/* Left Column: Content */}
-          <div className="lg:col-span-6 space-y-6 text-left">
+          <div className="lg:col-span-6 space-y-6 text-left relative z-20 lg:z-30">
             {/* Tag Badge */}
-            <div className="inline-flex items-center gap-2">
+            <div className="inline-flex items-center gap-2 relative z-20">
               <span className="w-5 h-[2px] bg-[#698a22]" />
               <span className="text-[12px] sm:text-[13px] font-bold tracking-wider text-[#698a22] uppercase">
                 {t.heroBadge}
@@ -23,12 +23,12 @@ export const Hero: React.FC<HeroProps> = ({ t }) => {
             </div>
 
             {/* Main Headline */}
-            <h1 className="text-3xl sm:text-5xl lg:text-[54px] font-bold text-[#102038] tracking-tight leading-[1.15]">
+            <h1 className="text-3xl sm:text-5xl lg:text-[54px] font-bold text-[#102038] tracking-tight leading-[1.15] relative z-20">
               {t.heroTitle}
             </h1>
 
             {/* Description */}
-            <p className="text-[15px] sm:text-[17px] text-slate-600 leading-relaxed max-w-xl">
+            <p className="text-[15px] sm:text-[17px] text-slate-600 leading-relaxed max-w-xl relative z-20">
               {t.heroDesc}
             </p>
 
@@ -100,7 +100,7 @@ export const Hero: React.FC<HeroProps> = ({ t }) => {
                   <MessageSquare className="w-5 h-5" />
                 </div>
                 <div className="leading-tight pr-1">
-                  <div className="text-[14px] sm:text-[15px] font-bold text-[#102038]">
+                  <div className="text-[14px] sm:text-[15px] font-bold text-[#102038] ">
                     {t.heroLiveBadge1.title}
                   </div>
                   <div className="text-[11px] sm:text-[12px] text-slate-500 font-medium">
