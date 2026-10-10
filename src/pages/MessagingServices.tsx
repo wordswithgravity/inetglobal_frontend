@@ -169,34 +169,40 @@ export const MessagingServices: React.FC = () => {
                 </a>
 
                 {/* 2. Middle-Right Badge (RCS Business Messaging) */}
-                <div className="absolute top-1/2 -translate-y-1/2 -right-4 sm:-right-8 bg-white/95 backdrop-blur-xs rounded-2xl py-2 px-3.5 shadow-lg border border-gray-100 flex items-center gap-2.5 z-20 max-w-[220px] text-left transition hover:shadow-xl hover:-translate-y-0.5">
-                  <div className="w-7 h-7 rounded-full bg-[#fce7f3] text-[#83184d] flex items-center justify-center shrink-0">
+                <a
+                  href="/rcs"
+                  className="absolute top-1/2 -translate-y-1/2 -right-4 sm:-right-8 bg-white/95 backdrop-blur-xs rounded-2xl py-2 px-3.5 shadow-lg border border-gray-100 flex items-center gap-2.5 z-20 max-w-[220px] text-left transition hover:shadow-xl hover:-translate-y-0.5 group cursor-pointer"
+                >
+                  <div className="w-7 h-7 rounded-full bg-[#fce7f3] text-[#83184d] flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
                     <MessageSquare className="w-3.5 h-3.5" />
                   </div>
                   <div className="leading-tight">
-                    <div className="text-[12px] font-bold text-[#102038]">
+                    <div className="text-[12px] font-bold text-[#102038] group-hover:text-[#83184d] transition-colors">
                       {t.floatingBadges.rcs.title}
                     </div>
                     <div className="text-[10px] text-slate-500 truncate">
                       {t.floatingBadges.rcs.desc}
                     </div>
                   </div>
-                </div>
+                </a>
 
                 {/* 3. Bottom-Right Badge (OTP SMS) */}
-                <div className="absolute bottom-6 -right-2 sm:-right-6 bg-white/95 backdrop-blur-xs rounded-2xl py-2 px-3.5 shadow-lg border border-gray-100 flex items-center gap-2.5 z-20 max-w-[210px] text-left transition hover:shadow-xl hover:-translate-y-0.5">
-                  <div className="w-7 h-7 rounded-full bg-[#698a22] flex items-center justify-center text-white shrink-0">
+                <a
+                  href="/otp-sms-services"
+                  className="absolute bottom-6 -right-2 sm:-right-6 bg-white/95 backdrop-blur-xs rounded-2xl py-2 px-3.5 shadow-lg border border-gray-100 flex items-center gap-2.5 z-20 max-w-[210px] text-left transition hover:shadow-xl hover:-translate-y-0.5 group cursor-pointer"
+                >
+                  <div className="w-7 h-7 rounded-full bg-[#698a22] flex items-center justify-center text-white shrink-0 group-hover:scale-110 transition-transform">
                     <MessageSquare className="w-3.5 h-3.5" />
                   </div>
                   <div className="leading-tight">
-                    <div className="text-[12px] font-bold text-[#102038]">
+                    <div className="text-[12px] font-bold text-[#102038] group-hover:text-[#698a22] transition-colors">
                       {t.floatingBadges.otp.title}
                     </div>
                     <div className="text-[10px] text-slate-500 truncate">
                       {t.floatingBadges.otp.desc}
                     </div>
                   </div>
-                </div>
+                </a>
               </div>
             </div>
           </div>
@@ -312,7 +318,7 @@ export const MessagingServices: React.FC = () => {
 
               <div className="pt-6 sm:pt-8 text-left">
                 <a
-                  href="/contact"
+                  href="/rcs"
                   className="inline-flex items-center gap-2 text-[14px] font-semibold text-[#83184d] group-hover:text-[#721240] transition"
                 >
                   {t.services.rcsMessaging.learnMore}
@@ -357,7 +363,7 @@ export const MessagingServices: React.FC = () => {
 
               <div className="pt-6 sm:pt-8 text-left">
                 <a
-                  href="/contact"
+                  href="/otp-sms-services"
                   className="inline-flex items-center gap-2 text-[14px] font-semibold text-[#83184d] group-hover:text-[#721240] transition"
                 >
                   {t.services.otpSms.learnMore}

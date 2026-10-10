@@ -7,11 +7,13 @@ import OmniChannel from "./pages/OmniChannel";
 import WholeSaleVoice from "./pages/wholeSaleVoice";
 import WholeSaleMessage from "./pages/wholeSaleMessage";
 import WhatsappBusiness from "./pages/whatsappBusiness";
-import OTP_SMS from "./pages/OTP_SMS";
+import Advance_SMS_Portal from "./pages/Advance_SMS_Portal";
+import OTP_sms from "./pages/OTP_sms";
 import InternationalNumberDID from "./pages/InternationalNumberDID";
 import DailerSolution from "./pages/DailerSolution";
 import AboutUS from "./pages/AboutUS";
 import AIVoice from "./pages/AIVoice";
+import RCS_Business_Messaging from "./pages/RCS_Business_Messaging";
 import { useAppSelector } from "./store/hooks";
 
 export default function App() {
@@ -39,10 +41,12 @@ export default function App() {
     | "wholesale-message"
     | "whatsapp"
     | "otp-sms"
+    | "advance-sms-portal"
     | "virtual-did"
     | "dialer"
     | "about"
-    | "ai-voice" => {
+    | "ai-voice"
+    | "rcs" => {
     // If URL has a leftover hash, clean it to standard path
     if (window.location.hash) {
       const cleanHash = window.location.hash.replace(/^#\/?/, "").toLowerCase();
@@ -88,11 +92,21 @@ export default function App() {
         return "whatsapp";
       }
       if (
-        cleanHash === "otp-sms" ||
-        cleanHash === "otp_sms" ||
+        cleanHash === "advance-sms-portal" ||
+        cleanHash === "advance_sms_portal" ||
+        cleanHash === "advancesmsportal" ||
         cleanHash === "sms-portal"
       ) {
-        window.history.replaceState(null, "", "/otp-sms");
+        window.history.replaceState(null, "", "/advance-sms-portal");
+        return "advance-sms-portal";
+      }
+      if (
+        cleanHash === "otp-sms-services" ||
+        cleanHash === "otp-sms" ||
+        cleanHash === "otp_sms" ||
+        cleanHash === "otp"
+      ) {
+        window.history.replaceState(null, "", "/otp-sms-services");
         return "otp-sms";
       }
       if (
@@ -126,10 +140,17 @@ export default function App() {
         return "voice";
       }
       if (
+        cleanHash === "rcs" ||
+        cleanHash === "rcs-messaging" ||
+        cleanHash === "rcs-business-messaging" ||
+        cleanHash === "rcsbusinessmessaging"
+      ) {
+        window.history.replaceState(null, "", "/rcs");
+        return "rcs";
+      }
+      if (
         cleanHash === "messaging" ||
         cleanHash === "messaging-services" ||
-        cleanHash === "rcs" ||
-        cleanHash === "otp-sms" ||
         cleanHash === "sms"
       ) {
         window.history.replaceState(null, "", "/messaging");
@@ -174,7 +195,20 @@ export default function App() {
     ) {
       return "whatsapp";
     }
-    if (path === "/otp-sms" || path === "/otp_sms" || path === "/sms-portal") {
+    if (
+      path === "/advance-sms-portal" ||
+      path === "/advance_sms_portal" ||
+      path === "/advancesmsportal" ||
+      path === "/sms-portal"
+    ) {
+      return "advance-sms-portal";
+    }
+    if (
+      path === "/otp-sms-services" ||
+      path === "/otp-sms" ||
+      path === "/otp_sms" ||
+      path === "/otp"
+    ) {
       return "otp-sms";
     }
     if (
@@ -203,13 +237,20 @@ export default function App() {
     if (path === "/ai-voice" || path === "/aivoice" || path === "/ai_voice") {
       return "ai-voice";
     }
+    if (
+      path === "/rcs" ||
+      path === "/rcs-messaging" ||
+      path === "/rcs-business-messaging" ||
+      path === "/rcsbusinessmessaging"
+    ) {
+      return "rcs";
+    }
     if (path === "/voice" || path === "/voice-services") {
       return "voice";
     }
     if (
       path === "/messaging" ||
       path === "/messaging-services" ||
-      path === "/rcs" ||
       path === "/sms"
     ) {
       return "messaging";
@@ -235,10 +276,12 @@ export default function App() {
     | "wholesale-message"
     | "whatsapp"
     | "otp-sms"
+    | "advance-sms-portal"
     | "virtual-did"
     | "dialer"
     | "about"
     | "ai-voice"
+    | "rcs"
   >(getInitialPage);
 
   useEffect(() => {
@@ -281,11 +324,19 @@ export default function App() {
         ) {
           targetPath = "/whatsapp";
         } else if (
-          cleanHash === "otp-sms" ||
-          cleanHash === "otp_sms" ||
+          cleanHash === "advance-sms-portal" ||
+          cleanHash === "advance_sms_portal" ||
+          cleanHash === "advancesmsportal" ||
           cleanHash === "sms-portal"
         ) {
-          targetPath = "/otp-sms";
+          targetPath = "/advance-sms-portal";
+        } else if (
+          cleanHash === "otp-sms-services" ||
+          cleanHash === "otp-sms" ||
+          cleanHash === "otp_sms" ||
+          cleanHash === "otp"
+        ) {
+          targetPath = "/otp-sms-services";
         } else if (
           cleanHash === "virtual-did" ||
           cleanHash === "virtual_did" ||
@@ -311,9 +362,15 @@ export default function App() {
         ) {
           targetPath = "/voice";
         } else if (
+          cleanHash === "rcs" ||
+          cleanHash === "rcs-messaging" ||
+          cleanHash === "rcs-business-messaging" ||
+          cleanHash === "rcsbusinessmessaging"
+        ) {
+          targetPath = "/rcs";
+        } else if (
           cleanHash === "messaging" ||
           cleanHash === "messaging-services" ||
-          cleanHash === "rcs" ||
           cleanHash === "sms"
         ) {
           targetPath = "/messaging";
@@ -366,9 +423,18 @@ export default function App() {
         setCurrentPage("whatsapp");
         window.scrollTo({ top: 0, behavior: "smooth" });
       } else if (
+        path === "/advance-sms-portal" ||
+        path === "/advance_sms_portal" ||
+        path === "/advancesmsportal" ||
+        path === "/sms-portal"
+      ) {
+        setCurrentPage("advance-sms-portal");
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      } else if (
+        path === "/otp-sms-services" ||
         path === "/otp-sms" ||
         path === "/otp_sms" ||
-        path === "/sms-portal"
+        path === "/otp"
       ) {
         setCurrentPage("otp-sms");
         window.scrollTo({ top: 0, behavior: "smooth" });
@@ -392,13 +458,20 @@ export default function App() {
       ) {
         setCurrentPage("dialer");
         window.scrollTo({ top: 0, behavior: "smooth" });
+      } else if (
+        path === "/rcs" ||
+        path === "/rcs-messaging" ||
+        path === "/rcs-business-messaging" ||
+        path === "/rcsbusinessmessaging"
+      ) {
+        setCurrentPage("rcs");
+        window.scrollTo({ top: 0, behavior: "smooth" });
       } else if (path === "/voice" || path === "/voice-services") {
         setCurrentPage("voice");
         window.scrollTo({ top: 0, behavior: "smooth" });
       } else if (
         path === "/messaging" ||
         path === "/messaging-services" ||
-        path === "/rcs" ||
         path === "/sms"
       ) {
         setCurrentPage("messaging");
@@ -459,8 +532,11 @@ export default function App() {
   if (currentPage === "whatsapp") {
     return <WhatsappBusiness />;
   }
+  if (currentPage === "advance-sms-portal") {
+    return <Advance_SMS_Portal />;
+  }
   if (currentPage === "otp-sms") {
-    return <OTP_SMS />;
+    return <OTP_sms />;
   }
   if (currentPage === "virtual-did") {
     return <InternationalNumberDID />;
@@ -470,6 +546,9 @@ export default function App() {
   }
   if (currentPage === "voice") {
     return <VoiceServices />;
+  }
+  if (currentPage === "rcs") {
+    return <RCS_Business_Messaging />;
   }
   if (currentPage === "messaging") {
     return <MessagingServices />;

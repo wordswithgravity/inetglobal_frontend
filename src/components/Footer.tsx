@@ -128,12 +128,12 @@ export const Footer: React.FC = () => {
                 </a>
               </li>
               <li>
-                <a href="/messaging" className="text-slate-400 hover:text-white transition">
+                <a href="/rcs" className="text-slate-400 hover:text-white transition">
                   {t.productItems?.["rcs"]?.title || "RCS Business Messaging"}
                 </a>
               </li>
               <li>
-                <a href="/otp-sms" className="text-slate-400 hover:text-white transition">
+                <a href="/otp-sms-services" className="text-slate-400 hover:text-white transition">
                   {t.productItems?.["otp-sms"]?.title || "OTP SMS"}
                 </a>
               </li>
@@ -152,7 +152,7 @@ export const Footer: React.FC = () => {
             </h4>
             <ul className="space-y-2.5 text-[14px]">
               <li>
-                <a href="/otp-sms" className="text-slate-400 hover:text-white transition">
+                <a href="/advance-sms-portal" className="text-slate-400 hover:text-white transition">
                   {t.solutionItems?.[0]?.title || "Advance SMS Portal"}
                 </a>
               </li>

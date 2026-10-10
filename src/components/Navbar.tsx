@@ -154,13 +154,13 @@ export const Navbar: React.FC = () => {
           key: "rcs",
           title: t.productItems?.["rcs"]?.title || "RCS Business Messaging",
           description: t.productItems?.["rcs"]?.description || "Rich interactive business messaging",
-          href: "/messaging",
+          href: "/rcs",
         },
         {
           key: "otp-sms",
           title: t.productItems?.["otp-sms"]?.title || "OTP SMS",
           description: t.productItems?.["otp-sms"]?.description || "Secure verification message delivery",
-          href: "/otp-sms",
+          href: "/otp-sms-services",
         },
       ],
     },
@@ -236,7 +236,7 @@ export const Navbar: React.FC = () => {
     {
       title: t.solutionItems?.[0]?.title || "Advance SMS Portal",
       description: t.solutionItems?.[0]?.description || "Reliable global messaging connectivity",
-      href: "/otp-sms",
+      href: "/advance-sms-portal",
     },
     {
       title: t.solutionItems?.[1]?.title || "Complete Dialer Solution",
