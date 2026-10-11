@@ -52,15 +52,15 @@ export const OtpCta: React.FC<OtpCtaProps> = ({ t }) => {
             <div className="pt-8 border-t border-slate-200/80 grid grid-cols-1 sm:grid-cols-3 gap-4 text-left sm:text-center">
               <div className="flex items-center sm:justify-center gap-2 text-[13px] text-slate-700 font-medium">
                 <ShieldCheck className="w-4 h-4 text-[#698a22]" />
-                <span>Enterprise SLA Guarantee</span>
+                <span>{t.ctaTrust1 || "Enterprise SLA Guarantee"}</span>
               </div>
               <div className="flex items-center sm:justify-center gap-2 text-[13px] text-slate-700 font-medium">
                 <Zap className="w-4 h-4 text-[#698a22]" />
-                <span>Instant API & SMPP Setup</span>
+                <span>{t.ctaTrust2 || "Instant API & SMPP Setup"}</span>
               </div>
               <div className="flex items-center sm:justify-center gap-2 text-[13px] text-slate-700 font-medium">
                 <MessageSquare className="w-4 h-4 text-[#698a22]" />
-                <span>Global Carrier Connectivity</span>
+                <span>{t.ctaTrust3 || "Global Carrier Connectivity"}</span>
               </div>
             </div>
           </div>

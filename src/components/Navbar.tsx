@@ -139,7 +139,7 @@ export const Navbar: React.FC = () => {
           key: "virtual-numbers",
           title: t.productItems?.["virtual-numbers"]?.title || "Virtual Numbers (DID)",
           description: t.productItems?.["virtual-numbers"]?.description || "Local numbers, global presence",
-          href: "/virtual-did",
+          href: "/virtual-numbers-did",
         },
       ],
     },

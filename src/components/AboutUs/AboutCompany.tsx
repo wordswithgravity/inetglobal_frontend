@@ -51,10 +51,10 @@ export const AboutCompany: React.FC<AboutCompanyProps> = ({ t }) => {
                 100+
               </div>
               <div className="text-xs font-semibold text-slate-200">
-                Direct Global Interconnects
+                {t.ambientInterconnectBadge?.title || "Direct Global Interconnects"}
               </div>
               <div className="text-[10.5px] text-slate-400 mt-1">
-                Zero-friction international wholesale transit
+                {t.ambientInterconnectBadge?.sub || "Zero-friction international wholesale transit"}
               </div>
             </div>
           </div>

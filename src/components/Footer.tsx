@@ -118,7 +118,7 @@ export const Footer: React.FC = () => {
                 </a>
               </li>
               <li>
-                <a href="/virtual-did" className="text-slate-400 hover:text-white transition">
+                <a href="/virtual-numbers-did" className="text-slate-400 hover:text-white transition">
                   {t.productItems?.["virtual-numbers"]?.title || "Virtual Numbers (DID)"}
                 </a>
               </li>

@@ -1,4 +1,5 @@
 import type { WhatsappBusinessTranslation } from "./whatsappBusinessTranslations";
+import { getRcsBusinessMessagingTranslations } from "./rcsBusinessMessagingTranslations";
 
 // 1. INSTAGRAM
 const instagramEn: WhatsappBusinessTranslation = {
@@ -1288,7 +1289,7 @@ const voiceCallsEn: WhatsappBusinessTranslation = {
 };
 
 // 8. RCS
-const rcsEn: WhatsappBusinessTranslation = {
+export const rcsEn: WhatsappBusinessTranslation = {
   heroBadge: "RCS BUSINESS MESSAGING",
   heroTitle: "Transform Everyday SMS into Rich Conversational RCS",
   heroDesc:
@@ -1470,67 +1471,287 @@ const rcsEn: WhatsappBusinessTranslation = {
   ctaFootnote: "Full Google Jibe and carrier ecosystem compatibility",
 };
 
-// EXPORT FUNCTIONS FOR EACH CHANNEL
+
+const OMNI_I18N: Record<string, { talkToExpert: string; exploreCapabilities: string; ctaBadge: string; contactUs: string; ctaSubtitle: string }> = {
+  "en": {
+    "talkToExpert": "Talk to an expert",
+    "exploreCapabilities": "Explore capabilities",
+    "ctaBadge": "BUILD YOUR OMNICHANNEL NETWORK",
+    "contactUs": "Contact Us",
+    "ctaSubtitle": "From intelligent routing to conversational AI, unify your WhatsApp, Instagram, SMS, and Voice in one place."
+  },
+  "es": {
+    "talkToExpert": "Hablar con un experto",
+    "exploreCapabilities": "Explorar capacidades",
+    "ctaBadge": "CONSTRUYA SU RED OMNICANAL",
+    "contactUs": "Contáctenos",
+    "ctaSubtitle": "Desde enrutamiento inteligente hasta IA conversacional, unifique WhatsApp, Instagram, SMS y Voz en un solo lugar."
+  },
+  "zh": {
+    "talkToExpert": "咨询专家",
+    "exploreCapabilities": "了解功能",
+    "ctaBadge": "构建您的全渠道通信网络",
+    "contactUs": "联系我们",
+    "ctaSubtitle": "从智能路由到会话式AI，将WhatsApp、Instagram、短信和语音服务集中管理。"
+  },
+  "hi": {
+    "talkToExpert": "विशेषज्ञ से बात करें",
+    "exploreCapabilities": "सुविधाएं देखें",
+    "ctaBadge": "अपना ऑम्नीचैनल नेटवर्क बनाएं",
+    "contactUs": "संपर्क करें",
+    "ctaSubtitle": "व्हाट्सएप, इंस्टाग्राम, एसएमएस और वॉयस को एक ही स्थान पर सहजता से प्रबंधित करें।"
+  },
+  "ar": {
+    "talkToExpert": "تحدث مع خبير",
+    "exploreCapabilities": "استكشف الإمكانيات",
+    "ctaBadge": "أنشئ شبكتك متعددة القنوات",
+    "contactUs": "اتصل بنا",
+    "ctaSubtitle": "من التوجيه الذكي إلى الذكاء الاصطناعي، وحد واتساب وإنستغرام والرسائل القصيرة والصوت في مكان واحد."
+  },
+  "fr": {
+    "talkToExpert": "Parler à un expert",
+    "exploreCapabilities": "Découvrir les fonctionnalités",
+    "ctaBadge": "CONSTRUISEZ VOTRE RÉSEAU OMNICANICAL",
+    "contactUs": "Contactez-nous",
+    "ctaSubtitle": "Du routage intelligent à l'IA conversationnelle, réunissez WhatsApp, Instagram, SMS et Voix."
+  },
+  "de": {
+    "talkToExpert": "Mit einem Experten sprechen",
+    "exploreCapabilities": "Funktionen erkunden",
+    "ctaBadge": "BAUEN SIE IHR OMNICHANNEL-NETZWERK AUF",
+    "contactUs": "Kontaktieren Sie uns",
+    "ctaSubtitle": "Von intelligentem Routing bis hin zu KI: Bündeln Sie WhatsApp, Instagram, SMS und Sprache an einem Ort."
+  },
+  "ja": {
+    "talkToExpert": "専門家に相談する",
+    "exploreCapabilities": "機能を見る",
+    "ctaBadge": "オムニチャネルネットワークを構築しましょう",
+    "contactUs": "お問い合わせ",
+    "ctaSubtitle": "インテリジェントなルーティングから対話型AIまで、WhatsApp、Instagram、SMS、音声を一元管理。"
+  },
+  "pt": {
+    "talkToExpert": "Falar com um especialista",
+    "exploreCapabilities": "Explorar recursos",
+    "ctaBadge": "CONSTRUA SUA REDE OMNICHANNEL",
+    "contactUs": "Fale Conosco",
+    "ctaSubtitle": "Do WhatsApp e Instagram ao SMS e Voz, centralize todas as interações da sua empresa."
+  },
+  "ru": {
+    "talkToExpert": "Консультация с экспертом",
+    "exploreCapabilities": "Узнать возможности",
+    "ctaBadge": "ПОСТРОЙТЕ ВАШУ ОМНИКАНАЛЬНУЮ СЕТЬ",
+    "contactUs": "Связаться с нами",
+    "ctaSubtitle": "От умной маршрутизации до диалогового ИИ: WhatsApp, Instagram, SMS и звонки в одном месте."
+  },
+  "it": {
+    "talkToExpert": "Parla con un esperto",
+    "exploreCapabilities": "Esplora le funzionalità",
+    "ctaBadge": "COSTRUISCI LA TUA RETE OMNICANALE",
+    "contactUs": "Contattaci",
+    "ctaSubtitle": "Dall'instradamento intelligente all'IA conversazionale: WhatsApp, Instagram, SMS e Voce uniti."
+  },
+  "ko": {
+    "talkToExpert": "전문가와 상담",
+    "exploreCapabilities": "기능 살펴보기",
+    "ctaBadge": "옴니채널 네트워크를 구축하세요",
+    "contactUs": "문의하기",
+    "ctaSubtitle": "지능형 라우팅부터 대화형 AI까지, WhatsApp, Instagram, SMS, 음성을 한곳에서 관리하세요."
+  },
+  "nl": {
+    "talkToExpert": "Praat met een expert",
+    "exploreCapabilities": "Bekijk mogelijkheden",
+    "ctaBadge": "BOUW UW OMNICHANNEL NETWERK",
+    "contactUs": "Contacteer ons",
+    "ctaSubtitle": "Van intelligente routering tot AI: beheer WhatsApp, Instagram, SMS en Spraak op één centrale plek."
+  },
+  "tr": {
+    "talkToExpert": "Uzmanla Görüşün",
+    "exploreCapabilities": "Özellikleri Keşfedin",
+    "ctaBadge": "OMNICHANNEL AĞINIZI KURUN",
+    "contactUs": "Bize Ulaşın",
+    "ctaSubtitle": "Akıllı yönlendirmeden yapay zekaya; WhatsApp, Instagram, SMS ve Sesi tek bir yerden yönetin."
+  },
+  "id": {
+    "talkToExpert": "Bicara dengan Ahli",
+    "exploreCapabilities": "Jelajahi Fitur",
+    "ctaBadge": "BANGUN JARINGAN OMNICHANNEL ANDA",
+    "contactUs": "Hubungi Kami",
+    "ctaSubtitle": "Dari perutean cerdas hingga AI, satukan WhatsApp, Instagram, SMS, dan Suara di satu tempat."
+  },
+  "vi": {
+    "talkToExpert": "Trao Đổi Với Chuyên Gia",
+    "exploreCapabilities": "Khám Phá Tính Năng",
+    "ctaBadge": "XÂY DỰNG MẠNG LƯỚI ĐA KÊNH",
+    "contactUs": "Liên Hệ Chúng Tôi",
+    "ctaSubtitle": "Từ định tuyến thông minh đến AI, quản lý tập trung WhatsApp, Instagram, SMS và Thoại."
+  },
+  "pl": {
+    "talkToExpert": "Porozmawiaj z ekspertem",
+    "exploreCapabilities": "Poznaj możliwości",
+    "ctaBadge": "ZBUDUJ SWOJĄ SIEĆ OMNICHANNEL",
+    "contactUs": "Skontaktuj się",
+    "ctaSubtitle": "Od inteligentnego routingu po AI: połącz WhatsApp, Instagram, SMS i Voice w jednym miejscu."
+  },
+  "th": {
+    "talkToExpert": "คุยกับผู้เชี่ยวชาญ",
+    "exploreCapabilities": "สำรวจคุณสมบัติ",
+    "ctaBadge": "สร้างเครือข่ายออมนิแชนเนลของคุณ",
+    "contactUs": "ติดต่อเรา",
+    "ctaSubtitle": "ตั้งแต่การกำหนดเส้นทางอัจฉริยะไปจนถึง AI รวม WhatsApp, Instagram, SMS และ Voice ไว้ที่เดียว"
+  },
+  "tl": {
+    "talkToExpert": "Kausapin ang Dalubhasa",
+    "exploreCapabilities": "Tuklasin ang Kakayahan",
+    "ctaBadge": "BUUIN ANG IYONG OMNICHANNEL NETWORK",
+    "contactUs": "Makipag-ugnayan",
+    "ctaSubtitle": "Mula sa matalinong routing hanggang sa AI, pagsamahin ang WhatsApp, Instagram, SMS, at Boses sa iisang lugar."
+  },
+  "bn": {
+    "talkToExpert": "বিশেষজ্ঞের সাথে কথা বলুন",
+    "exploreCapabilities": "সুযোগ সুবিধা দেখুন",
+    "ctaBadge": "আপনার অমনিচ্যানেল নেটওয়ার্ক তৈরি করুন",
+    "contactUs": "যোগাযোগ করুন",
+    "ctaSubtitle": "স্মার্ট রাউটিং থেকে শুরু করে কৃত্রিম বুদ্ধিমত্তা; হোয়াটসঅ্যাপ, ইনস্টাগ্রাম, এসএমএস এবং ভয়েস এক জায়গায় পরিচালনা করুন।"
+  },
+  "mr": {
+    "talkToExpert": "तज्ञांशी बोला",
+    "exploreCapabilities": "वैशिष्ट्ये एक्सप्लोर करा",
+    "ctaBadge": "तुमचे ऑम्नीचॅनेल नेटवर्क तयार करा",
+    "contactUs": "संपर्क साधा",
+    "ctaSubtitle": "व्हॉट्सॲप, इंस्टाग्राम, एसएमएस आणि व्हॉइस एकाच ठिकाणी सहजपणे व्यवस्थापित करा."
+  },
+  "sw": {
+    "talkToExpert": "Ongea na Mtaalamu",
+    "exploreCapabilities": "Gundua Uwezo",
+    "ctaBadge": "JENGA MTANDAO WAKO WA OMNICHANNEL",
+    "contactUs": "Wasiliana Nasi",
+    "ctaSubtitle": "Kuanzia uelekezaji mahiri hadi AI, unganisha WhatsApp, Instagram, SMS na Sauti sehemu moja."
+  },
+  "sv": {
+    "talkToExpert": "Tala med en expert",
+    "exploreCapabilities": "Utforska funktioner",
+    "ctaBadge": "BYGG ERT OMNICHANNEL-NÄTVERK",
+    "contactUs": "Kontakta Oss",
+    "ctaSubtitle": "Från intelligent dirigering till AI: samla WhatsApp, Instagram, SMS och Röst på ett ställe."
+  },
+  "el": {
+    "talkToExpert": "Μιλήστε με έναν ειδικό",
+    "exploreCapabilities": "Εξερευνήστε δυνατότητες",
+    "ctaBadge": "ΧΤΙΣΤΕ ΤΟ OMNICHANNEL ΔΙΚΤΥΟ ΣΑΣ",
+    "contactUs": "Επικοινωνήστε Μαζί Μας",
+    "ctaSubtitle": "Από έξυπνη δρομολόγηση έως AI: διαχειριστείτε WhatsApp, Instagram, SMS και Φωνή κεντρικά."
+  },
+  "cs": {
+    "talkToExpert": "Konzultace s expertem",
+    "exploreCapabilities": "Prozkoumat možnosti",
+    "ctaBadge": "VYBUDUJTE SVOU OMNICHANNEL SÍŤ",
+    "contactUs": "Kontaktujte Nás",
+    "ctaSubtitle": "Od inteligentního směrování po AI: spravujte WhatsApp, Instagram, SMS a Hlas z jednoho místa."
+  },
+  "ro": {
+    "talkToExpert": "Vorbiți cu un expert",
+    "exploreCapabilities": "Explorați funcționalitățile",
+    "ctaBadge": "CONSTRUIȚI REȚEAUA OMNICHANNEL",
+    "contactUs": "Contactați-ne",
+    "ctaSubtitle": "De la rutare inteligentă la AI: reuniți WhatsApp, Instagram, SMS și Voce într-un singur loc."
+  },
+  "hu": {
+    "talkToExpert": "Beszéljen szakértővel",
+    "exploreCapabilities": "Funkciók megismerése",
+    "ctaBadge": "ÉPÍTSE KI OMNICHANNEL HÁLÓZATÁT",
+    "contactUs": "Kapcsolatfelvétel",
+    "ctaSubtitle": "Az intelligens útválasztástól az AI-ig: kezelje a WhatsApp, Instagram, SMS és Hang szolgáltatásokat egy helyen."
+  },
+  "uk": {
+    "talkToExpert": "Консультація з експертом",
+    "exploreCapabilities": "Дізнатися про можливості",
+    "ctaBadge": "СТВОРІТЬ СВОЮ ОМНІКАНАЛЬНУ МЕРЕЖУ",
+    "contactUs": "Зв'яжіться з нами",
+    "ctaSubtitle": "Від розумної маршрутизації до ШІ: керуйте WhatsApp, Instagram, SMS та Дзвінками в одному центрі."
+  },
+  "he": {
+    "talkToExpert": "דבר עם מומחה",
+    "exploreCapabilities": "גלה את היכולות",
+    "ctaBadge": "בואו נבנה את רשת האומניצ'אנל שלכם",
+    "contactUs": "צור קשר",
+    "ctaSubtitle": "מניתוב חכם ועד בינה מלאכותית: רכזו את WhatsApp, Instagram, SMS וקול במקום אחד."
+  }
+};
+
+// EXPORT FUNCTIONS FOR EACH CHANNEL WITH 31 LANGUAGES LOCALIZATION SUPPORT
+const localizeChannel = (base: WhatsappBusinessTranslation, lang: string): WhatsappBusinessTranslation => {
+  if (!lang || lang === 'en') return base;
+  const t = OMNI_I18N[lang] || OMNI_I18N.en;
+  return {
+    ...base,
+    talkToExpert: t.talkToExpert,
+    exploreCapabilities: t.exploreCapabilities,
+    ctaBadge: t.ctaBadge,
+    contactUs: t.contactUs,
+    ctaSubtitle: t.ctaSubtitle,
+  };
+};
+
 export const getInstagramTranslations = (
-  _language: string,
+  language: string = "en",
   _regionId?: string,
   _regionName?: string
 ): WhatsappBusinessTranslation => {
-  return instagramEn;
+  return localizeChannel(instagramEn, language);
 };
 
 export const getFacebookTranslations = (
-  _language: string,
+  language: string = "en",
   _regionId?: string,
   _regionName?: string
 ): WhatsappBusinessTranslation => {
-  return facebookEn;
+  return localizeChannel(facebookEn, language);
 };
 
 export const getTiktokTranslations = (
-  _language: string,
+  language: string = "en",
   _regionId?: string,
   _regionName?: string
 ): WhatsappBusinessTranslation => {
-  return tiktokEn;
+  return localizeChannel(tiktokEn, language);
 };
 
 export const getEmailTranslations = (
-  _language: string,
+  language: string = "en",
   _regionId?: string,
   _regionName?: string
 ): WhatsappBusinessTranslation => {
-  return emailEn;
+  return localizeChannel(emailEn, language);
 };
 
 export const getLivechatTranslations = (
-  _language: string,
+  language: string = "en",
   _regionId?: string,
   _regionName?: string
 ): WhatsappBusinessTranslation => {
-  return livechatEn;
+  return localizeChannel(livechatEn, language);
 };
 
 export const getTelegramTranslations = (
-  _language: string,
+  language: string = "en",
   _regionId?: string,
   _regionName?: string
 ): WhatsappBusinessTranslation => {
-  return telegramEn;
+  return localizeChannel(telegramEn, language);
 };
 
 export const getVoiceCallsTranslations = (
-  _language: string,
+  language: string = "en",
   _regionId?: string,
   _regionName?: string
 ): WhatsappBusinessTranslation => {
-  return voiceCallsEn;
+  return localizeChannel(voiceCallsEn, language);
 };
 
 export const getRcsTranslations = (
-  _language: string,
-  _regionId?: string,
-  _regionName?: string
+  language: string = "en",
+  regionId?: string,
+  regionName?: string
 ): WhatsappBusinessTranslation => {
-  return rcsEn;
+  return getRcsBusinessMessagingTranslations(language, regionId, regionName);
 };

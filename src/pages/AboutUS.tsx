@@ -13,7 +13,7 @@ import AboutCta from "../components/AboutUs/AboutCta";
 
 export const AboutUs: React.FC = () => {
   const { selectedRegion, availableRegions } = useAppSelector(
-    (state) => state.region
+    (state) => state.region,
   );
   const { selectedLanguage } = useAppSelector((state) => state.language);
 
@@ -24,7 +24,7 @@ export const AboutUs: React.FC = () => {
   const t = getAboutUsTranslations(
     selectedLanguage,
     selectedRegion,
-    currentRegion?.name
+    currentRegion?.name,
   );
 
   const regionContent = getRegionContent(selectedRegion, selectedLanguage);

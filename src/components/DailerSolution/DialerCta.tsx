@@ -56,15 +56,15 @@ export const DialerCta: React.FC<DialerCtaProps> = ({ t }) => {
             <div className="pt-8 border-t border-slate-200/80 grid grid-cols-1 sm:grid-cols-3 gap-4 text-left sm:text-center">
               <div className="flex items-center sm:justify-center gap-2 text-[13px] text-slate-700 font-medium">
                 <ShieldCheck className="w-4 h-4 text-[#698a22]" />
-                <span>Enterprise Dialer SLA</span>
+                <span>{t.ctaTrust1 || "Enterprise Dialer SLA"}</span>
               </div>
               <div className="flex items-center sm:justify-center gap-2 text-[13px] text-slate-700 font-medium">
                 <Zap className="w-4 h-4 text-[#698a22]" />
-                <span>Instant WebRTC Activation</span>
+                <span>{t.ctaTrust2 || "Instant WebRTC Activation"}</span>
               </div>
               <div className="flex items-center sm:justify-center gap-2 text-[13px] text-slate-700 font-medium">
                 <Headphones className="w-4 h-4 text-[#698a22]" />
-                <span>24/7 Dedicated Support</span>
+                <span>{t.ctaTrust3 || "24/7 Dedicated Support"}</span>
               </div>
             </div>
           </div>

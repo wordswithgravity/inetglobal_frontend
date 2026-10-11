@@ -88,10 +88,10 @@ export const AboutHero: React.FC<AboutHeroProps> = ({ t }) => {
                 </div>
                 <div>
                   <div className="text-[11.5px] font-bold text-[#102038]">
-                    Tier-1 Direct Routes
+                    {t.floatingTier1Badge?.title || "Tier-1 Direct Routes"}
                   </div>
                   <div className="text-[10px] text-slate-500">
-                    99.99% Enterprise SLA
+                    {t.floatingTier1Badge?.sub || "99.99% Enterprise SLA"}
                   </div>
                 </div>
               </div>
@@ -156,7 +156,7 @@ export const AboutHero: React.FC<AboutHeroProps> = ({ t }) => {
                     <div className="flex items-center justify-between bg-[#162744] px-3 py-1.5 rounded-xl border border-slate-700/80 text-[11px]">
                       <span className="text-slate-300 flex items-center gap-1.5">
                         <Zap className="w-3.5 h-3.5 text-amber-400" />
-                        Network Response
+                        {phoneMockup.bottomStat1}
                       </span>
                       <span className="text-emerald-400 font-mono font-bold">
                         {phoneMockup.latency}
@@ -258,10 +258,10 @@ export const AboutHero: React.FC<AboutHeroProps> = ({ t }) => {
                 </div>
                 <div>
                   <div className="text-[11px] font-bold text-[#102038]">
-                    Global POPs & NOC
+                    {heroStats[3]?.label || "Global Technical NOC"}
                   </div>
                   <div className="text-[10px] text-slate-500">
-                    24/7 Monitored
+                    {heroStats[3]?.sub || "24/7 Monitored"}
                   </div>
                 </div>
               </div>

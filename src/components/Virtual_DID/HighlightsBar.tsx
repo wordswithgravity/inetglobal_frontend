@@ -30,7 +30,7 @@ export const HighlightsBar: React.FC<HighlightsBarProps> = ({ t }) => {
       <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8">
         {/* Title */}
         <h3 className="text-center font-bold text-[#102038] text-xl sm:text-2xl mb-8 sm:mb-10 tracking-tight">
-          Your Global Number. Your Complete Control.
+          {t.highlightsHeading || "Your Global Number. Your Complete Control."}
         </h3>
 
         {/* 7 Cards Grid */}

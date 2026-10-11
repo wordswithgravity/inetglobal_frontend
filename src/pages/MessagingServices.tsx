@@ -140,7 +140,7 @@ export const MessagingServices: React.FC = () => {
 
                       {/* Bottom Input Preview */}
                       <div className="bg-white border border-gray-200 rounded-full px-3 py-1.5 flex items-center justify-between text-[10.5px] text-slate-400">
-                        <span>Type a message...</span>
+                        <span>{t.chatScreen.inputPlaceholder || "Type a message..."}</span>
                         <div className="w-5 h-5 rounded-full bg-[#83184d] text-white flex items-center justify-center">
                           <Send className="w-2.5 h-2.5" />
                         </div>

@@ -40,11 +40,11 @@ export const AboutCta: React.FC<AboutCtaProps> = ({ t }) => {
           <div className="pt-6 flex flex-wrap items-center justify-center gap-6 text-[13px] text-slate-500 font-medium border-t border-slate-100">
             <div className="flex items-center gap-2">
               <ShieldCheck className="w-4 h-4 text-[#698a22]" />
-              <span>99.99% Guaranteed SLA</span>
+              <span>{t.ctaGuaranteedSla || "99.99% Guaranteed SLA"}</span>
             </div>
             <div className="flex items-center gap-2">
               <Headphones className="w-4 h-4 text-[#698a22]" />
-              <span>24/7/365 Dedicated NOC</span>
+              <span>{t.ctaDedicatedNoc || "24/7/365 Dedicated NOC"}</span>
             </div>
           </div>
         </div>

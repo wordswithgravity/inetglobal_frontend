@@ -65,7 +65,7 @@ export const AddressAndMap: React.FC<AddressAndMapProps> = ({
 
                 <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-50 text-emerald-700 text-xs font-semibold border border-emerald-200/60">
                   <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-                  Live Location
+                  {t.mapLiveLocation || "Live Location"}
                 </span>
               </div>
 
@@ -123,7 +123,7 @@ export const AddressAndMap: React.FC<AddressAndMapProps> = ({
                   </div>
                   <div>
                     <span className="text-[11px] text-slate-400 font-bold uppercase block">
-                      Postal Address
+                      {t.postalAddressLabel || "Postal Address"}
                     </span>
                     <p className="font-semibold text-[#102038] text-[14.5px] leading-snug">
                       {address.line1}

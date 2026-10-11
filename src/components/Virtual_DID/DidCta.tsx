@@ -52,15 +52,15 @@ export const DidCta: React.FC<DidCtaProps> = ({ t }) => {
             <div className="pt-8 border-t border-slate-200/80 grid grid-cols-1 sm:grid-cols-3 gap-4 text-left sm:text-center">
               <div className="flex items-center sm:justify-center gap-2 text-[13px] text-slate-700 font-medium">
                 <ShieldCheck className="w-4 h-4 text-[#698a22]" />
-                <span>Enterprise Carrier SLA</span>
+                <span>{t.ctaTrust1 || "Enterprise Carrier SLA"}</span>
               </div>
               <div className="flex items-center sm:justify-center gap-2 text-[13px] text-slate-700 font-medium">
                 <Zap className="w-4 h-4 text-[#698a22]" />
-                <span>Instant DID Provisioning</span>
+                <span>{t.ctaTrust2 || "Instant DID Provisioning"}</span>
               </div>
               <div className="flex items-center sm:justify-center gap-2 text-[13px] text-slate-700 font-medium">
                 <Globe2 className="w-4 h-4 text-[#698a22]" />
-                <span>Coverage Across 100+ Countries</span>
+                <span>{t.ctaTrust3 || "Coverage Across 100+ Countries"}</span>
               </div>
             </div>
           </div>

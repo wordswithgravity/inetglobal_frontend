@@ -10,6 +10,7 @@ import WhatsappBusiness from "./pages/whatsappBusiness";
 import Advance_SMS_Portal from "./pages/Advance_SMS_Portal";
 import OTP_sms from "./pages/OTP_sms";
 import InternationalNumberDID from "./pages/InternationalNumberDID";
+import VirtualNumberDID from "./pages/virtualNumberDID";
 import DailerSolution from "./pages/DailerSolution";
 import AboutUS from "./pages/AboutUS";
 import AIVoice from "./pages/AIVoice";
@@ -50,6 +51,7 @@ export default function App() {
     | "otp-sms"
     | "advance-sms-portal"
     | "virtual-did"
+    | "virtual-numbers-did"
     | "dialer"
     | "about"
     | "ai-voice"
@@ -122,6 +124,15 @@ export default function App() {
       ) {
         window.history.replaceState(null, "", "/otp-sms-services");
         return "otp-sms";
+      }
+      if (
+        cleanHash === "virtual-numbers-did" ||
+        cleanHash === "virtualnumbersdid" ||
+        cleanHash === "virtual-number-did" ||
+        cleanHash === "virtualnumberdid"
+      ) {
+        window.history.replaceState(null, "", "/virtual-numbers-did");
+        return "virtual-numbers-did";
       }
       if (
         cleanHash === "virtual-did" ||
@@ -257,6 +268,15 @@ export default function App() {
       return "otp-sms";
     }
     if (
+      path === "/virtual-numbers-did" ||
+      path === "/virtual-numbers-did/" ||
+      path === "/virtualnumbersdid" ||
+      path === "/virtual-number-did" ||
+      path === "/virtualnumberdid"
+    ) {
+      return "virtual-numbers-did";
+    }
+    if (
       path === "/virtual-did" ||
       path === "/virtual_did" ||
       path === "/virtual-numbers" ||
@@ -347,6 +367,7 @@ export default function App() {
     | "otp-sms"
     | "advance-sms-portal"
     | "virtual-did"
+    | "virtual-numbers-did"
     | "dialer"
     | "about"
     | "ai-voice"
@@ -535,6 +556,15 @@ export default function App() {
         setCurrentPage("otp-sms");
         window.scrollTo({ top: 0, behavior: "smooth" });
       } else if (
+        path === "/virtual-numbers-did" ||
+        path === "/virtual-numbers-did/" ||
+        path === "/virtualnumbersdid" ||
+        path === "/virtual-number-did" ||
+        path === "/virtualnumberdid"
+      ) {
+        setCurrentPage("virtual-numbers-did");
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      } else if (
         path === "/virtual-did" ||
         path === "/virtual_did" ||
         path === "/virtual-numbers" ||
@@ -660,6 +690,9 @@ export default function App() {
   }
   if (currentPage === "otp-sms") {
     return <OTP_sms />;
+  }
+  if (currentPage === "virtual-numbers-did") {
+    return <VirtualNumberDID />;
   }
   if (currentPage === "virtual-did") {
     return <InternationalNumberDID />;

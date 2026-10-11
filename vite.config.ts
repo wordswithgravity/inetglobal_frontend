@@ -7,6 +7,6 @@ export default defineConfig({
   plugins: [react(), tailwindcss()],
   server: {
     host: "0.0.0.0",
-    allowedHosts: ["wet-dreams-designers-recordings.trycloudflare.com"],
+    allowedHosts: ["architect-sean-consequently-photography.trycloudflare.com"],
   },
 });
