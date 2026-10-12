@@ -11,7 +11,9 @@ export const Footer: React.FC = () => {
   const selectedLanguage = useAppSelector(
     (state) => state.language.selectedLanguage
   );
-  const content = getRegionContent(selectedRegion, selectedLanguage).footer;
+  const regionContent = getRegionContent(selectedRegion, selectedLanguage);
+  const content = regionContent.footer;
+  const industries = regionContent.industryExpertise.industries;
   const t = getNavTranslations(selectedLanguage);
   const companyT = getCompanyTranslations(selectedLanguage);
 
@@ -170,17 +172,17 @@ export const Footer: React.FC = () => {
               </li>
               <li>
                 <a href="/" className="text-slate-400 hover:text-white transition">
-                  Banking & Finance
+                  {industries.find((item) => item.id === "banking")?.name || "Banking & Finance"}
                 </a>
               </li>
               <li>
                 <a href="/" className="text-slate-400 hover:text-white transition">
-                  Healthcare
+                  {industries.find((item) => item.id === "healthcare")?.name || "Healthcare"}
                 </a>
               </li>
               <li>
                 <a href="/" className="text-slate-400 hover:text-white transition">
-                  E-Commerce & Retail
+                  {industries.find((item) => item.id === "ecommerce")?.name || "E-Commerce & Retail"}
                 </a>
               </li>
             </ul>

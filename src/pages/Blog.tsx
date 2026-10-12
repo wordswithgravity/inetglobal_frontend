@@ -19,8 +19,8 @@ export const Blog: React.FC = () => {
   const [searchQuery, setSearchQuery] = useState<string>("");
 
   useEffect(() => {
-    dispatch(fetchPublishedBlogs());
-  }, [dispatch]);
+    dispatch(fetchPublishedBlogs({ lang: selectedLanguage }));
+  }, [dispatch, selectedLanguage]);
 
   const categories = [
     { key: "All", label: t.categories.all },

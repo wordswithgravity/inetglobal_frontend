@@ -15,6 +15,7 @@ import {
 } from "lucide-react";
 import { useAppSelector } from "../store/hooks";
 import { getRegionContent } from "../data/regionContent";
+import { getNavTranslations } from "../data/translations";
 
 const phoneIconCls = "w-[22px] h-[22px] text-[#55801a]";
 const tabIconCls = "w-[18px] h-[18px]";
@@ -63,6 +64,7 @@ export const BusinessSolutions: React.FC = () => {
     selectedLanguage
   ).businessSolutions;
   const solutions = content.solutions;
+  const navT = getNavTranslations(selectedLanguage);
 
   const [activeTab, setActiveTab] = useState<string>("otp");
 
@@ -433,9 +435,9 @@ export const BusinessSolutions: React.FC = () => {
               <div className="mt-[30px]">
                 <a
                   href="/messaging"
-                  className="inline-flex items-center justify-center gap-2 w-[180px] h-[45px] rounded-full bg-[#8b1a5e] hover:bg-[#751450] text-white text-[14.5px] font-medium transition duration-150 shadow-lg shadow-[#8b1a5e]/30 active:scale-[0.98]"
+                  className="inline-flex items-center justify-center gap-2 min-w-[180px] px-6 h-[45px] rounded-full bg-[#8b1a5e] hover:bg-[#751450] text-white text-[14.5px] font-medium transition duration-150 shadow-lg shadow-[#8b1a5e]/30 active:scale-[0.98]"
                 >
-                  Explore Solution
+                  {navT.exploreSolutions || "Explore Solution"}
                   <ArrowRight className="w-4 h-4" />
                 </a>
               </div>

@@ -60,16 +60,16 @@ export const BlogDetails: React.FC<BlogDetailsProps> = ({
 
   const currentSlug = getCurrentSlug();
 
-  // Load from Redux API on mount or slug change
+  // Load from Redux API on mount, slug change, or language change
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });
     if (currentSlug) {
-      dispatch(fetchBlogBySlug(currentSlug));
+      dispatch(
+        fetchBlogBySlug({ identifier: currentSlug, lang: selectedLanguage })
+      );
     }
-    if (blogs.length === 0) {
-      dispatch(fetchPublishedBlogs());
-    }
-  }, [currentSlug, dispatch, blogs.length]);
+    dispatch(fetchPublishedBlogs({ lang: selectedLanguage }));
+  }, [currentSlug, dispatch, selectedLanguage]);
 
   // Active post only from real backend data (no mock/fake fallback)
   const post =

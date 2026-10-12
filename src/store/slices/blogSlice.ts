@@ -93,7 +93,7 @@ const initialState: BlogState = {
 export const fetchPublishedBlogs = createAsyncThunk(
   "blog/fetchPublishedBlogs",
   async (
-    params: { category?: string; search?: string } | undefined,
+    params: { category?: string; search?: string; lang?: string } | undefined,
     { rejectWithValue }
   ) => {
     try {
@@ -113,9 +113,17 @@ export const fetchPublishedBlogs = createAsyncThunk(
 // 2. Fetch single blog by slug or ID
 export const fetchBlogBySlug = createAsyncThunk(
   "blog/fetchBlogBySlug",
-  async (identifier: string, { rejectWithValue }) => {
+  async (
+    payload: string | { identifier: string; lang?: string },
+    { rejectWithValue }
+  ) => {
     try {
-      const response = await axios.get(`${API_BASE_URL}/blogs/${identifier}`);
+      const identifier =
+        typeof payload === "string" ? payload : payload.identifier;
+      const lang = typeof payload === "string" ? undefined : payload.lang;
+      const response = await axios.get(`${API_BASE_URL}/blogs/${identifier}`, {
+        params: lang ? { lang } : undefined,
+      });
       return response.data.blog;
     } catch (err: unknown) {
       if (axios.isAxiosError(err)) {
