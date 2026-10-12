@@ -30,6 +30,15 @@ export interface NavTranslations {
   };
   productItems: Record<string, { title: string; description: string }>;
   solutionItems: Array<{ title: string; description: string }>;
+  companyItems?: {
+    aboutUs?: string;
+    careers?: string;
+    partners?: string;
+    documentation?: string;
+    restApis?: string;
+    faqs?: string;
+    blog?: string;
+  };
 }
 
 export interface ContactTranslations {

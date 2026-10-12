@@ -22,6 +22,10 @@ import LivechatPlugin from "./pages/livechatPlugin";
 import Telegram from "./pages/telegram";
 import VoiceCalls from "./pages/voiceCalls";
 import RCS from "./pages/rcs";
+import AdminLogin from "./pages/AdminLogin/AdminLogin";
+import Dashboard from "./pages/Admin/Dashboard";
+import Blog from "./pages/Blog";
+import BlogDetails from "./pages/BlogDetails";
 import { useAppSelector } from "./store/hooks";
 
 export default function App() {
@@ -62,10 +66,50 @@ export default function App() {
     | "email"
     | "livechat-plugin"
     | "telegram"
-    | "voice-calls" => {
+    | "voice-calls"
+    | "admin"
+    | "dashboard"
+    | "blog"
+    | "blog-details" => {
+    // Strict Admin Route Guard:
+    // Admin cannot visit the main website until they log out
+    if (typeof window !== "undefined" && localStorage.getItem("inet_admin_token")) {
+      if (
+        window.location.pathname !== "/dashboard" &&
+        window.location.pathname !== "/admin/dashboard"
+      ) {
+        window.history.replaceState(null, "", "/dashboard");
+      }
+      return "dashboard";
+    }
+
     // If URL has a leftover hash, clean it to standard path
     if (window.location.hash) {
       const cleanHash = window.location.hash.replace(/^#\/?/, "").toLowerCase();
+      if (cleanHash.startsWith("blog/") || cleanHash.startsWith("blog#") || (cleanHash !== "blog" && cleanHash !== "blogs" && window.location.pathname.startsWith("/blog/"))) {
+        return "blog-details";
+      }
+      if (cleanHash === "blog" || cleanHash === "blogs") {
+        window.history.replaceState(null, "", "/blog");
+        return "blog";
+      }
+      if (
+        cleanHash === "dashboard" ||
+        cleanHash === "admin-dashboard" ||
+        cleanHash === "admin/dashboard" ||
+        cleanHash === "admindashboard"
+      ) {
+        window.history.replaceState(null, "", "/dashboard");
+        return "dashboard";
+      }
+      if (
+        cleanHash === "admin" ||
+        cleanHash === "admin-login" ||
+        cleanHash === "adminlogin"
+      ) {
+        window.history.replaceState(null, "", "/admin");
+        return "admin";
+      }
       if (cleanHash === "contact") {
         window.history.replaceState(null, "", "/contact");
         return "contact";
@@ -227,6 +271,26 @@ export default function App() {
 
     const path = window.location.pathname.toLowerCase().replace(/\/+$/, "");
 
+    if (
+      path === "/dashboard" ||
+      path === "/admin/dashboard" ||
+      path === "/admin-dashboard"
+    ) {
+      return "dashboard";
+    }
+    if (
+      path === "/admin" ||
+      path === "/admin/login" ||
+      path === "/adminlogin"
+    ) {
+      return "admin";
+    }
+    if (path.startsWith("/blog/")) {
+      return "blog-details";
+    }
+    if (path === "/blog" || path === "/blogs") {
+      return "blog";
+    }
     if (path === "/contact") {
       return "contact";
     }
@@ -379,17 +443,54 @@ export default function App() {
     | "livechat-plugin"
     | "telegram"
     | "voice-calls"
+    | "admin"
+    | "dashboard"
+    | "blog"
+    | "blog-details"
   >(getInitialPage);
 
   useEffect(() => {
     const handleLocationChange = () => {
+      // Strict Admin Route Guard:
+      // While admin token exists, prevent navigating away to the main website
+      if (typeof window !== "undefined" && localStorage.getItem("inet_admin_token")) {
+        if (
+          window.location.pathname !== "/dashboard" &&
+          window.location.pathname !== "/admin/dashboard"
+        ) {
+          window.history.replaceState(null, "", "/dashboard");
+        }
+        setCurrentPage("dashboard");
+        window.scrollTo({ top: 0, behavior: "smooth" });
+        return;
+      }
+
       // Clean any hash if present
       if (window.location.hash) {
         const cleanHash = window.location.hash
           .replace(/^#\/?/, "")
           .toLowerCase();
         let targetPath = "/";
-        if (cleanHash === "contact") targetPath = "/contact";
+        if (cleanHash.startsWith("blog/") || cleanHash.startsWith("blog#") || (cleanHash !== "blog" && cleanHash !== "blogs" && window.location.pathname.startsWith("/blog/"))) {
+          setCurrentPage("blog-details");
+          window.scrollTo({ top: 0, behavior: "smooth" });
+          return;
+        } else if (cleanHash === "blog" || cleanHash === "blogs") {
+          targetPath = "/blog";
+        } else if (
+          cleanHash === "dashboard" ||
+          cleanHash === "admin-dashboard" ||
+          cleanHash === "admin/dashboard" ||
+          cleanHash === "admindashboard"
+        ) {
+          targetPath = "/dashboard";
+        } else if (
+          cleanHash === "admin" ||
+          cleanHash === "admin-login" ||
+          cleanHash === "adminlogin"
+        ) {
+          targetPath = "/admin";
+        } else if (cleanHash === "contact") targetPath = "/contact";
         else if (
           cleanHash === "ai-voice" ||
           cleanHash === "aivoice" ||
@@ -481,10 +582,7 @@ export default function App() {
           targetPath = "/livechat-plugin";
         } else if (cleanHash === "telegram") {
           targetPath = "/telegram";
-        } else if (
-          cleanHash === "voice-calls" ||
-          cleanHash === "voicecalls"
-        ) {
+        } else if (cleanHash === "voice-calls" || cleanHash === "voicecalls") {
           targetPath = "/voice-calls";
         } else if (
           cleanHash === "messaging" ||
@@ -504,7 +602,27 @@ export default function App() {
 
       const path = window.location.pathname.toLowerCase().replace(/\/+$/, "");
 
-      if (path === "/contact") {
+      if (
+        path === "/dashboard" ||
+        path === "/admin/dashboard" ||
+        path === "/admin-dashboard"
+      ) {
+        setCurrentPage("dashboard");
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      } else if (
+        path === "/admin" ||
+        path === "/admin/login" ||
+        path === "/adminlogin"
+      ) {
+        setCurrentPage("admin");
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      } else if (path.startsWith("/blog/")) {
+        setCurrentPage("blog-details");
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      } else if (path === "/blog" || path === "/blogs") {
+        setCurrentPage("blog");
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      } else if (path === "/contact") {
         setCurrentPage("contact");
         window.scrollTo({ top: 0, behavior: "smooth" });
       } else if (
@@ -624,10 +742,7 @@ export default function App() {
       } else if (path === "/telegram") {
         setCurrentPage("telegram");
         window.scrollTo({ top: 0, behavior: "smooth" });
-      } else if (
-        path === "/voice-calls" ||
-        path === "/voicecalls"
-      ) {
+      } else if (path === "/voice-calls" || path === "/voicecalls") {
         setCurrentPage("voice-calls");
         window.scrollTo({ top: 0, behavior: "smooth" });
       } else if (
@@ -649,6 +764,24 @@ export default function App() {
 
       const href = target.getAttribute("href");
       if (!href) return;
+
+      // Strict Admin Session Guard:
+      // While admin is logged in, they CANNOT navigate to public website pages without logging out first
+      if (typeof window !== "undefined" && localStorage.getItem("inet_admin_token")) {
+        const isDashboardRoute =
+          href === "/dashboard" ||
+          href === "/admin/dashboard" ||
+          href.startsWith("/dashboard");
+
+        if (!isDashboardRoute) {
+          e.preventDefault();
+          e.stopPropagation();
+          alert(
+            "Access Restricted: You are currently logged in as Administrator.\n\nYou cannot browse the public website until you sign out from the Dashboard."
+          );
+          return;
+        }
+      }
 
       // If link starts with '/', navigate without hash and without reload
       if (href.startsWith("/") && !href.startsWith("//")) {
@@ -732,6 +865,18 @@ export default function App() {
   }
   if (currentPage === "omnichannel") {
     return <OmniChannel />;
+  }
+  if (currentPage === "admin") {
+    return <AdminLogin />;
+  }
+  if (currentPage === "dashboard") {
+    return <Dashboard />;
+  }
+  if (currentPage === "blog") {
+    return <Blog />;
+  }
+  if (currentPage === "blog-details") {
+    return <BlogDetails />;
   }
   return <Home />;
 }

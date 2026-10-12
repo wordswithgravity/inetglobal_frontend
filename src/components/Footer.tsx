@@ -4,6 +4,7 @@ import logoImg from "../assets/logo.png";
 import { useAppSelector } from "../store/hooks";
 import { getRegionContent } from "../data/regionContent";
 import { getNavTranslations } from "../data/translations";
+import { getCompanyTranslations } from "../data/companyTranslations";
 
 export const Footer: React.FC = () => {
   const selectedRegion = useAppSelector((state) => state.region.selectedRegion);
@@ -12,6 +13,7 @@ export const Footer: React.FC = () => {
   );
   const content = getRegionContent(selectedRegion, selectedLanguage).footer;
   const t = getNavTranslations(selectedLanguage);
+  const companyT = getCompanyTranslations(selectedLanguage);
 
   return (
     <footer className="w-full bg-[#0d1b33] text-slate-300 font-sans pt-12 sm:pt-16 pb-8 px-4 sm:px-6 lg:px-8 border-t border-slate-800">
@@ -192,32 +194,37 @@ export const Footer: React.FC = () => {
             <ul className="space-y-2.5 text-[14px]">
               <li>
                 <a href="/about" className="text-slate-400 hover:text-white transition">
-                  {t.aboutUs}
+                  {companyT.aboutUs}
                 </a>
               </li>
               <li>
                 <a href="/contact" className="text-slate-400 hover:text-white transition">
-                  Careers
+                  {companyT.careers}
                 </a>
               </li>
               <li>
                 <a href="/contact" className="text-slate-400 hover:text-white transition">
-                  Partners
+                  {companyT.partners}
                 </a>
               </li>
               <li>
                 <a href="/contact" className="text-slate-400 hover:text-white transition">
-                  Documentation
+                  {companyT.documentation}
                 </a>
               </li>
               <li>
                 <a href="/contact" className="text-slate-400 hover:text-white transition">
-                  REST APIs
+                  {companyT.restApis}
                 </a>
               </li>
               <li>
                 <a href="/contact" className="text-slate-400 hover:text-white transition">
-                  FAQs
+                  {companyT.faqs}
+                </a>
+              </li>
+              <li>
+                <a href="/blog" className="text-slate-400 hover:text-white transition">
+                  {companyT.blog}
                 </a>
               </li>
             </ul>
