@@ -1,7 +1,11 @@
-import { createSlice, createAsyncThunk, type PayloadAction } from "@reduxjs/toolkit";
+import {
+  createSlice,
+  createAsyncThunk,
+  type PayloadAction,
+} from "@reduxjs/toolkit";
 import axios from "axios";
 
-const API_BASE_URL = "http://localhost:5000/api";
+const API_BASE_URL = "https://api.inetglobalservices.com/api";
 
 export interface InquiryItem {
   _id: string;
@@ -62,10 +66,12 @@ export const submitInquiry = createAsyncThunk(
       return response.data;
     } catch (err: any) {
       return rejectWithValue(
-        err.response?.data?.message || err.message || "Failed to submit inquiry"
+        err.response?.data?.message ||
+          err.message ||
+          "Failed to submit inquiry",
       );
     }
-  }
+  },
 );
 
 // 2. Fetch all inquiries (Admin protected)
@@ -81,18 +87,24 @@ export const fetchInquiries = createAsyncThunk(
       return response.data;
     } catch (err: any) {
       return rejectWithValue(
-        err.response?.data?.message || err.message || "Failed to fetch inquiries"
+        err.response?.data?.message ||
+          err.message ||
+          "Failed to fetch inquiries",
       );
     }
-  }
+  },
 );
 
 // 3. Update inquiry status (Admin protected)
 export const updateInquiryStatus = createAsyncThunk(
   "inquiries/updateInquiryStatus",
   async (
-    { id, status, token }: { id: string; status: InquiryItem["status"]; token: string },
-    { rejectWithValue }
+    {
+      id,
+      status,
+      token,
+    }: { id: string; status: InquiryItem["status"]; token: string },
+    { rejectWithValue },
   ) => {
     try {
       const response = await axios.put(
@@ -103,15 +115,17 @@ export const updateInquiryStatus = createAsyncThunk(
             Authorization: `Bearer ${token}`,
             "Content-Type": "application/json",
           },
-        }
+        },
       );
       return response.data.inquiry;
     } catch (err: any) {
       return rejectWithValue(
-        err.response?.data?.message || err.message || "Failed to update inquiry status"
+        err.response?.data?.message ||
+          err.message ||
+          "Failed to update inquiry status",
       );
     }
-  }
+  },
 );
 
 // 4. Delete inquiry (Admin protected)
@@ -127,10 +141,12 @@ export const deleteInquiry = createAsyncThunk(
       return id;
     } catch (err: any) {
       return rejectWithValue(
-        err.response?.data?.message || err.message || "Failed to delete inquiry"
+        err.response?.data?.message ||
+          err.message ||
+          "Failed to delete inquiry",
       );
     }
-  }
+  },
 );
 
 export const inquirySlice = createSlice({
@@ -181,7 +197,8 @@ export const inquirySlice = createSlice({
       .addCase(fetchInquiries.fulfilled, (state, action) => {
         state.loading = false;
         state.inquiries = action.payload.inquiries || [];
-        state.count = action.payload.count || action.payload.inquiries?.length || 0;
+        state.count =
+          action.payload.count || action.payload.inquiries?.length || 0;
       })
       .addCase(fetchInquiries.rejected, (state, action) => {
         state.loading = false;
@@ -190,23 +207,33 @@ export const inquirySlice = createSlice({
 
     // updateInquiryStatus
     builder
-      .addCase(updateInquiryStatus.fulfilled, (state, action: PayloadAction<InquiryItem>) => {
-        const updated = action.payload;
-        const index = state.inquiries.findIndex((inq) => inq._id === updated._id);
-        if (index !== -1) {
-          state.inquiries[index] = updated;
-        }
-      })
+      .addCase(
+        updateInquiryStatus.fulfilled,
+        (state, action: PayloadAction<InquiryItem>) => {
+          const updated = action.payload;
+          const index = state.inquiries.findIndex(
+            (inq) => inq._id === updated._id,
+          );
+          if (index !== -1) {
+            state.inquiries[index] = updated;
+          }
+        },
+      )
       .addCase(updateInquiryStatus.rejected, (state, action) => {
         state.error = (action.payload as string) || "Failed to update status";
       });
 
     // deleteInquiry
     builder
-      .addCase(deleteInquiry.fulfilled, (state, action: PayloadAction<string>) => {
-        state.inquiries = state.inquiries.filter((inq) => inq._id !== action.payload);
-        state.count = state.inquiries.length;
-      })
+      .addCase(
+        deleteInquiry.fulfilled,
+        (state, action: PayloadAction<string>) => {
+          state.inquiries = state.inquiries.filter(
+            (inq) => inq._id !== action.payload,
+          );
+          state.count = state.inquiries.length;
+        },
+      )
       .addCase(deleteInquiry.rejected, (state, action) => {
         state.error = (action.payload as string) || "Failed to delete inquiry";
       });

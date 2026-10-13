@@ -1,7 +1,11 @@
-import { createSlice, createAsyncThunk, type PayloadAction } from "@reduxjs/toolkit";
+import {
+  createSlice,
+  createAsyncThunk,
+  type PayloadAction,
+} from "@reduxjs/toolkit";
 import axios from "axios";
 
-const API_BASE_URL = "http://localhost:5000/api";
+const API_BASE_URL = "https://api.inetglobalservices.com/api";
 
 export interface SubscriberItem {
   _id: string;
@@ -67,16 +71,19 @@ export const subscribeNewsletter = createAsyncThunk(
   "siteSettings/subscribeNewsletter",
   async (email: string, { rejectWithValue }) => {
     try {
-      const response = await axios.post(`${API_BASE_URL}/newsletter/subscribe`, {
-        email,
-      });
+      const response = await axios.post(
+        `${API_BASE_URL}/newsletter/subscribe`,
+        {
+          email,
+        },
+      );
       return response.data;
     } catch (err: any) {
       return rejectWithValue(
-        err.response?.data?.message || err.message || "Failed to subscribe"
+        err.response?.data?.message || err.message || "Failed to subscribe",
       );
     }
-  }
+  },
 );
 
 // 2. Fetch All Subscribers (Admin)
@@ -90,32 +97,40 @@ export const fetchSubscribers = createAsyncThunk(
       return response.data;
     } catch (err: any) {
       return rejectWithValue(
-        err.response?.data?.message || err.message || "Failed to fetch subscribers"
+        err.response?.data?.message ||
+          err.message ||
+          "Failed to fetch subscribers",
       );
     }
-  }
+  },
 );
 
 // 3. Update Subscriber Status (Admin)
 export const updateSubscriberStatus = createAsyncThunk(
   "siteSettings/updateSubscriberStatus",
   async (
-    { id, status, token }: { id: string; status: "active" | "unsubscribed"; token: string },
-    { rejectWithValue }
+    {
+      id,
+      status,
+      token,
+    }: { id: string; status: "active" | "unsubscribed"; token: string },
+    { rejectWithValue },
   ) => {
     try {
       const response = await axios.put(
         `${API_BASE_URL}/admin/subscribers/${id}/status`,
         { status },
-        { headers: { Authorization: `Bearer ${token}` } }
+        { headers: { Authorization: `Bearer ${token}` } },
       );
       return response.data.subscriber;
     } catch (err: any) {
       return rejectWithValue(
-        err.response?.data?.message || err.message || "Failed to update subscriber"
+        err.response?.data?.message ||
+          err.message ||
+          "Failed to update subscriber",
       );
     }
-  }
+  },
 );
 
 // 4. Delete Subscriber (Admin)
@@ -129,10 +144,12 @@ export const deleteSubscriber = createAsyncThunk(
       return id;
     } catch (err: any) {
       return rejectWithValue(
-        err.response?.data?.message || err.message || "Failed to delete subscriber"
+        err.response?.data?.message ||
+          err.message ||
+          "Failed to delete subscriber",
       );
     }
-  }
+  },
 );
 
 // 5. Fetch Social Links (Public)
@@ -144,10 +161,12 @@ export const fetchSocialLinks = createAsyncThunk(
       return response.data.socialLinks;
     } catch (err: any) {
       return rejectWithValue(
-        err.response?.data?.message || err.message || "Failed to fetch social links"
+        err.response?.data?.message ||
+          err.message ||
+          "Failed to fetch social links",
       );
     }
-  }
+  },
 );
 
 // 6. Update Social Links (Admin)
@@ -155,21 +174,23 @@ export const updateSocialLinks = createAsyncThunk(
   "siteSettings/updateSocialLinks",
   async (
     { links, token }: { links: Partial<SocialLinksData>; token: string },
-    { rejectWithValue }
+    { rejectWithValue },
   ) => {
     try {
       const response = await axios.put(
         `${API_BASE_URL}/admin/social-links`,
         links,
-        { headers: { Authorization: `Bearer ${token}` } }
+        { headers: { Authorization: `Bearer ${token}` } },
       );
       return response.data.socialLinks;
     } catch (err: any) {
       return rejectWithValue(
-        err.response?.data?.message || err.message || "Failed to update social links"
+        err.response?.data?.message ||
+          err.message ||
+          "Failed to update social links",
       );
     }
-  }
+  },
 );
 
 export const siteSettingsSlice = createSlice({
@@ -199,12 +220,14 @@ export const siteSettingsSlice = createSlice({
       .addCase(subscribeNewsletter.fulfilled, (state, action) => {
         state.subscribeSubmitting = false;
         state.subscribeSuccess = true;
-        state.subscribeMessage = action.payload.message || "Subscribed successfully!";
+        state.subscribeMessage =
+          action.payload.message || "Subscribed successfully!";
       })
       .addCase(subscribeNewsletter.rejected, (state, action) => {
         state.subscribeSubmitting = false;
         state.subscribeSuccess = false;
-        state.subscribeError = (action.payload as string) || "Failed to subscribe";
+        state.subscribeError =
+          (action.payload as string) || "Failed to subscribe";
       });
 
     // fetchSubscribers
@@ -219,24 +242,31 @@ export const siteSettingsSlice = createSlice({
       })
       .addCase(fetchSubscribers.rejected, (state, action) => {
         state.subscribersLoading = false;
-        state.subscribersError = (action.payload as string) || "Failed to load subscribers";
+        state.subscribersError =
+          (action.payload as string) || "Failed to load subscribers";
       });
 
     // updateSubscriberStatus
-    builder
-      .addCase(updateSubscriberStatus.fulfilled, (state, action: PayloadAction<SubscriberItem>) => {
+    builder.addCase(
+      updateSubscriberStatus.fulfilled,
+      (state, action: PayloadAction<SubscriberItem>) => {
         const updated = action.payload;
         const index = state.subscribers.findIndex((s) => s._id === updated._id);
         if (index !== -1) {
           state.subscribers[index] = updated;
         }
-      });
+      },
+    );
 
     // deleteSubscriber
-    builder
-      .addCase(deleteSubscriber.fulfilled, (state, action: PayloadAction<string>) => {
-        state.subscribers = state.subscribers.filter((s) => s._id !== action.payload);
-      });
+    builder.addCase(
+      deleteSubscriber.fulfilled,
+      (state, action: PayloadAction<string>) => {
+        state.subscribers = state.subscribers.filter(
+          (s) => s._id !== action.payload,
+        );
+      },
+    );
 
     // fetchSocialLinks
     builder
@@ -251,7 +281,8 @@ export const siteSettingsSlice = createSlice({
       })
       .addCase(fetchSocialLinks.rejected, (state, action) => {
         state.socialLoading = false;
-        state.socialError = (action.payload as string) || "Failed to load social links";
+        state.socialError =
+          (action.payload as string) || "Failed to load social links";
       });
 
     // updateSocialLinks
@@ -270,10 +301,12 @@ export const siteSettingsSlice = createSlice({
       })
       .addCase(updateSocialLinks.rejected, (state, action) => {
         state.socialUpdating = false;
-        state.socialError = (action.payload as string) || "Failed to update social links";
+        state.socialError =
+          (action.payload as string) || "Failed to update social links";
       });
   },
 });
 
-export const { resetSubscribeStatus, clearSocialFeedback } = siteSettingsSlice.actions;
+export const { resetSubscribeStatus, clearSocialFeedback } =
+  siteSettingsSlice.actions;
 export default siteSettingsSlice.reducer;

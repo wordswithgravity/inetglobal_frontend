@@ -50,34 +50,34 @@ export const languageTemplates: Record<
         {
           title: isGlobal ? "Voice Services" : `${country} Voice & SIP Trunking`,
           description: isGlobal
-            ? "International SIP trunking with flexible route options designed around quality, localized CLI coverage, and optimized termination costs."
+            ? "International SIP trunking with reliable voice connectivity, flexible routing, and cost-effective solutions for global telecom operators and businesses."
             : `High-concurrency call traffic in ${country} with guaranteed CLI, premium route termination, and direct local telco interconnects.`,
           features: [
-            isGlobal ? "High-quality voice connections" : "Pure CLI Route Guarantee",
-            isGlobal ? "Flexible route options" : "Direct Operator Interconnects",
-            isGlobal ? "Global coverage" : `Pan-${country} Virtual & Toll-Free Numbers`,
+            isGlobal ? "International voice termination" : "Pure CLI Route Guarantee",
+            isGlobal ? "Flexible SIP trunking and routing" : "Direct Operator Interconnects",
+            isGlobal ? "High-quality call connectivity" : `Pan-${country} Virtual & Toll-Free Numbers`,
           ],
         },
         {
           title: isGlobal ? "Messaging" : `Best SMS Services in ${country}`,
           description: isGlobal
-            ? "Deliver critical transactional SMS, OTPs, and rich business messaging directly to handsets worldwide with high delivery assurance."
+            ? "Deliver business-critical SMS, OTPs, and transactional messages worldwide with scalable messaging solutions designed for reliable communication."
             : `High-speed transactional SMS, verification codes under 2 seconds, and compliant bulk marketing across all operators in ${country}.`,
           features: [
-            isGlobal ? "Sub-second OTP delivery" : `Direct Operator Whitelisting in ${country}`,
-            isGlobal ? "High delivery assurance" : "Sub-2s OTP Delivery Guarantee",
-            isGlobal ? "Rich media messaging (RCS)" : "Dynamic Failover & Operator Routing",
+            isGlobal ? "SMS and OTP delivery" : `Direct Operator Whitelisting in ${country}`,
+            isGlobal ? "Bulk and transactional messaging" : "Sub-2s OTP Delivery Guarantee",
+            isGlobal ? "Messaging API integration" : "Dynamic Failover & Operator Routing",
           ],
         },
         {
           title: isGlobal ? "Omnichannels" : `${country} Omnichannel & WhatsApp API`,
           description: isGlobal
-            ? "Unify Voice, SMS, WhatsApp, and Verification into a single developer-friendly REST API suite designed for instant deployment."
+            ? "Simplify customer communication by connecting voice, SMS, WhatsApp, and verification services through integrated communication solutions."
             : `Official WhatsApp Business API, RCS rich communication, and multi-channel messaging tailored for customer engagement in ${country}.`,
           features: [
-            isGlobal ? "Official WhatsApp Business API" : "Official WhatsApp Business API",
-            isGlobal ? "RCS conversational messaging" : "RCS Verified Sender with Brand Badge",
-            isGlobal ? "Unified REST API suite" : "Unified Multi-Channel Rest APIs",
+            isGlobal ? "Multi-channel communication" : "Official WhatsApp Business API",
+            isGlobal ? "Unified API integration" : "RCS Verified Sender with Brand Badge",
+            isGlobal ? "Streamlined customer interactions" : "Unified Multi-Channel Rest APIs",
           ],
         },
       ],

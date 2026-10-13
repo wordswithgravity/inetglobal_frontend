@@ -57,23 +57,28 @@ export const AdminChangePassword: React.FC<AdminChangePasswordProps> = ({
     }
 
     if (currentPassword === newPassword) {
-      setErrorMessage("New password must be different from your current password.");
+      setErrorMessage(
+        "New password must be different from your current password.",
+      );
       return;
     }
 
     try {
       setIsLoading(true);
-      const res = await fetch("http://localhost:5000/api/admin/change-password", {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
+      const res = await fetch(
+        "https://api.inetglobalservices.com/api/admin/change-password",
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify({
+            currentPassword,
+            newPassword,
+          }),
         },
-        body: JSON.stringify({
-          currentPassword,
-          newPassword,
-        }),
-      });
+      );
 
       const data = await res.json();
 
@@ -93,7 +98,9 @@ export const AdminChangePassword: React.FC<AdminChangePasswordProps> = ({
       if (err instanceof Error) {
         setErrorMessage(err.message);
       } else {
-        setErrorMessage("An unexpected error occurred while changing password.");
+        setErrorMessage(
+          "An unexpected error occurred while changing password.",
+        );
       }
     } finally {
       setIsLoading(false);
@@ -115,7 +122,8 @@ export const AdminChangePassword: React.FC<AdminChangePasswordProps> = ({
             </span>
           </h2>
           <p className="text-xs text-slate-500 mt-1">
-            Update your administrator credentials to keep your console and blog management secure.
+            Update your administrator credentials to keep your console and blog
+            management secure.
           </p>
         </div>
       </div>
@@ -228,7 +236,9 @@ export const AdminChangePassword: React.FC<AdminChangePasswordProps> = ({
 
           {/* Password Security Rules */}
           <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200 text-xs text-slate-600 space-y-1.5">
-            <div className="font-bold text-slate-800">Security Requirements:</div>
+            <div className="font-bold text-slate-800">
+              Security Requirements:
+            </div>
             <ul className="list-disc list-inside space-y-1 text-slate-500">
               <li>Minimum 6 characters long</li>
               <li>Must be different from your current password</li>

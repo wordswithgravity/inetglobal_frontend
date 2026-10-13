@@ -90,7 +90,7 @@ export const AboutServices: React.FC<AboutServicesProps> = ({ t }) => {
                   href={service.href}
                   className="inline-flex items-center gap-2 text-[13.5px] font-bold text-[#83184d] group-hover:text-[#698a22] transition-colors pt-1"
                 >
-                  <span>{service.title}</span>
+                  <span>{service.cta || `Explore ${service.title}`}</span>
                   <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                 </a>
               </div>

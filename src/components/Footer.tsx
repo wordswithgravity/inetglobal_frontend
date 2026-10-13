@@ -368,15 +368,15 @@ export const Footer: React.FC = () => {
           <p>{content.copyright}</p>
 
           <div className="flex items-center gap-3">
-            <a href="#privacy" className="hover:text-slate-300 transition">
+            <a href="/privacy-policy" className="hover:text-slate-300 transition">
               {t.privacyPolicy}
             </a>
             <span className="text-slate-700">|</span>
-            <a href="#terms" className="hover:text-slate-300 transition">
+            <a href="/terms-of-service" className="hover:text-slate-300 transition">
               {t.termsOfService}
             </a>
             <span className="text-slate-700">|</span>
-            <a href="#security" className="hover:text-slate-300 transition">
+            <a href="/security-and-compliance" className="hover:text-slate-300 transition">
               {t.securityCompliance}
             </a>
           </div>

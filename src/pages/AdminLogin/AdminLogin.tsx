@@ -10,7 +10,6 @@ import {
   AlertCircle,
   Loader2,
   Sparkles,
-  Server,
   LogOut,
   LayoutDashboard,
   Activity,
@@ -77,7 +76,7 @@ export const AdminLogin: React.FC = () => {
   // Verify token on mount if stored
   useEffect(() => {
     if (token) {
-      fetch("http://localhost:5000/api/admin/me", {
+      fetch("https://api.inetglobalservices.com/api/admin/me", {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -107,13 +106,16 @@ export const AdminLogin: React.FC = () => {
     setIsLoading(true);
 
     try {
-      const response = await fetch("http://localhost:5000/api/admin/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
+      const response = await fetch(
+        "https://api.inetglobalservices.com/api/admin/login",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ email: email.trim(), password }),
         },
-        body: JSON.stringify({ email: email.trim(), password }),
-      });
+      );
 
       const data = await response.json();
 
@@ -285,20 +287,6 @@ export const AdminLogin: React.FC = () => {
                       <div className="text-lg font-bold text-emerald-700 flex items-center gap-1.5 mt-0.5">
                         <span className="w-2 h-2 rounded-full bg-emerald-600 animate-pulse" />
                         Online & Active
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="p-5 rounded-2xl bg-[#EEF2EB]/60 border border-slate-200 flex items-center gap-4">
-                    <div className="p-3 rounded-xl bg-slate-800 text-white shadow-xs">
-                      <Server className="w-6 h-6" />
-                    </div>
-                    <div>
-                      <div className="text-xs font-semibold text-slate-500 uppercase tracking-wider">
-                        API Endpoint
-                      </div>
-                      <div className="text-sm font-bold text-slate-800 mt-0.5">
-                        http://localhost:5000
                       </div>
                     </div>
                   </div>

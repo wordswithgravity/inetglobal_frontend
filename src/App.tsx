@@ -26,6 +26,9 @@ import AdminLogin from "./pages/AdminLogin/AdminLogin";
 import Dashboard from "./pages/Admin/Dashboard";
 import Blog from "./pages/Blog";
 import BlogDetails from "./pages/BlogDetails";
+import PrivacyPolicy from "./pages/privacypolicy";
+import TermsOfServices from "./pages/termsofservices";
+import SecurityAndCompliance from "./pages/securtiyandcomplience";
 import { useAppSelector } from "./store/hooks";
 
 export default function App() {
@@ -70,7 +73,10 @@ export default function App() {
     | "admin"
     | "dashboard"
     | "blog"
-    | "blog-details" => {
+    | "blog-details"
+    | "privacy-policy"
+    | "terms-of-service"
+    | "security-and-compliance" => {
     // Strict Admin Route Guard:
     // Admin cannot visit the main website until they log out
     if (typeof window !== "undefined" && localStorage.getItem("inet_admin_token")) {
@@ -294,6 +300,34 @@ export default function App() {
     if (path === "/contact") {
       return "contact";
     }
+    if (
+      path === "/privacy-policy" ||
+      path === "/privacypolicy" ||
+      path === "/privacy" ||
+      path === "/privacy-policy/"
+    ) {
+      return "privacy-policy";
+    }
+    if (
+      path === "/terms-of-service" ||
+      path === "/termsofservice" ||
+      path === "/terms-of-services" ||
+      path === "/termsofservices" ||
+      path === "/terms" ||
+      path === "/terms-of-service/"
+    ) {
+      return "terms-of-service";
+    }
+    if (
+      path === "/security-and-compliance" ||
+      path === "/securtiyandcomplience" ||
+      path === "/securityandcompliance" ||
+      path === "/security-compliance" ||
+      path === "/security" ||
+      path === "/security-and-compliance/"
+    ) {
+      return "security-and-compliance";
+    }
     if (path === "/about" || path === "/about-us" || path === "/aboutus") {
       return "about";
     }
@@ -447,6 +481,9 @@ export default function App() {
     | "dashboard"
     | "blog"
     | "blog-details"
+    | "privacy-policy"
+    | "terms-of-service"
+    | "security-and-compliance"
   >(getInitialPage);
 
   useEffect(() => {
@@ -624,6 +661,31 @@ export default function App() {
         window.scrollTo({ top: 0, behavior: "smooth" });
       } else if (path === "/contact") {
         setCurrentPage("contact");
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      } else if (
+        path === "/privacy-policy" ||
+        path === "/privacypolicy" ||
+        path === "/privacy"
+      ) {
+        setCurrentPage("privacy-policy");
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      } else if (
+        path === "/terms-of-service" ||
+        path === "/termsofservice" ||
+        path === "/terms-of-services" ||
+        path === "/termsofservices" ||
+        path === "/terms"
+      ) {
+        setCurrentPage("terms-of-service");
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      } else if (
+        path === "/security-and-compliance" ||
+        path === "/securtiyandcomplience" ||
+        path === "/securityandcompliance" ||
+        path === "/security-compliance" ||
+        path === "/security"
+      ) {
+        setCurrentPage("security-and-compliance");
         window.scrollTo({ top: 0, behavior: "smooth" });
       } else if (
         path === "/ai-voice" ||
@@ -877,6 +939,15 @@ export default function App() {
   }
   if (currentPage === "blog-details") {
     return <BlogDetails />;
+  }
+  if (currentPage === "privacy-policy") {
+    return <PrivacyPolicy />;
+  }
+  if (currentPage === "terms-of-service") {
+    return <TermsOfServices />;
+  }
+  if (currentPage === "security-and-compliance") {
+    return <SecurityAndCompliance />;
   }
   return <Home />;
 }

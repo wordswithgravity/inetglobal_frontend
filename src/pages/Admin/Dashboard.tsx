@@ -81,7 +81,7 @@ export const Dashboard: React.FC = () => {
     dispatch(fetchAdminBlogs(token));
 
     // Verify token with backend
-    fetch("http://localhost:5000/api/admin/me", {
+    fetch("https://api.inetglobalservices.com/api/admin/me", {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -101,7 +101,9 @@ export const Dashboard: React.FC = () => {
     return null;
   }
 
-  const publishedCount = adminBlogs.filter((b) => b.status === "published").length;
+  const publishedCount = adminBlogs.filter(
+    (b) => b.status === "published",
+  ).length;
   const draftCount = adminBlogs.filter((b) => b.status === "draft").length;
 
   return (
@@ -278,7 +280,6 @@ export const Dashboard: React.FC = () => {
             </div>
             <ChevronRight className="w-3.5 h-3.5 opacity-60" />
           </button>
-
         </div>
 
         {/* Bottom Sidebar Action: Sign Out */}
@@ -372,9 +373,7 @@ export const Dashboard: React.FC = () => {
         {/* Main Content Body */}
         <main className="flex-1 p-4 sm:p-6 lg:p-8 max-w-[1440px] w-full mx-auto">
           {/* SECTION 1: BLOG POSTS (DEFAULT ACTIVE) */}
-          {activeSection === "blog-posts" && (
-            <BlogPost token={token} />
-          )}
+          {activeSection === "blog-posts" && <BlogPost token={token} />}
 
           {/* SECTION 2: OVERVIEW */}
           {activeSection === "overview" && (
@@ -433,7 +432,8 @@ export const Dashboard: React.FC = () => {
                       Quick Blog Management Actions
                     </h2>
                     <p className="text-xs text-slate-500 mt-0.5">
-                      Manage telecom articles, upload Cloudinary media, and publish to the live site.
+                      Manage telecom articles, upload Cloudinary media, and
+                      publish to the live site.
                     </p>
                   </div>
 
@@ -454,7 +454,8 @@ export const Dashboard: React.FC = () => {
                       Post New Article
                     </div>
                     <p className="text-xs text-slate-500 mt-1">
-                      Create structured articles with tables, graphs, and Cloudinary media.
+                      Create structured articles with tables, graphs, and
+                      Cloudinary media.
                     </p>
                   </div>
 
@@ -480,7 +481,8 @@ export const Dashboard: React.FC = () => {
                       <ChevronRight className="w-3.5 h-3.5 text-slate-400" />
                     </div>
                     <p className="text-xs text-slate-500 mt-1">
-                      Review inquiry requests submitted through the contact form.
+                      Review inquiry requests submitted through the contact
+                      form.
                     </p>
                   </div>
                 </div>

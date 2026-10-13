@@ -1,7 +1,11 @@
-import { createSlice, createAsyncThunk, type PayloadAction } from "@reduxjs/toolkit";
+import {
+  createSlice,
+  createAsyncThunk,
+  type PayloadAction,
+} from "@reduxjs/toolkit";
 import axios from "axios";
 
-const API_BASE_URL = "http://localhost:5000/api";
+const API_BASE_URL = "https://api.inetglobalservices.com/api";
 
 export interface GraphPoint {
   label: string;
@@ -95,7 +99,7 @@ export const fetchPublishedBlogs = createAsyncThunk(
   "blog/fetchPublishedBlogs",
   async (
     params: { category?: string; search?: string; lang?: string } | undefined,
-    { rejectWithValue }
+    { rejectWithValue },
   ) => {
     try {
       const response = await axios.get(`${API_BASE_URL}/blogs`, {
@@ -108,7 +112,7 @@ export const fetchPublishedBlogs = createAsyncThunk(
       }
       return rejectWithValue("Failed to fetch blogs");
     }
-  }
+  },
 );
 
 // 2. Fetch single blog by slug or ID
@@ -116,7 +120,7 @@ export const fetchBlogBySlug = createAsyncThunk(
   "blog/fetchBlogBySlug",
   async (
     payload: string | { identifier: string; lang?: string },
-    { rejectWithValue }
+    { rejectWithValue },
   ) => {
     try {
       const identifier =
@@ -132,7 +136,7 @@ export const fetchBlogBySlug = createAsyncThunk(
       }
       return rejectWithValue("Failed to fetch blog details");
     }
-  }
+  },
 );
 
 // 3. Admin: Fetch all blogs (Draft + Published)
@@ -150,7 +154,7 @@ export const fetchAdminBlogs = createAsyncThunk(
       }
       return rejectWithValue("Failed to fetch admin blogs");
     }
-  }
+  },
 );
 
 // 4. Admin: Create Blog
@@ -158,7 +162,7 @@ export const createAdminBlog = createAsyncThunk(
   "blog/createAdminBlog",
   async (
     { blogData, token }: { blogData: Partial<BlogItem>; token: string },
-    { rejectWithValue }
+    { rejectWithValue },
   ) => {
     try {
       const response = await axios.post(
@@ -166,7 +170,7 @@ export const createAdminBlog = createAsyncThunk(
         blogData,
         {
           headers: { Authorization: `Bearer ${token}` },
-        }
+        },
       );
       return response.data.blog;
     } catch (err: unknown) {
@@ -175,7 +179,7 @@ export const createAdminBlog = createAsyncThunk(
       }
       return rejectWithValue("Failed to create blog");
     }
-  }
+  },
 );
 
 // 5. Admin: Update Blog
@@ -187,7 +191,7 @@ export const updateAdminBlog = createAsyncThunk(
       blogData,
       token,
     }: { id: string; blogData: Partial<BlogItem>; token: string },
-    { rejectWithValue }
+    { rejectWithValue },
   ) => {
     try {
       const response = await axios.put(
@@ -195,7 +199,7 @@ export const updateAdminBlog = createAsyncThunk(
         blogData,
         {
           headers: { Authorization: `Bearer ${token}` },
-        }
+        },
       );
       return response.data.blog;
     } catch (err: unknown) {
@@ -204,7 +208,7 @@ export const updateAdminBlog = createAsyncThunk(
       }
       return rejectWithValue("Failed to update blog");
     }
-  }
+  },
 );
 
 // 6. Admin: Delete Blog
@@ -222,7 +226,7 @@ export const deleteAdminBlog = createAsyncThunk(
       }
       return rejectWithValue("Failed to delete blog");
     }
-  }
+  },
 );
 
 // 7. Admin: Upload Image to Cloudinary
@@ -230,7 +234,7 @@ export const uploadImageCloudinary = createAsyncThunk(
   "blog/uploadImageCloudinary",
   async (
     { file, token }: { file: File; token: string },
-    { rejectWithValue }
+    { rejectWithValue },
   ) => {
     try {
       const formData = new FormData();
@@ -244,7 +248,7 @@ export const uploadImageCloudinary = createAsyncThunk(
             Authorization: `Bearer ${token}`,
             "Content-Type": "multipart/form-data",
           },
-        }
+        },
       );
       return response.data.url;
     } catch (err: unknown) {
@@ -253,7 +257,7 @@ export const uploadImageCloudinary = createAsyncThunk(
       }
       return rejectWithValue("Image upload to Cloudinary failed");
     }
-  }
+  },
 );
 
 export const blogSlice = createSlice({
@@ -334,7 +338,7 @@ export const blogSlice = createSlice({
     builder.addCase(updateAdminBlog.fulfilled, (state, action) => {
       state.adminLoading = false;
       const index = state.adminBlogs.findIndex(
-        (b) => (b._id || b.id) === (action.payload._id || action.payload.id)
+        (b) => (b._id || b.id) === (action.payload._id || action.payload.id),
       );
       if (index !== -1) {
         state.adminBlogs[index] = action.payload;
@@ -349,7 +353,7 @@ export const blogSlice = createSlice({
     // deleteAdminBlog
     builder.addCase(deleteAdminBlog.fulfilled, (state, action) => {
       state.adminBlogs = state.adminBlogs.filter(
-        (b) => (b._id || b.id) !== action.payload
+        (b) => (b._id || b.id) !== action.payload,
       );
       state.successMessage = "Blog post deleted permanently.";
     });

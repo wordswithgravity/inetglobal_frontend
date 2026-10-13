@@ -128,31 +128,31 @@ export const regionContentMap: Record<string, RegionContent> = {
         {
           title: "Voice Services",
           description:
-            "International SIP trunking with flexible route options designed around quality, localized CLI coverage, and optimized termination costs.",
+            "International SIP trunking with reliable voice connectivity, flexible routing, and cost-effective solutions for global telecom operators and businesses.",
           features: [
-            "High-quality voice connections",
-            "Flexible route options",
-            "Global coverage",
+            "International voice termination",
+            "Flexible SIP trunking and routing",
+            "High-quality call connectivity",
           ],
         },
         {
           title: "Messaging",
           description:
-            "Deliver critical transactional SMS, OTPs, and rich business messaging directly to handsets worldwide with high delivery assurance.",
+            "Deliver business-critical SMS, OTPs, and transactional messages worldwide with scalable messaging solutions designed for reliable communication.",
           features: [
-            "High-quality SMS Routes",
-            "Flexible route options",
-            "Global coverage",
+            "SMS and OTP delivery",
+            "Bulk and transactional messaging",
+            "Messaging API integration",
           ],
         },
         {
           title: "Omnichannels",
           description:
-            "Unify Voice, SMS, WhatsApp, and Verification into a single developer-friendly REST API suite designed for instant deployment.",
+            "Simplify customer communication by connecting voice, SMS, WhatsApp, and verification services through integrated communication solutions.",
           features: [
-            "High-quality voice and SMS Routes",
-            "Flexible route options",
-            "Global coverage",
+            "Multi-channel communication",
+            "Unified API integration",
+            "Streamlined customer interactions",
           ],
         },
       ],

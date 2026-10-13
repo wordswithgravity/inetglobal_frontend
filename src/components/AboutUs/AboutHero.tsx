@@ -35,14 +35,39 @@ export const AboutHero: React.FC<AboutHeroProps> = ({ t }) => {
             </div>
 
             {/* Main Headline */}
-            <h1 className="text-3xl sm:text-5xl lg:text-[50px] font-extrabold text-[#102038] tracking-tight leading-[1.15]">
+            <h1 className="text-3xl sm:text-5xl lg:text-[48px] font-extrabold text-[#102038] tracking-tight leading-[1.16]">
               {t.heroTitle}
             </h1>
 
             {/* Description */}
-            <p className="text-[15px] sm:text-[16.5px] text-slate-600 leading-relaxed max-w-xl">
-              {t.heroSubtitle}
-            </p>
+            <div className="space-y-3 text-[15px] sm:text-[16px] text-slate-600 leading-relaxed max-w-2xl">
+              <p>
+                {t.heroSubtitle}
+              </p>
+              <p className="text-[14px] sm:text-[14.5px] text-slate-500">
+                Established on 19 June 2017 in Labuan, Malaysia, iNet Global is committed to reliable network connectivity, technical excellence, and customer satisfaction. We build communication solutions designed to support evolving business requirements and international growth.
+              </p>
+            </div>
+
+            {/* Key Highlights */}
+            <div className="pt-2 space-y-2.5">
+              <div className="text-[12.5px] font-bold text-[#102038] uppercase tracking-wider">
+                Key Highlights:
+              </div>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+                {[
+                  "Global Telecommunications",
+                  "Reliable Network Connectivity",
+                  "Scalable Communication Infrastructure",
+                  "Continuous Technical Support",
+                ].map((highlight, hIdx) => (
+                  <div key={hIdx} className="flex items-center gap-2 text-[13.5px] text-slate-700 font-medium">
+                    <CheckCircle2 className="w-4 h-4 text-[#698a22] shrink-0" />
+                    <span>{highlight}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
 
             {/* Action CTAs */}
             <div className="pt-2 flex flex-wrap items-center gap-4">
@@ -60,21 +85,6 @@ export const AboutHero: React.FC<AboutHeroProps> = ({ t }) => {
               >
                 {t.servicesBtn}
               </a>
-            </div>
-
-            {/* 4 Trust Metric Cards */}
-            <div className="pt-6 grid grid-cols-2 sm:grid-cols-4 gap-4 border-t border-slate-200/80">
-              {heroStats.map((stat, idx) => (
-                <div key={idx} className="space-y-0.5">
-                  <div className="text-2xl sm:text-3xl font-extrabold text-[#102038] tracking-tight">
-                    {stat.value}
-                  </div>
-                  <div className="text-[12.5px] font-bold text-[#698a22]">
-                    {stat.label}
-                  </div>
-                  <div className="text-[11px] text-slate-500">{stat.sub}</div>
-                </div>
-              ))}
             </div>
           </div>
 

@@ -61,6 +61,7 @@ export interface AboutUsTranslation {
     href: string;
     badge: string;
     features: string[];
+    cta?: string;
   }[];
   mapBadge: string;
   mapTitle: string;
@@ -90,29 +91,29 @@ export interface AboutUsTranslation {
 const en: AboutUsTranslation = {
   "heroBadge": "ABOUT INET GLOBAL",
   "heroTitle": "Empowering Global Connections with Carrier-Grade Communications",
-  "heroSubtitle": "iNet Global is a premier international telecommunications provider delivering enterprise wholesale voice, secure OTP messaging, virtual DIDs, and next-generation dialer infrastructure across 100+ countries.",
-  "contactBtn": "Contact Our Team",
+  "heroSubtitle": "iNet Global Services Limited is an international telecommunications provider delivering enterprise wholesale voice, secure OTP messaging, virtual DID numbers, and next-generation communication services. We help telecom operators, carriers, and businesses strengthen connectivity, streamline communication, and reach customers across global markets.",
+  "contactBtn": "Connect with Our Team",
   "servicesBtn": "Explore Services",
   "heroStats": [
     {
-      "label": "Countries Connected",
+      "label": "Global Telecommunications",
       "value": "100+",
-      "sub": "Direct carrier termination"
+      "sub": "International markets reached"
     },
     {
-      "label": "Network Reliability",
+      "label": "Reliable Network Connectivity",
       "value": "99.99%",
-      "sub": "Enterprise SLA uptime"
+      "sub": "Carrier-grade uptime"
     },
     {
-      "label": "Monthly Operations",
-      "value": "1B+",
-      "sub": "Voice minutes & SMS delivered"
+      "label": "Scalable Infrastructure",
+      "value": "Global",
+      "sub": "Built for enterprise scale"
     },
     {
-      "label": "Global Technical NOC",
+      "label": "Continuous Technical Support",
       "value": "24/7/365",
-      "sub": "Active latency monitoring"
+      "sub": "Active technical assistance"
     }
   ],
   "phoneMockup": {
@@ -128,172 +129,178 @@ const en: AboutUsTranslation = {
     "card2Badge": "Tier-1 Telco",
     "routesTitle": "Live Route Health",
     "route1": {
-      "name": "US & EU SIP Direct Route",
+      "name": "Wholesale Voice Infrastructure",
       "quality": "100%",
       "status": "Optimized"
     },
     "route2": {
-      "name": "APAC Carrier SMS Gateway",
+      "name": "Global SMS & OTP Gateway",
       "quality": "99.9%",
       "status": "Optimized"
     },
     "route3": {
-      "name": "Global OTP High-Priority Route",
+      "name": "International Virtual Numbers (DID)",
       "quality": "99.8%",
       "status": "Optimized"
     },
-    "bottomStat1": "Round-Trip Latency",
-    "bottomStat1Val": "14ms",
-    "bottomStat2": "Global Availability",
-    "bottomStat2Val": "99.99%"
+    "bottomStat1": "Network Availability",
+    "bottomStat1Val": "99.99%",
+    "bottomStat2": "Carrier Connectivity",
+    "bottomStat2Val": "Carrier-Grade"
   },
   "companyBadge": "WHO WE ARE",
-  "companyTitle": "Built on Global Reliability, Designed for Enterprise Growth",
-  "companySubtitle": "Delivering mission-critical telecom services to telecom operators, aggregators, and enterprises worldwide.",
-  "companyStory1": "Founded with the ambition to simplify and elevate global telecommunications, iNet Global Services has established direct interconnects with premier Tier-1 carriers across the Americas, Europe, Asia, and the Middle East.",
-  "companyStory2": "Today, we handle billions of minutes and messages each month for global fintechs, healthcare providers, ecommerce leaders, and telecom resellers, all powered by our resilient carrier infrastructure.",
+  "companyTitle": "Built on Global Reliability, Engineered for Scalable Enterprise Growth",
+  "companySubtitle": "At iNet Global, we believe reliable communication is the foundation of every successful business connection. We simplify complex telecommunications requirements by delivering flexible voice, messaging, and connectivity services for carriers, telecom operators, and enterprise customers.",
+  "companyStory1": "iNet Global Services Limited was incorporated on 19 June 2017 under the Labuan Companies Act 1990 in Malaysia. Since its establishment, our focus has been on delivering dependable communication services, supporting international connectivity, and helping businesses build stronger connections across global markets.",
+  "companyStory2": "Our approach combines telecommunications expertise, technology-driven infrastructure, and customer-focused service to support operational efficiency, business growth, and long-term partnerships.",
   "missionTitle": "Our Mission",
-  "missionDesc": "To provide uncompromised voice quality, trusted verification messaging, and seamless virtual numbers that enable enterprises to communicate effortlessly anywhere.",
+  "missionDesc": "To deliver reliable, high-quality, and scalable telecommunications services that connect businesses worldwide. We aim to simplify global communication through efficient network infrastructure, flexible technology, and customer-focused solutions.",
   "visionTitle": "Our Vision",
-  "visionDesc": "To be the world's most dependable global communications infrastructure partner, continually innovating with AI intelligence and carrier-grade performance.",
-  "coreValuesTitle": "Principles That Guide Our Operations",
+  "visionDesc": "To become a trusted global telecommunications partner recognized for connectivity, service quality, technical innovation, and dependable communication infrastructure.",
+  "coreValuesTitle": "What Drives Us",
   "values": [
     {
-      "title": "Uncompromising Quality",
-      "desc": "Zero-compromise CLI voice routes and sub-second OTP messaging guarantees."
+      "title": "Carrier-Grade Excellence",
+      "desc": "We focus on dependable telecommunications infrastructure, efficient routing, and consistent service performance to support business-critical communication."
     },
     {
-      "title": "Carrier-Grade Reliability",
-      "desc": "99.99% enterprise uptime backed by proactive 24/7/365 NOC surveillance."
+      "title": "Uncompromising Security",
+      "desc": "We prioritize responsible data handling, appropriate security controls, and reliable service operations to support secure communication workflows."
     },
     {
-      "title": "Global Scalability",
-      "desc": "Seamless infrastructure engineered to scale smoothly alongside your traffic spikes."
+      "title": "Customer Commitment",
+      "desc": "We build lasting partnerships by understanding customer requirements, providing responsive assistance, and working toward practical communication outcomes."
     },
     {
-      "title": "Transparent Partnership",
-      "desc": "Direct billing, live analytics dashboards, and dedicated technical account managers."
+      "title": "Continuous Innovation",
+      "desc": "We continuously explore improvements in telecommunications technology, automation, messaging, and communication platforms to meet changing business needs."
     }
   ],
-  "whatWeDoBadge": "WHAT WE DO",
-  "whatWeDoTitle": "Connecting Every Corner of the World with Unified Telecom",
-  "whatWeDoSubtitle": "Built from the ground up to support high-throughput, latency-sensitive business operations.",
+  "whatWeDoBadge": "OUR CAPABILITIES",
+  "whatWeDoTitle": "Connecting Every Corner of the World Through Unified Telecom",
+  "whatWeDoSubtitle": "From high-volume wholesale voice termination to mission-critical OTP authentication, iNet Global provides telecommunications services designed to connect businesses, networks, and customers across supported markets.",
   "pillars": [
     {
-      "title": "Voice Termination & SIP Trunking",
-      "desc": "Carrier-grade international voice termination with guaranteed CLI and low latency.",
+      "title": "Wholesale Voice Infrastructure",
+      "desc": "Connect with carrier networks through wholesale voice services designed to support international call termination and business communication.",
       "points": [
-        "100+ direct carrier routes",
-        "Tier-1 A-Z international termination",
-        "Intelligent least-cost routing engine",
-        "Redundant SIP trunk gateways"
+        "International voice routing and termination",
+        "Carrier interconnection options",
+        "Flexible routing configurations",
+        "Voice traffic management"
       ]
     },
     {
-      "title": "High-Assurance Messaging & OTP",
-      "desc": "Fast and reliable SMS delivery for time-sensitive one-time passwords and transaction notifications.",
+      "title": "Global SMS & OTP Gateway",
+      "desc": "Support business messaging and user verification through SMS connectivity and OTP messaging services.",
       "points": [
-        "Sub-2 second OTP delivery",
-        "SMPP and REST API connectivity",
-        "Real-time delivery receipts (DLR)",
-        "Direct mobile operator routes"
+        "SMS-based OTP delivery",
+        "Business messaging connectivity",
+        "API integration capabilities",
+        "Messaging delivery reporting where available"
       ]
     },
     {
-      "title": "Global Virtual Numbers (DID)",
-      "desc": "Local, toll-free, and mobile virtual numbers in over 100 countries for global presence.",
+      "title": "International Virtual Numbers (DID)",
+      "desc": "Establish a local business presence in supported markets with virtual phone numbers and flexible inbound calling capabilities.",
       "points": [
-        "Instant number provisioning",
-        "Two-way voice and SMS capable",
-        "Flexible SIP forwarding",
-        "Localized caller ID presence"
+        "Local and international DID numbers",
+        "Toll-free number options where available",
+        "Integration with compatible voice systems",
+        "Flexible inbound call routing"
       ]
     },
     {
-      "title": "Cloud Contact Center Dialer",
-      "desc": "WebRTC and mobile predictive dialer solutions tailored for sales and support teams.",
+      "title": "Next-Gen Dialer & Omnichannel",
+      "desc": "Connect customer communication workflows through supported dialer, voice, and messaging technologies.",
       "points": [
-        "Predictive & progressive modes",
-        "WebRTC in-browser calling",
-        "Live supervisor whisper & barge-in",
-        "Automated CRM call logging"
+        "Predictive and progressive dialing capabilities where supported",
+        "WebRTC-based communication",
+        "Integration with compatible messaging platforms",
+        "Centralized customer interaction workflows"
       ]
     }
   ],
   "servicesBadge": "OUR SERVICES",
   "servicesTitle": "Complete Telecommunications Suite for Modern Enterprises",
-  "servicesSubtitle": "Explore our modular products designed to scale your operations, enhance customer engagement, and lower operational overhead.",
+  "servicesSubtitle": "Explore our range of telecommunications products and services designed to support network operators, service providers, and businesses with evolving communication requirements.",
   "servicesList": [
     {
       "id": "wholesale-voice",
       "title": "Wholesale Voice",
-      "desc": "Reliable international voice termination with guaranteed CLI and premium carrier quality.",
+      "desc": "Reliable international voice termination and carrier connectivity designed to support scalable call routing and business communication.",
       "href": "/wholesale-voice",
-      "badge": "Direct Routes",
+      "badge": "Core Voice",
+      "cta": "Explore Wholesale Voice",
       "features": [
-        "A-Z Global Coverage",
-        "Tier-1 Interconnects",
-        "Least Cost Routing"
+        "Global voice connectivity",
+        "Carrier interconnection",
+        "Flexible call routing"
       ]
     },
     {
       "id": "ai-voice",
       "title": "AI Voice Solutions",
-      "desc": "Intelligent automated voice experiences and enterprise IVR built for modern contact centers.",
+      "desc": "Intelligent voice capabilities designed to support automated interactions, streamlined call handling, and integrated business communication workflows.",
       "href": "/voice",
-      "badge": "Automated",
+      "badge": "Intelligent Automation",
+      "cta": "Explore AI Voice",
       "features": [
-        "Natural Voice Interaction",
-        "Smart IVR Routing",
-        "Real-Time Speech Insights"
+        "Voice API integration",
+        "Intelligent call routing",
+        "Voice automation capabilities"
       ]
     },
     {
       "id": "virtual-did",
       "title": "Virtual Numbers (DID)",
-      "desc": "Local, toll-free, and mobile phone numbers across 100+ nations for global brand presence.",
+      "desc": "Local, toll-free, and international phone number options to help businesses establish a presence across supported markets.",
       "href": "/virtual-did",
-      "badge": "100+ Countries",
+      "badge": "Global Numbers",
+      "cta": "Explore Virtual Numbers",
       "features": [
-        "Instant DID Provisioning",
-        "Two-Way Voice & SMS",
-        "Flexible Call Forwarding"
+        "International DID numbers",
+        "Virtual number management",
+        "Flexible call forwarding"
       ]
     },
     {
       "id": "wholesale-message",
       "title": "Wholesale SMS",
-      "desc": "High-volume bulk SMS transmission to mobile subscribers across global network operators.",
+      "desc": "High-volume SMS termination and business messaging services designed to support communication across supported networks and destinations.",
       "href": "/wholesale-message",
-      "badge": "High Throughput",
+      "badge": "Carrier Messaging",
+      "cta": "Explore Wholesale SMS",
       "features": [
-        "Carrier Direct Routes",
-        "SMPP & HTTP Protocol",
-        "Global Reach"
+        "SMS connectivity",
+        "Business messaging",
+        "Global messaging reach"
       ]
     },
     {
       "id": "otp-sms",
       "title": "OTP SMS Portal",
-      "desc": "Ultra-fast authentication message delivery engineered specifically for banks and fintech platforms.",
+      "desc": "Support account verification and authentication workflows with SMS-based one-time passwords and application integration.",
       "href": "/otp-sms",
-      "badge": "Sub-Second Delivery",
+      "badge": "Secure Auth",
+      "cta": "Explore OTP SMS",
       "features": [
-        "99.8% Delivery Rate",
-        "Anti-Fraud Routing",
-        "Encrypted Transmission"
+        "OTP message delivery",
+        "API integration",
+        "Authentication workflow support"
       ]
     },
     {
       "id": "dialer",
       "title": "Complete Dialer Solution",
-      "desc": "WebRTC browser and mobile call center dialer with supervisor monitoring and smart routing.",
+      "desc": "Support business calling operations with dialer technology designed to streamline outbound communication and contact center workflows.",
       "href": "/dialer",
-      "badge": "WebRTC & Mobile",
+      "badge": "Contact Center",
+      "cta": "Explore Dialer Solutions",
       "features": [
-        "Predictive & Progressive Dialing",
-        "Listen, Whisper, Barge-In",
-        "Real-Time Wallboard"
+        "Predictive and progressive dialing where supported",
+        "WebRTC-based communication",
+        "Call management and reporting capabilities"
       ]
     }
   ],
@@ -310,22 +317,22 @@ const en: AboutUsTranslation = {
   "nocDesc": "Proactive latency monitoring, route failover orchestration, and dedicated technical engineers on standby.",
   "mapPinTitle": "iNet Global Operations",
   "mapPinDesc": "Strategic Financial Park hub connected to Tier-1 international carrier transit networks.",
-  "ctaTitle": "Ready to Transform Your Global Telecommunication Infrastructure?",
-  "ctaSubtitle": "Partner with iNet Global to unlock pristine voice routes, high-throughput messaging, and virtual numbers across the globe.",
-  "ctaPrimaryBtn": "Schedule a Consultation",
-  "ctaSecondaryBtn": "Explore Our Products",
+  "ctaTitle": "Let's Build the Right Communication Connection",
+  "ctaSubtitle": "At iNet Global, we believe every successful partnership starts with reliable connectivity and a clear understanding of business needs. Whether you are a telecom operator seeking wholesale voice services, a business requiring global messaging, or an enterprise looking to improve customer communication, we are ready to discuss your requirements. With our experience dating back to 2017, we aim to build lasting partnerships by providing communication solutions aligned with your operational needs and growth objectives.",
+  "ctaPrimaryBtn": "Connect with Our Team",
+  "ctaSecondaryBtn": "Explore Services",
   "floatingTier1Badge": {
-    "title": "Tier-1 Direct Routes",
-    "sub": "99.99% Enterprise SLA"
+    "title": "Carrier-Grade Excellence",
+    "sub": "Global Network Reach"
   },
   "ambientInterconnectBadge": {
-    "title": "Direct Global Interconnects",
-    "sub": "Zero-friction international wholesale transit"
+    "title": "Since 19 June 2017",
+    "sub": "Incorporated in Labuan, Malaysia"
   },
   "mapLiveLocation": "Live Location",
   "postalAddressLabel": "Postal Address",
-  "ctaGuaranteedSla": "99.99% Guaranteed SLA",
-  "ctaDedicatedNoc": "24/7/365 Dedicated NOC"
+  "ctaGuaranteedSla": "Established 2017",
+  "ctaDedicatedNoc": "Global Telecom Partner"
 };
 
 const es: AboutUsTranslation = {
