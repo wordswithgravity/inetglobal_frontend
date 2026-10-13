@@ -149,8 +149,12 @@ const blogSchema = new mongoose.Schema(
     },
     status: {
       type: String,
-      enum: ['draft', 'published'],
+      enum: ['draft', 'published', 'scheduled'],
       default: 'published',
+    },
+    scheduledAt: {
+      type: Date,
+      default: null,
     },
     tags: [
       {

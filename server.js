@@ -20,6 +20,10 @@ app.use(express.urlencoded({ extended: true }));
 // Routes
 const adminRoutes = require('./routes/adminRoutes');
 const blogRoutes = require('./routes/blogRoutes');
+const translateRoutes = require('./routes/translateRoutes');
+const inquiryRoutes = require('./routes/inquiryRoutes');
+const newsletterRoutes = require('./routes/newsletterRoutes');
+const socialLinksRoutes = require('./routes/socialLinksRoutes');
 
 // Health check / Test Route
 app.get('/', (req, res) => {
@@ -34,6 +38,18 @@ app.use('/api/admin', adminRoutes);
 
 // Public Blog API
 app.use('/api/blogs', blogRoutes);
+
+// Public Inquiries API
+app.use('/api/inquiries', inquiryRoutes);
+
+// Public Newsletter API
+app.use('/api/newsletter', newsletterRoutes);
+
+// Public Social Links API
+app.use('/api/social-links', socialLinksRoutes);
+
+// Translation API
+app.use('/api/translate', translateRoutes);
 
 // Cloudinary test / info route
 app.get('/api/cloudinary-check', async (req, res) => {
@@ -54,9 +70,11 @@ app.get('/api/cloudinary-check', async (req, res) => {
   }
 });
 
-// Start Server
+// Start Server & Background Schedulers
+const { startBlogScheduler } = require('./services/blogScheduler');
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
   console.log(`Visit: http://localhost:${PORT}`);
+  startBlogScheduler(30000);
 });

@@ -161,8 +161,77 @@ const registerAdmin = async (req, res) => {
   }
 };
 
+// @desc    Change Admin Password
+// @route   PUT /api/admin/change-password
+// @access  Private (protectAdmin)
+const changePassword = async (req, res) => {
+  try {
+    const { currentPassword, newPassword } = req.body;
+
+    if (!currentPassword || !newPassword) {
+      return res.status(400).json({
+        success: false,
+        message: 'Please provide both current password and new password',
+      });
+    }
+
+    if (newPassword.length < 6) {
+      return res.status(400).json({
+        success: false,
+        message: 'New password must be at least 6 characters long',
+      });
+    }
+
+    // Find the admin with password field included
+    const admin = await Admin.findById(req.admin._id);
+    if (!admin) {
+      return res.status(404).json({
+        success: false,
+        message: 'Admin account not found',
+      });
+    }
+
+    // Verify current password
+    const isMatch = await admin.matchPassword(currentPassword);
+    if (!isMatch) {
+      return res.status(400).json({
+        success: false,
+        message: 'Current password is incorrect',
+      });
+    }
+
+    // Prevent reusing the exact same password
+    const isSame = await admin.matchPassword(newPassword);
+    if (isSame) {
+      return res.status(400).json({
+        success: false,
+        message: 'New password must be different from the current password',
+      });
+    }
+
+    // Update password (pre-save hook will hash it with bcrypt)
+    admin.password = newPassword;
+    await admin.save();
+
+    console.log(`[Admin Security] Password changed successfully for admin: ${admin.email}`);
+
+    return res.status(200).json({
+      success: true,
+      message: 'Password changed successfully',
+    });
+  } catch (error) {
+    console.error('Error changing password:', error);
+    return res.status(500).json({
+      success: false,
+      message: 'Failed to update password',
+      error: error.message,
+    });
+  }
+};
+
 module.exports = {
   loginAdmin,
   getAdminMe,
   registerAdmin,
+  changePassword,
 };
