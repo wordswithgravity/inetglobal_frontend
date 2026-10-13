@@ -12,6 +12,9 @@ import {
   Sparkles,
   BarChart2,
   RefreshCw,
+  Clock,
+  Timer,
+  CalendarDays,
 } from "lucide-react";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import {
@@ -25,6 +28,66 @@ interface AdminBlogManagerProps {
   token: string;
 }
 
+// Helper countdown component for scheduled posts
+const ScheduledCountdown: React.FC<{ scheduledAt: string; onDue?: () => void }> = ({
+  scheduledAt,
+  onDue,
+}) => {
+  const [timeLeft, setTimeLeft] = useState<{
+    days: number;
+    hours: number;
+    minutes: number;
+    seconds: number;
+    isDue: boolean;
+  }>(() => calculateTimeLeft(scheduledAt));
+
+  function calculateTimeLeft(targetIso: string) {
+    const diff = new Date(targetIso).getTime() - Date.now();
+    if (diff <= 0) {
+      return { days: 0, hours: 0, minutes: 0, seconds: 0, isDue: true };
+    }
+    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+    const minutes = Math.floor((diff / (1000 * 60)) % 60);
+    const seconds = Math.floor((diff / 1000) % 60);
+    return { days, hours, minutes, seconds, isDue: false };
+  }
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      const updated = calculateTimeLeft(scheduledAt);
+      setTimeLeft(updated);
+      if (updated.isDue && onDue) {
+        clearInterval(interval);
+        onDue();
+      }
+    }, 1000);
+    return () => clearInterval(interval);
+  }, [scheduledAt, onDue]);
+
+  if (timeLeft.isDue) {
+    return (
+      <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-emerald-100 text-emerald-800 text-xs font-bold border border-emerald-300 animate-pulse">
+        <Clock className="w-3.5 h-3.5 text-emerald-600" />
+        Due now • Auto-publishing...
+      </span>
+    );
+  }
+
+  return (
+    <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-xl bg-blue-50 border border-blue-200 text-blue-900 text-xs font-semibold shadow-xs">
+      <Timer className="w-3.5 h-3.5 text-blue-600 animate-spin" />
+      <span className="font-bold text-blue-700">Auto-posts in:</span>
+      <span className="font-mono text-blue-950 font-bold">
+        {timeLeft.days > 0 && `${timeLeft.days}d `}
+        {String(timeLeft.hours).padStart(2, "0")}h:
+        {String(timeLeft.minutes).padStart(2, "0")}m:
+        {String(timeLeft.seconds).padStart(2, "0")}s
+      </span>
+    </div>
+  );
+};
+
 export const AdminBlogManager: React.FC<AdminBlogManagerProps> = ({ token }) => {
   const dispatch = useAppDispatch();
   const { adminBlogs, adminLoading, error, successMessage } = useAppSelector(
@@ -32,7 +95,7 @@ export const AdminBlogManager: React.FC<AdminBlogManagerProps> = ({ token }) => 
   );
 
   const [searchTerm, setSearchTerm] = useState("");
-  const [filterStatus, setFilterStatus] = useState<"all" | "published" | "draft">("all");
+  const [filterStatus, setFilterStatus] = useState<"all" | "published" | "draft" | "scheduled">("all");
   const [editingBlog, setEditingBlog] = useState<BlogItem | null>(null);
   const [isEditorOpen, setIsEditorOpen] = useState(false);
   const [deleteConfirmId, setDeleteConfirmId] = useState<string | null>(null);
@@ -81,6 +144,29 @@ export const AdminBlogManager: React.FC<AdminBlogManagerProps> = ({ token }) => 
       filterStatus === "all" || blog.status === filterStatus;
     return matchesSearch && matchesStatus;
   });
+
+  // If the editor is open, render it as a full screen instead of a modal
+  if (isEditorOpen) {
+    return (
+      <AdminBlogEditor
+        initialBlog={editingBlog}
+        token={token}
+        onClose={() => setIsEditorOpen(false)}
+        onSuccess={(saved) => {
+          setIsEditorOpen(false);
+          setLocalFeedback(
+            saved.status === "scheduled"
+              ? `Article "${saved.title}" scheduled for auto-posting.`
+              : saved.status === "draft"
+              ? `Article "${saved.title}" saved as draft.`
+              : `Article "${saved.title}" successfully published.`
+          );
+          handleRefresh();
+          setTimeout(() => setLocalFeedback(null), 4000);
+        }}
+      />
+    );
+  }
 
   return (
     <div className="w-full space-y-6">
@@ -152,8 +238,8 @@ export const AdminBlogManager: React.FC<AdminBlogManagerProps> = ({ token }) => 
           />
         </div>
 
-        <div className="flex items-center gap-2">
-          {(["all", "published", "draft"] as const).map((status) => (
+        <div className="flex flex-wrap items-center gap-2">
+          {(["all", "published", "scheduled", "draft"] as const).map((status) => (
             <button
               key={status}
               onClick={() => setFilterStatus(status)}
@@ -227,11 +313,24 @@ export const AdminBlogManager: React.FC<AdminBlogManagerProps> = ({ token }) => 
                         className={`text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full border ${
                           blog.status === "published"
                             ? "bg-emerald-50 text-emerald-700 border-emerald-200"
+                            : blog.status === "scheduled"
+                            ? "bg-blue-50 text-blue-700 border-blue-200 flex items-center gap-1"
                             : "bg-amber-50 text-amber-700 border-amber-200"
                         }`}
                       >
+                        {blog.status === "scheduled" && (
+                          <CalendarDays className="w-2.5 h-2.5 text-blue-600" />
+                        )}
                         {blog.status}
                       </span>
+
+                      {/* Live Auto-Posting Countdown Timer (Shown on Admin side for scheduled blogs) */}
+                      {blog.status === "scheduled" && blog.scheduledAt && (
+                        <ScheduledCountdown
+                          scheduledAt={blog.scheduledAt}
+                          onDue={handleRefresh}
+                        />
+                      )}
 
                       {blog.featured && (
                         <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-purple-50 text-purple-700 border border-purple-200 flex items-center gap-1">
@@ -312,22 +411,6 @@ export const AdminBlogManager: React.FC<AdminBlogManagerProps> = ({ token }) => 
             );
           })}
         </div>
-      )}
-
-      {/* Editor Modal */}
-      {isEditorOpen && (
-        <AdminBlogEditor
-          initialBlog={editingBlog}
-          token={token}
-          onClose={() => setIsEditorOpen(false)}
-          onSuccess={(saved) => {
-            setLocalFeedback(
-              `Article "${saved.title}" successfully saved.`
-            );
-            handleRefresh();
-            setTimeout(() => setLocalFeedback(null), 3500);
-          }}
-        />
       )}
     </div>
   );

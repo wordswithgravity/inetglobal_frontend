@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import { ArrowRight, Minus, Plus, ChevronDown } from "lucide-react";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
-import { useAppSelector } from "../store/hooks";
+import { useAppSelector, useAppDispatch } from "../store/hooks";
+import { submitInquiry } from "../store/slices/inquirySlice";
 import { getContactTranslations } from "../data/translations";
 import { getRegionContent } from "../data/regionContent";
 import ladyinphoneImg from "../assets/ladyinphone.png";
@@ -37,27 +38,57 @@ export const Contact: React.FC = () => {
     "Voice" | "Messaging" | "Omnichannel"
   >("Voice");
   const [message, setMessage] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
   const [openFaq, setOpenFaq] = useState<number | null>(0); // First FAQ open by default
+  const dispatch = useAppDispatch();
   const [countryCodeOpen, setCountryCodeOpen] = useState(false);
 
   const toggleFaq = (index: number) => {
     setOpenFaq(openFaq === index ? null : index);
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setSubmitted(true);
-    setTimeout(() => {
-      setSubmitted(false);
-      setFullName("");
-      setEmail("");
-      setCompanyName("");
-      setPhoneNumber("");
-      setMessage("");
-      setCustomPhonePrefix(null);
-      setCustomPhonePrefixFlag(null);
-    }, 4000);
+    setSubmitError(null);
+    setIsSubmitting(true);
+
+    try {
+      await dispatch(
+        submitInquiry({
+          fullName: fullName.trim(),
+          email: email.trim(),
+          companyName: companyName.trim(),
+          phonePrefix,
+          phoneNumber: phoneNumber.trim(),
+          service: interest,
+          message: message.trim(),
+        })
+      ).unwrap();
+
+      setSubmitted(true);
+      setTimeout(() => {
+        setSubmitted(false);
+        setFullName("");
+        setEmail("");
+        setCompanyName("");
+        setPhoneNumber("");
+        setMessage("");
+        setCustomPhonePrefix(null);
+        setCustomPhonePrefixFlag(null);
+      }, 4000);
+    } catch (err: unknown) {
+      if (typeof err === "string") {
+        setSubmitError(err);
+      } else if (err instanceof Error) {
+        setSubmitError(err.message);
+      } else {
+        setSubmitError("Failed to submit inquiry. Please try again.");
+      }
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -338,13 +369,21 @@ export const Contact: React.FC = () => {
                   />
                 </div>
 
+                {/* Submit Error */}
+                {submitError && (
+                  <div className="p-3.5 rounded-2xl bg-red-50 border border-red-200 text-red-700 text-xs">
+                    {submitError}
+                  </div>
+                )}
+
                 {/* Submit Button */}
                 <div className="pt-2">
                   <button
                     type="submit"
-                    className="w-full py-3.5 rounded-full bg-[#83184d] hover:bg-[#721240] text-white font-medium text-[15.5px] shadow-md shadow-[#83184d]/25 transition active:scale-[0.99] cursor-pointer"
+                    disabled={isSubmitting}
+                    className="w-full py-3.5 rounded-full bg-[#83184d] hover:bg-[#721240] text-white font-medium text-[15.5px] shadow-md shadow-[#83184d]/25 transition active:scale-[0.99] cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed flex items-center justify-center gap-2"
                   >
-                    {submitted ? t.messageSent : t.sendMessage}
+                    {isSubmitting ? "Sending Inquiry..." : submitted ? t.messageSent : t.sendMessage}
                   </button>
                   <p className="text-center text-[12px] text-slate-400 pt-2.5">
                     {t.securityNote}

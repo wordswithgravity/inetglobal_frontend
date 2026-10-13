@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import BlogCard, { type BlogPost } from "../components/Blog/BlogCard";
-import { Search, Sparkles, BookOpen, ArrowRight, Rss, Loader2 } from "lucide-react";
+import { Search, BookOpen, ArrowRight, Loader2 } from "lucide-react";
 import { useAppDispatch, useAppSelector } from "../store/hooks";
 import { fetchPublishedBlogs } from "../store/slices/blogSlice";
 import { getBlogTranslations } from "../data/blogTranslations";
@@ -11,7 +11,7 @@ export const Blog: React.FC = () => {
   const dispatch = useAppDispatch();
   const { blogs: apiBlogs, loading } = useAppSelector((state) => state.blog);
   const selectedLanguage = useAppSelector(
-    (state) => state.language.selectedLanguage
+    (state) => state.language.selectedLanguage,
   );
   const t = getBlogTranslations(selectedLanguage);
 
@@ -68,10 +68,6 @@ export const Blog: React.FC = () => {
       <section className="relative pt-12 pb-16 sm:pt-20 sm:pb-24 overflow-hidden border-b border-slate-200/80 bg-gradient-to-b from-white to-[#EEF2EB]">
         <div className="max-w-[1440px] mx-auto px-3 sm:px-6 lg:px-8">
           <div className="max-w-3xl space-y-4">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#83184d]/10 text-[#83184d] text-xs font-bold uppercase tracking-wider border border-[#83184d]/20">
-              <Sparkles className="w-3.5 h-3.5" />
-              {t.badge}
-            </div>
             <h1 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold text-slate-900 tracking-tight leading-tight">
               {t.title}
             </h1>
@@ -115,59 +111,62 @@ export const Blog: React.FC = () => {
       </section>
 
       {/* 3. Featured Article Banner (Only when backend has articles and no search filter) */}
-      {allBlogPosts.length > 0 && selectedCategory === "All" && !searchQuery && featuredPost && (
-        <section className="py-10 bg-white border-b border-slate-200">
-          <div className="max-w-[1440px] mx-auto px-3 sm:px-6 lg:px-8">
-            <div className="text-xs font-bold uppercase tracking-wider text-[#83184d] mb-4 flex items-center gap-2">
-              <BookOpen className="w-4 h-4" />
-              {t.featuredStory}
-            </div>
-
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center bg-[#EEF2EB]/50 rounded-3xl border border-slate-200 p-6 sm:p-8 lg:p-10">
-              <div className="lg:col-span-7 space-y-4">
-                <span className="inline-block px-3 py-1 rounded-full text-xs font-bold bg-white text-slate-800 border border-slate-200">
-                  {featuredPost.category}
-                </span>
-                <h2 className="text-2xl sm:text-4xl font-extrabold text-slate-900 leading-tight">
-                  <a
-                    href={`/blog/${featuredPost.slug}`}
-                    className="hover:text-[#83184d] transition-colors"
-                  >
-                    {featuredPost.title}
-                  </a>
-                </h2>
-                <p className="text-sm sm:text-base text-slate-600 leading-relaxed">
-                  {featuredPost.excerpt}
-                </p>
-                <div className="flex items-center gap-4 text-xs font-medium text-slate-500 pt-2">
-                  <span>By {featuredPost.author}</span>
-                  <span>•</span>
-                  <span>{featuredPost.date}</span>
-                  <span>•</span>
-                  <span>{featuredPost.readTime}</span>
-                </div>
-                <div className="pt-2">
-                  <a
-                    href={`/blog/${featuredPost.slug}`}
-                    className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-[#83184d] hover:bg-[#721240] text-white text-sm font-semibold transition-all shadow-md shadow-[#83184d]/25"
-                  >
-                    {t.readFullStory}
-                    <ArrowRight className="w-4 h-4" />
-                  </a>
-                </div>
+      {allBlogPosts.length > 0 &&
+        selectedCategory === "All" &&
+        !searchQuery &&
+        featuredPost && (
+          <section className="py-10 bg-white border-b border-slate-200">
+            <div className="max-w-[1440px] mx-auto px-3 sm:px-6 lg:px-8">
+              <div className="text-xs font-bold uppercase tracking-wider text-[#83184d] mb-4 flex items-center gap-2">
+                <BookOpen className="w-4 h-4" />
+                {t.featuredStory}
               </div>
 
-              <div className="lg:col-span-5 aspect-16/10 rounded-2xl overflow-hidden shadow-lg border border-slate-200/80">
-                <img
-                  src={featuredPost.imageUrl}
-                  alt={featuredPost.title}
-                  className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
-                />
+              <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center bg-[#EEF2EB]/50 rounded-3xl border border-slate-200 p-6 sm:p-8 lg:p-10">
+                <div className="lg:col-span-7 space-y-4">
+                  <span className="inline-block px-3 py-1 rounded-full text-xs font-bold bg-white text-slate-800 border border-slate-200">
+                    {featuredPost.category}
+                  </span>
+                  <h2 className="text-2xl sm:text-4xl font-extrabold text-slate-900 leading-tight">
+                    <a
+                      href={`/blog/${featuredPost.slug}`}
+                      className="hover:text-[#83184d] transition-colors"
+                    >
+                      {featuredPost.title}
+                    </a>
+                  </h2>
+                  <p className="text-sm sm:text-base text-slate-600 leading-relaxed">
+                    {featuredPost.excerpt}
+                  </p>
+                  <div className="flex items-center gap-4 text-xs font-medium text-slate-500 pt-2">
+                    <span>By {featuredPost.author}</span>
+                    <span>•</span>
+                    <span>{featuredPost.date}</span>
+                    <span>•</span>
+                    <span>{featuredPost.readTime}</span>
+                  </div>
+                  <div className="pt-2">
+                    <a
+                      href={`/blog/${featuredPost.slug}`}
+                      className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-[#83184d] hover:bg-[#721240] text-white text-sm font-semibold transition-all shadow-md shadow-[#83184d]/25"
+                    >
+                      {t.readFullStory}
+                      <ArrowRight className="w-4 h-4" />
+                    </a>
+                  </div>
+                </div>
+
+                <div className="lg:col-span-5 aspect-16/10 rounded-2xl overflow-hidden shadow-lg border border-slate-200/80">
+                  <img
+                    src={featuredPost.imageUrl}
+                    alt={featuredPost.title}
+                    className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
+                  />
+                </div>
               </div>
             </div>
-          </div>
-        </section>
-      )}
+          </section>
+        )}
 
       {/* 4. Articles Grid Section - matches Header.tsx: max-w-[1440px] mx-auto px-3 sm:px-6 lg:px-8 */}
       <section className="flex-1 py-12 sm:py-16">
@@ -177,9 +176,11 @@ export const Blog: React.FC = () => {
               {searchQuery
                 ? `${t.searchResultsFor} "${searchQuery}"`
                 : selectedCategory === "All"
-                ? t.recentPublications
-                : `${categories.find((c) => c.key === selectedCategory)?.label || selectedCategory} ${t.articlesSuffix}`}
-              {loading && <Loader2 className="w-4 h-4 animate-spin text-[#83184d]" />}
+                  ? t.recentPublications
+                  : `${categories.find((c) => c.key === selectedCategory)?.label || selectedCategory} ${t.articlesSuffix}`}
+              {loading && (
+                <Loader2 className="w-4 h-4 animate-spin text-[#83184d]" />
+              )}
             </h2>
             <span className="text-xs font-semibold text-slate-500">
               {t.showingArticles} {filteredPosts.length} {t.articlesSuffix}
@@ -240,41 +241,6 @@ export const Blog: React.FC = () => {
               </button>
             </div>
           )}
-        </div>
-      </section>
-
-      {/* 5. Stay Updated Newsletter Callout */}
-      <section className="bg-slate-900 text-white py-12 sm:py-16">
-        <div className="max-w-[1440px] mx-auto px-3 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-8">
-          <div className="space-y-2 max-w-xl text-center md:text-left">
-            <div className="inline-flex items-center gap-2 text-xs font-bold text-[#83184d] bg-white/10 px-3 py-1 rounded-full uppercase tracking-wider">
-              <Rss className="w-3.5 h-3.5 text-pink-400" />
-              {t.newsletterBadge}
-            </div>
-            <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight">
-              {t.newsletterTitle}
-            </h2>
-            <p className="text-sm text-slate-400">
-              {t.newsletterDesc}
-            </p>
-          </div>
-
-          <form
-            onSubmit={(e) => e.preventDefault()}
-            className="w-full md:w-auto flex flex-col sm:flex-row items-center gap-3"
-          >
-            <input
-              type="email"
-              placeholder={t.newsletterPlaceholder}
-              className="w-full sm:w-80 px-4 py-3 rounded-full bg-slate-800 border border-slate-700 text-sm text-white placeholder-slate-400 focus:outline-none focus:border-pink-500"
-            />
-            <button
-              type="submit"
-              className="w-full sm:w-auto px-6 py-3 rounded-full bg-[#83184d] hover:bg-[#721240] text-white text-sm font-semibold transition cursor-pointer shrink-0"
-            >
-              {t.subscribeBtn}
-            </button>
-          </form>
         </div>
       </section>
 

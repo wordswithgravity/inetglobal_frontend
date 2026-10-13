@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import {
   Save,
-  X,
   Upload,
   Plus,
   Sparkles,
@@ -13,6 +12,8 @@ import {
   User,
   Tag,
   Hash,
+  ArrowLeft,
+  CalendarDays,
 } from "lucide-react";
 import { SectionEditor } from "./SectionEditor";
 import type { BlogItem, BlogSection } from "../../store/slices/blogSlice";
@@ -74,9 +75,27 @@ export const AdminBlogEditor: React.FC<AdminBlogEditorProps> = ({
   const [featured, setFeatured] = useState<boolean>(
     initialBlog?.featured || false
   );
-  const [status, setStatus] = useState<"draft" | "published">(
+  const [status, setStatus] = useState<"draft" | "published" | "scheduled">(
     initialBlog?.status || "published"
   );
+  const [scheduledAt, setScheduledAt] = useState<string>(() => {
+    if (initialBlog?.scheduledAt) {
+      const d = new Date(initialBlog.scheduledAt);
+      if (!isNaN(d.getTime())) {
+        // Format to YYYY-MM-DDTHH:mm for datetime-local input
+        return new Date(d.getTime() - d.getTimezoneOffset() * 60000)
+          .toISOString()
+          .slice(0, 16);
+      }
+    }
+    // Default to tomorrow 09:00 AM
+    const tomorrow = new Date();
+    tomorrow.setDate(tomorrow.getDate() + 1);
+    tomorrow.setHours(9, 0, 0, 0);
+    return new Date(tomorrow.getTime() - tomorrow.getTimezoneOffset() * 60000)
+      .toISOString()
+      .slice(0, 16);
+  });
   const [tagInput, setTagInput] = useState(
     initialBlog?.tags?.join(", ") || "Telecom, CPaaS, Voice"
   );
@@ -104,6 +123,9 @@ export const AdminBlogEditor: React.FC<AdminBlogEditorProps> = ({
 
   // Status & states
   const [isSaving, setIsSaving] = useState(false);
+  const [saveActionType, setSaveActionType] = useState<
+    "publish" | "draft" | "autosave" | "schedule" | null
+  >(null);
   const [isUploadingFeaturedImg, setIsUploadingFeaturedImg] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [previewMode, setPreviewMode] = useState(false);
@@ -178,6 +200,160 @@ export const AdminBlogEditor: React.FC<AdminBlogEditorProps> = ({
     ]);
   };
 
+  // Check if admin entered any text
+  const hasUserEnteredText = (): boolean => {
+    if (initialBlog) {
+      // For existing article, check if any field was modified
+      if (title.trim() !== (initialBlog.title || "").trim()) return true;
+      if (excerpt.trim() !== (initialBlog.excerpt || "").trim()) return true;
+      if (tagInput.trim() !== (initialBlog.tags?.join(", ") || "").trim()) return true;
+      if (category !== initialBlog.category) return true;
+      if (imageUrl.trim() !== (initialBlog.imageUrl || "").trim()) return true;
+      if (JSON.stringify(sections) !== JSON.stringify(initialBlog.sections || [])) return true;
+      return false;
+    }
+
+    // For new article, check if admin put any text in title, excerpt, tags, or sections
+    if (title.trim().length > 0) return true;
+    if (excerpt.trim().length > 0) return true;
+    if (tagInput.trim() !== "Telecom, CPaaS, Voice" && tagInput.trim().length > 0) return true;
+
+    const defaultPlaceholder =
+      "Enter the opening analysis for this telecom intelligence article.";
+    for (const sec of sections) {
+      if (
+        sec.heading &&
+        sec.heading.trim() !== "Executive Overview" &&
+        sec.heading.trim().length > 0
+      ) {
+        return true;
+      }
+      if (sec.contentHtml && sec.contentHtml.trim().length > 0) return true;
+      if (sec.quote && sec.quote.trim().length > 0) return true;
+      for (const p of sec.paragraphs || []) {
+        if (p.trim().length > 0 && p.trim() !== defaultPlaceholder) return true;
+      }
+      if (
+        (sec.contentPoints || []).some(
+          (cp) =>
+            cp.trim().length > 0 &&
+            cp.trim() !== "Sub-millisecond routing across tier-1 carriers" &&
+            cp.trim() !== "Automated failover and zero-loss switching"
+        )
+      ) {
+        return true;
+      }
+      if (
+        (sec.keyTakeaways || []).some(
+          (kt) =>
+            kt.trim().length > 0 &&
+            kt.trim() !==
+              "Ensure low-latency interconnects before scaling voice agents."
+        )
+      ) {
+        return true;
+      }
+      if (sec.sectionImage?.url) return true;
+    }
+
+    return false;
+  };
+
+  // Save as Draft (used both explicitly and on auto-save when going back)
+  const saveAsDraft = async (closeAfterSave: boolean = false) => {
+    setErrorMessage(null);
+    setSaveActionType(closeAfterSave ? "autosave" : "draft");
+    setIsSaving(true);
+
+    const fallbackTitle =
+      title.trim() || `Draft Article (${new Date().toLocaleDateString()})`;
+    const fallbackSlug =
+      slug.trim() ||
+      (title.trim()
+        ? title
+            .trim()
+            .toLowerCase()
+            .replace(/[^a-z0-9]+/g, "-")
+            .replace(/(^-|-$)+/g, "")
+        : `draft-${Date.now()}`);
+    const fallbackExcerpt =
+      excerpt.trim() || "Draft article in progress...";
+    const fallbackImage =
+      imageUrl.trim() ||
+      "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=1200&q=80";
+
+    const tagsArray = tagInput
+      .split(",")
+      .map((t) => t.trim())
+      .filter(Boolean);
+
+    const draftPayload: Partial<BlogItem> = {
+      title: fallbackTitle,
+      slug: fallbackSlug,
+      excerpt: fallbackExcerpt,
+      category: category.trim() || DEFAULT_CATEGORIES[0],
+      readTime: readTime.trim() || "5 min read",
+      author: author.trim() || "iNet Global Team",
+      authorRole: authorRole.trim() || "Telecom Strategy",
+      authorBio:
+        authorBio.trim() ||
+        "Carrier operations and enterprise CPaaS engineering specialist at iNet Global.",
+      imageUrl: fallbackImage,
+      featured,
+      status: "draft",
+      tags: tagsArray,
+      sections: sections.map((sec, idx) => ({
+        ...sec,
+        heading: sec.heading?.trim() || `Section ${idx + 1}`,
+      })),
+      relatedSlugs: initialBlog?.relatedSlugs || [],
+    };
+
+    try {
+      let resultBlog: BlogItem;
+      if (initialBlog && (initialBlog._id || initialBlog.id)) {
+        const id = (initialBlog._id || initialBlog.id) as string;
+        resultBlog = await dispatch(
+          updateAdminBlog({ id, blogData: draftPayload, token })
+        ).unwrap();
+      } else {
+        resultBlog = await dispatch(
+          createAdminBlog({ blogData: draftPayload, token })
+        ).unwrap();
+      }
+
+      onSuccess(resultBlog);
+      if (closeAfterSave) {
+        onClose();
+      }
+      return resultBlog;
+    } catch (err: unknown) {
+      setErrorMessage(
+        typeof err === "string" ? err : "Failed to save draft to database."
+      );
+      throw err;
+    } finally {
+      setIsSaving(false);
+      setSaveActionType(null);
+    }
+  };
+
+  // Back button handler: auto-saves to draft if text was entered
+  const handleBackOrAutoSave = async () => {
+    if (isSaving) return;
+
+    if (hasUserEnteredText()) {
+      try {
+        await saveAsDraft(true);
+      } catch (err) {
+        console.error("Auto-saving draft failed:", err);
+      }
+    } else {
+      // No text was entered, simply go back
+      onClose();
+    }
+  };
+
   // Save/Publish
   const handleSave = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -200,6 +376,11 @@ export const AdminBlogEditor: React.FC<AdminBlogEditorProps> = ({
       return;
     }
 
+    if (status === "scheduled" && !scheduledAt) {
+      setErrorMessage("Please select a date and time to schedule this article.");
+      return;
+    }
+
     const tagsArray = tagInput
       .split(",")
       .map((t) => t.trim())
@@ -217,12 +398,17 @@ export const AdminBlogEditor: React.FC<AdminBlogEditorProps> = ({
       imageUrl: imageUrl.trim(),
       featured,
       status,
+      scheduledAt: status === "scheduled" && scheduledAt ? new Date(scheduledAt).toISOString() : null,
       tags: tagsArray,
-      sections,
+      sections: sections.map((sec, idx) => ({
+        ...sec,
+        heading: sec.heading?.trim() || `Section ${idx + 1}`,
+      })),
       relatedSlugs: [],
     };
 
     try {
+      setSaveActionType(status === "scheduled" ? "schedule" : "publish");
       setIsSaving(true);
       let resultBlog: BlogItem;
 
@@ -245,20 +431,34 @@ export const AdminBlogEditor: React.FC<AdminBlogEditorProps> = ({
       );
     } finally {
       setIsSaving(false);
+      setSaveActionType(null);
     }
   };
 
   return (
-    <div className="fixed inset-0 z-50 overflow-y-auto bg-slate-900/60 backdrop-blur-sm flex justify-center p-2 sm:p-4 md:p-6 animate-in fade-in duration-150">
-      <div className="w-full max-w-5xl bg-white border border-slate-200 rounded-3xl shadow-2xl flex flex-col max-h-[92vh] overflow-hidden my-auto">
+    <div className="w-full space-y-6 animate-in fade-in duration-150">
+      <div className="w-full bg-white border border-slate-200 rounded-3xl shadow-sm overflow-hidden flex flex-col">
         {/* Top Header */}
-        <div className="px-6 py-4 border-b border-slate-200 bg-gradient-to-r from-slate-50 to-white flex items-center justify-between shrink-0">
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-[#83184d] text-white flex items-center justify-center shadow-md">
+        <div className="px-6 py-5 border-b border-slate-200 bg-white flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div className="flex items-center gap-3.5">
+            <button
+              type="button"
+              onClick={handleBackOrAutoSave}
+              disabled={isSaving}
+              className="p-2.5 rounded-xl border border-slate-200 text-slate-600 hover:text-slate-900 hover:bg-slate-100 transition-colors cursor-pointer shrink-0 disabled:opacity-50"
+              title="Back to Articles (Auto-saves draft if text was entered)"
+            >
+              {saveActionType === "autosave" ? (
+                <Loader2 className="w-5 h-5 animate-spin text-[#83184d]" />
+              ) : (
+                <ArrowLeft className="w-5 h-5" />
+              )}
+            </button>
+            <div className="w-10 h-10 rounded-xl bg-[#83184d] text-white flex items-center justify-center shadow-md shrink-0">
               <FileText className="w-5 h-5" />
             </div>
             <div>
-              <h2 className="text-lg font-bold text-slate-900 flex items-center gap-2">
+              <h2 className="text-xl font-bold text-slate-900 flex items-center gap-2">
                 {initialBlog ? "Edit Article" : "Create New Blog Article"}
                 <span className="text-xs px-2.5 py-0.5 rounded-full bg-slate-100 text-slate-700 font-semibold border border-slate-200">
                   Rich Editor
@@ -270,28 +470,76 @@ export const AdminBlogEditor: React.FC<AdminBlogEditorProps> = ({
             </div>
           </div>
 
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2.5 self-end sm:self-auto">
             <button
               type="button"
               onClick={() => setPreviewMode(!previewMode)}
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-slate-300 text-slate-700 hover:bg-slate-100 text-xs font-semibold cursor-pointer transition-colors"
+              className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl border border-slate-300 text-slate-700 hover:bg-slate-100 text-xs font-semibold cursor-pointer transition-colors"
             >
-              <Eye className="w-3.5 h-3.5" />
+              <Eye className="w-4 h-4" />
               {previewMode ? "Edit Mode" : "Preview"}
             </button>
+
+            {/* Save Draft Button */}
             <button
               type="button"
-              onClick={onClose}
-              className="p-1.5 rounded-xl text-slate-400 hover:text-slate-700 hover:bg-slate-100 cursor-pointer transition-colors"
-              title="Close modal"
+              onClick={() => saveAsDraft(false)}
+              disabled={isSaving}
+              className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl border border-amber-300 bg-amber-50/60 hover:bg-amber-100/70 text-amber-900 text-xs font-semibold cursor-pointer transition-colors disabled:opacity-50"
+              title="Save this article as a draft"
             >
-              <X className="w-5 h-5" />
+              {saveActionType === "draft" ? (
+                <>
+                  <Loader2 className="w-3.5 h-3.5 animate-spin text-amber-700" />
+                  Saving Draft...
+                </>
+              ) : (
+                <>
+                  <FileText className="w-3.5 h-3.5 text-amber-600" />
+                  Save Draft
+                </>
+              )}
+            </button>
+
+            {/* Publish / Schedule / Save Changes Button */}
+            <button
+              form="admin-blog-form"
+              type="submit"
+              disabled={isSaving}
+              className={`inline-flex items-center gap-2 px-5 py-2 rounded-xl text-white text-xs font-bold shadow-md transition cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed ${
+                status === "scheduled"
+                  ? "bg-blue-600 hover:bg-blue-700"
+                  : "bg-[#83184d] hover:bg-[#6c143f]"
+              }`}
+            >
+              {isSaving ? (
+                <>
+                  <Loader2 className="w-4 h-4 animate-spin" />
+                  {saveActionType === "schedule" ? "Scheduling..." : "Saving..."}
+                </>
+              ) : status === "scheduled" ? (
+                <>
+                  <CalendarDays className="w-4 h-4" />
+                  Schedule Article
+                </>
+              ) : (
+                <>
+                  <Save className="w-4 h-4" />
+                  {initialBlog ? "Save Changes" : "Publish Article"}
+                </>
+              )}
             </button>
           </div>
         </div>
 
-        {/* Modal Body */}
-        <div className="flex-1 overflow-y-auto p-4 sm:p-6 space-y-6">
+        {/* Screen Content */}
+        <div className="p-6 sm:p-8 space-y-8">
+          {saveActionType === "autosave" && (
+            <div className="p-4 rounded-2xl bg-amber-50 border border-amber-200 text-amber-900 text-xs sm:text-sm flex items-center gap-2.5 animate-pulse">
+              <Loader2 className="w-4 h-4 animate-spin text-amber-700 shrink-0" />
+              <span>Saving article as draft before returning to articles list...</span>
+            </div>
+          )}
           {errorMessage && (
             <div className="p-4 rounded-2xl bg-red-50 border border-red-200 text-red-700 text-xs sm:text-sm flex items-start gap-2.5">
               <AlertCircle className="w-5 h-5 text-red-500 shrink-0 mt-0.5" />
@@ -542,14 +790,37 @@ export const AdminBlogEditor: React.FC<AdminBlogEditorProps> = ({
                   <select
                     value={status}
                     onChange={(e) =>
-                      setStatus(e.target.value as "draft" | "published")
+                      setStatus(e.target.value as "draft" | "published" | "scheduled")
                     }
                     className="w-full px-4 py-2.5 rounded-xl border border-slate-300 text-slate-900 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-[#83184d] transition"
                   >
                     <option value="published">Published (Live on Website)</option>
+                    <option value="scheduled">Scheduled (Auto-Post on Date & Time)</option>
                     <option value="draft">Draft (Hidden from Public)</option>
                   </select>
                 </div>
+
+                {/* Scheduled Date & Time Picker */}
+                {status === "scheduled" && (
+                  <div className="md:col-span-2 p-4 rounded-2xl bg-blue-50/80 border border-blue-200 space-y-2 animate-in fade-in duration-200">
+                    <label className="block text-xs font-bold uppercase tracking-wider text-blue-900 flex items-center gap-1.5">
+                      <CalendarDays className="w-4 h-4 text-blue-600" />
+                      Auto-Publish Date & Time *
+                    </label>
+                    <div className="flex flex-col sm:flex-row sm:items-center gap-3">
+                      <input
+                        type="datetime-local"
+                        value={scheduledAt}
+                        onChange={(e) => setScheduledAt(e.target.value)}
+                        required={status === "scheduled"}
+                        className="px-4 py-2.5 rounded-xl border border-blue-300 text-blue-950 bg-white text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-blue-500 transition shadow-xs"
+                      />
+                      <span className="text-xs text-blue-700">
+                        The backend scheduler will automatically publish this article once this exact date and time arrives.
+                      </span>
+                    </div>
+                  </div>
+                )}
 
                 {/* Tags & Featured */}
                 <div>
@@ -632,34 +903,88 @@ export const AdminBlogEditor: React.FC<AdminBlogEditorProps> = ({
           )}
         </div>
 
-        {/* Modal Bottom Actions */}
-        <div className="px-6 py-4 border-t border-slate-200 bg-slate-50 flex items-center justify-between shrink-0">
+        {/* Screen Bottom Actions */}
+        <div className="px-6 sm:px-8 py-5 border-t border-slate-200 bg-slate-50 flex flex-col sm:flex-row items-center justify-between gap-4">
           <button
             type="button"
-            onClick={onClose}
-            className="px-4 py-2 rounded-xl border border-slate-300 text-slate-700 hover:bg-slate-100 text-xs font-semibold cursor-pointer transition"
-          >
-            Cancel
-          </button>
-
-          <button
-            form="admin-blog-form"
-            type="submit"
+            onClick={handleBackOrAutoSave}
             disabled={isSaving}
-            className="inline-flex items-center gap-2 px-6 py-2.5 rounded-xl bg-[#83184d] hover:bg-[#6c143f] text-white text-sm font-semibold shadow-md transition cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
+            className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl border border-slate-300 text-slate-700 hover:bg-slate-100 text-xs font-semibold cursor-pointer transition disabled:opacity-50"
+            title="Back to Articles (Auto-saves draft if text was entered)"
           >
-            {isSaving ? (
+            {saveActionType === "autosave" ? (
               <>
-                <Loader2 className="w-4 h-4 animate-spin" />
-                Saving to Database...
+                <Loader2 className="w-4 h-4 animate-spin text-[#83184d]" />
+                Auto-saving Draft...
               </>
             ) : (
               <>
-                <Save className="w-4 h-4" />
-                {initialBlog ? "Save Changes" : "Publish Article"}
+                <ArrowLeft className="w-4 h-4" />
+                Back to Articles
               </>
             )}
           </button>
+
+          <div className="flex flex-wrap items-center gap-3">
+            <button
+              type="button"
+              onClick={() => setPreviewMode(!previewMode)}
+              className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl border border-slate-300 text-slate-700 hover:bg-slate-100 text-xs font-semibold cursor-pointer transition"
+            >
+              <Eye className="w-4 h-4" />
+              {previewMode ? "Edit Mode" : "Preview"}
+            </button>
+
+            {/* Bottom Save Draft Button */}
+            <button
+              type="button"
+              onClick={() => saveAsDraft(false)}
+              disabled={isSaving}
+              className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl border border-amber-300 bg-amber-50/70 hover:bg-amber-100 text-amber-900 text-xs font-semibold cursor-pointer transition disabled:opacity-50"
+              title="Save this article as a draft"
+            >
+              {saveActionType === "draft" ? (
+                <>
+                  <Loader2 className="w-4 h-4 animate-spin text-amber-700" />
+                  Saving Draft...
+                </>
+              ) : (
+                <>
+                  <FileText className="w-4 h-4 text-amber-600" />
+                  Save as Draft
+                </>
+              )}
+            </button>
+
+            {/* Bottom Publish / Schedule / Save Changes Button */}
+            <button
+              form="admin-blog-form"
+              type="submit"
+              disabled={isSaving}
+              className={`inline-flex items-center gap-2 px-6 py-2.5 rounded-xl text-white text-sm font-semibold shadow-md transition cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed ${
+                status === "scheduled"
+                  ? "bg-blue-600 hover:bg-blue-700"
+                  : "bg-[#83184d] hover:bg-[#6c143f]"
+              }`}
+            >
+              {isSaving ? (
+                <>
+                  <Loader2 className="w-4 h-4 animate-spin" />
+                  {saveActionType === "schedule" ? "Scheduling Article..." : "Saving to Database..."}
+                </>
+              ) : status === "scheduled" ? (
+                <>
+                  <CalendarDays className="w-4 h-4" />
+                  Schedule Article
+                </>
+              ) : (
+                <>
+                  <Save className="w-4 h-4" />
+                  {initialBlog ? "Save Changes" : "Publish Article"}
+                </>
+              )}
+            </button>
+          </div>
         </div>
       </div>
     </div>

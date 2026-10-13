@@ -58,7 +58,8 @@ export interface BlogItem {
   authorBio: string;
   imageUrl: string;
   featured?: boolean;
-  status: "draft" | "published";
+  status: "draft" | "published" | "scheduled";
+  scheduledAt?: string | null;
   tags: string[];
   sections: BlogSection[];
   relatedSlugs: string[];

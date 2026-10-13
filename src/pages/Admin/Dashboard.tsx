@@ -10,9 +10,14 @@ import {
   ChevronRight,
   ShieldCheck,
   MessageSquare,
+  KeyRound,
+  Share2,
 } from "lucide-react";
 import logoImg from "../../assets/logo.png";
 import BlogPost from "./BlogPost";
+import AdminChangePassword from "../../components/Admin/AdminChangePassword";
+import { AdminInquiries } from "../../components/Admin/AdminInquiries";
+import AdminSubscribersAndSocial from "../../components/Admin/AdminSubscribersAndSocial";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { fetchAdminBlogs } from "../../store/slices/blogSlice";
 
@@ -24,7 +29,12 @@ interface AdminUser {
   lastLogin?: string;
 }
 
-type SidebarSection = "blog-posts" | "overview" | "inquiries";
+type SidebarSection =
+  | "blog-posts"
+  | "overview"
+  | "inquiries"
+  | "subscribers-social"
+  | "change-password";
 
 export const Dashboard: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -231,6 +241,44 @@ export const Dashboard: React.FC = () => {
             <ChevronRight className="w-3.5 h-3.5 opacity-60" />
           </button>
 
+          {/* SOCIAL & SUBSCRIBERS OPTION */}
+          <button
+            onClick={() => {
+              setActiveSection("subscribers-social");
+              setSidebarOpen(false);
+            }}
+            className={`w-full flex items-center justify-between px-3.5 py-3 rounded-2xl text-xs sm:text-sm font-semibold transition-all cursor-pointer ${
+              activeSection === "subscribers-social"
+                ? "bg-[#83184d] text-white shadow-md shadow-[#83184d]/20"
+                : "text-slate-700 hover:bg-[#EEF2EB]/80 hover:text-slate-900"
+            }`}
+          >
+            <div className="flex items-center gap-3">
+              <Share2 className="w-4 h-4 shrink-0" />
+              <span>Social & Newsletter</span>
+            </div>
+            <ChevronRight className="w-3.5 h-3.5 opacity-60" />
+          </button>
+
+          {/* CHANGE PASSWORD OPTION */}
+          <button
+            onClick={() => {
+              setActiveSection("change-password");
+              setSidebarOpen(false);
+            }}
+            className={`w-full flex items-center justify-between px-3.5 py-3 rounded-2xl text-xs sm:text-sm font-semibold transition-all cursor-pointer ${
+              activeSection === "change-password"
+                ? "bg-[#83184d] text-white shadow-md shadow-[#83184d]/20"
+                : "text-slate-700 hover:bg-[#EEF2EB]/80 hover:text-slate-900"
+            }`}
+          >
+            <div className="flex items-center gap-3">
+              <KeyRound className="w-4 h-4 shrink-0" />
+              <span>Change Password</span>
+            </div>
+            <ChevronRight className="w-3.5 h-3.5 opacity-60" />
+          </button>
+
         </div>
 
         {/* Bottom Sidebar Action: Sign Out */}
@@ -278,6 +326,18 @@ export const Dashboard: React.FC = () => {
                     Customer Inquiries & Messages
                   </>
                 )}
+                {activeSection === "subscribers-social" && (
+                  <>
+                    <Share2 className="w-5 h-5 text-[#83184d]" />
+                    Social Media & Newsletter Subscribers
+                  </>
+                )}
+                {activeSection === "change-password" && (
+                  <>
+                    <KeyRound className="w-5 h-5 text-[#83184d]" />
+                    Security & Password Management
+                  </>
+                )}
               </h1>
               <p className="text-xs text-slate-500 hidden sm:block">
                 Connected securely to iNet Global Production Backend
@@ -285,7 +345,20 @@ export const Dashboard: React.FC = () => {
             </div>
           </div>
 
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2.5">
+            <button
+              onClick={() => setActiveSection("change-password")}
+              className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl border text-xs font-semibold transition cursor-pointer ${
+                activeSection === "change-password"
+                  ? "bg-[#83184d] text-white border-[#83184d]"
+                  : "bg-white hover:bg-slate-50 text-slate-700 border-slate-200"
+              }`}
+              title="Change Password"
+            >
+              <KeyRound className="w-3.5 h-3.5" />
+              <span className="hidden sm:inline">Change Password</span>
+            </button>
+
             <button
               onClick={handleLogout}
               className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-red-50 hover:bg-red-100 text-red-600 border border-red-200 text-xs font-semibold transition cursor-pointer"
@@ -417,20 +490,17 @@ export const Dashboard: React.FC = () => {
 
           {/* SECTION 3: INQUIRIES */}
           {activeSection === "inquiries" && (
-            <div className="p-8 bg-white rounded-3xl border border-slate-200 text-center space-y-4">
-              <MessageSquare className="w-12 h-12 text-[#83184d] mx-auto opacity-80" />
-              <h2 className="text-xl font-bold text-slate-900">
-                Customer Inquiries Channel
-              </h2>
-              <p className="text-sm text-slate-500 max-w-md mx-auto">
-                Customer inquiries sent via the global website contact form can be reviewed here or accessed via the contact portal.
-              </p>
-              <div className="pt-2">
-                <div className="p-3.5 rounded-xl bg-slate-50 border border-slate-200 text-xs text-slate-500 max-w-sm mx-auto">
-                  <span className="font-semibold text-slate-700">Note:</span> Inquiries submitted via the website contact form are stored in the database. Please sign out from the Dashboard if you wish to view the public contact page.
-                </div>
-              </div>
-            </div>
+            <AdminInquiries token={token || ""} />
+          )}
+
+          {/* SECTION 4: SOCIAL & SUBSCRIBERS */}
+          {activeSection === "subscribers-social" && (
+            <AdminSubscribersAndSocial token={token || ""} />
+          )}
+
+          {/* SECTION 5: CHANGE PASSWORD */}
+          {activeSection === "change-password" && (
+            <AdminChangePassword token={token} />
           )}
         </main>
       </div>

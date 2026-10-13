@@ -11,15 +11,16 @@ import {
   Loader2,
   Sparkles,
   Server,
-  KeyRound,
   LogOut,
   LayoutDashboard,
   Activity,
   BookOpen,
   FileText,
+  KeyRound,
 } from "lucide-react";
 import logoImg from "../../assets/logo.png";
 import AdminBlogManager from "../../components/Blog/AdminBlogManager";
+import AdminChangePassword from "../../components/Admin/AdminChangePassword";
 
 interface AdminUser {
   id: string;
@@ -36,7 +37,7 @@ export const AdminLogin: React.FC = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
   const [successMsg, setSuccessMsg] = useState<string | null>(null);
-  const [activeTab, setActiveTab] = useState<"blogs" | "overview">("blogs");
+  const [activeTab, setActiveTab] = useState<"blogs" | "overview" | "security">("blogs");
 
   // Check if admin is already logged in
   const [adminUser, setAdminUser] = useState<AdminUser | null>(() => {
@@ -244,11 +245,28 @@ export const AdminLogin: React.FC = () => {
                 <LayoutDashboard className="w-4 h-4" />
                 System Overview
               </button>
+
+              <button
+                onClick={() => setActiveTab("security")}
+                className={`inline-flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold transition cursor-pointer ${
+                  activeTab === "security"
+                    ? "bg-[#83184d] text-white shadow-sm"
+                    : "text-slate-600 hover:text-slate-900 hover:bg-slate-100"
+                }`}
+              >
+                <KeyRound className="w-4 h-4" />
+                Change Password
+              </button>
             </div>
 
             {/* Tab 1: Blog CRUD Management */}
             {activeTab === "blogs" && (
               <AdminBlogManager token={token} />
+            )}
+
+            {/* Tab 3: Change Password */}
+            {activeTab === "security" && (
+              <AdminChangePassword token={token} />
             )}
 
             {/* Tab 2: System Overview */}
@@ -416,19 +434,6 @@ export const AdminLogin: React.FC = () => {
                       <Eye className="w-4 h-4" />
                     )}
                   </button>
-                </div>
-              </div>
-
-              {/* Default Credentials Helper Hint */}
-              <div className="p-3.5 rounded-xl bg-[#EEF2EB] border border-slate-300 text-xs text-slate-700 flex items-start gap-2.5">
-                <KeyRound className="w-4 h-4 text-emerald-700 shrink-0 mt-0.5" />
-                <div>
-                  <span className="font-bold text-slate-900">Default Access:</span>{" "}
-                  Email: <code className="bg-white border border-slate-200 px-1.5 py-0.5 rounded font-mono text-slate-800">admin@inetglobal.com</code>
-                  <br />
-                  <span className="inline-block mt-1">
-                    Password: <code className="bg-white border border-slate-200 px-1.5 py-0.5 rounded font-mono text-slate-800">Admin@123</code>
-                  </span>
                 </div>
               </div>
 
