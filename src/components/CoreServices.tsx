@@ -25,9 +25,7 @@ const ServiceCard: React.FC<ServiceCardProps> = ({
   href = "/voice",
 }) => {
   return (
-    <div
-      className="bg-white rounded-[26px] p-6 sm:p-8 lg:p-9 flex flex-col justify-between transition-all duration-300 border border-gray-100 shadow-sm hover:shadow-xl hover:border-gray-200"
-    >
+    <div className="bg-white rounded-[26px] p-6 sm:p-8 lg:p-9 flex flex-col justify-between transition-all duration-300 border-2 border-gray-200/80 hover:border-[#698a22] shadow-sm hover:shadow-xl group">
       <div className="space-y-6">
         {/* Icon Badge */}
         <div
@@ -77,9 +75,12 @@ const ServiceCard: React.FC<ServiceCardProps> = ({
 export const CoreServices: React.FC = () => {
   const selectedRegion = useAppSelector((state) => state.region.selectedRegion);
   const selectedLanguage = useAppSelector(
-    (state) => state.language.selectedLanguage
+    (state) => state.language.selectedLanguage,
   );
-  const content = getRegionContent(selectedRegion, selectedLanguage).coreServices;
+  const content = getRegionContent(
+    selectedRegion,
+    selectedLanguage,
+  ).coreServices;
   const t = getNavTranslations(selectedLanguage);
 
   const icons = [

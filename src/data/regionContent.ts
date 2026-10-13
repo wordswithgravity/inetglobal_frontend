@@ -140,7 +140,7 @@ export const regionContentMap: Record<string, RegionContent> = {
           description:
             "Deliver critical transactional SMS, OTPs, and rich business messaging directly to handsets worldwide with high delivery assurance.",
           features: [
-            "High-quality voice connections",
+            "High-quality SMS Routes",
             "Flexible route options",
             "Global coverage",
           ],
@@ -150,7 +150,7 @@ export const regionContentMap: Record<string, RegionContent> = {
           description:
             "Unify Voice, SMS, WhatsApp, and Verification into a single developer-friendly REST API suite designed for instant deployment.",
           features: [
-            "High-quality voice connections",
+            "High-quality voice and SMS Routes",
             "Flexible route options",
             "Global coverage",
           ],
@@ -276,8 +276,7 @@ export const regionContentMap: Record<string, RegionContent> = {
           phoneScreen: {
             backTitle: "Reminders",
             title: "Your Appointment is Tomorrow",
-            subtitle:
-              "You have an appointment scheduled for 10:30 AM, June 30",
+            subtitle: "You have an appointment scheduled for 10:30 AM, June 30",
             infoCard: {
               label: "Location",
               value: "City Medical Center",
@@ -1373,7 +1372,7 @@ import { getLocalizedContent } from "./localizedContent";
  */
 export const getRegionContent = (
   regionId: string = "global",
-  languageId: string = "en"
+  languageId: string = "en",
 ): RegionContent => {
   if (languageId && languageId !== "en") {
     return getLocalizedContent(regionId, languageId);
@@ -1383,4 +1382,3 @@ export const getRegionContent = (
   }
   return getLocalizedContent(regionId, "en");
 };
-

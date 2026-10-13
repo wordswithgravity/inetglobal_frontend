@@ -37,7 +37,9 @@ export const AdminLogin: React.FC = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
   const [successMsg, setSuccessMsg] = useState<string | null>(null);
-  const [activeTab, setActiveTab] = useState<"blogs" | "overview" | "security">("blogs");
+  const [activeTab, setActiveTab] = useState<"blogs" | "overview" | "security">(
+    "blogs",
+  );
 
   // Check if admin is already logged in
   const [adminUser, setAdminUser] = useState<AdminUser | null>(() => {
@@ -136,7 +138,9 @@ export const AdminLogin: React.FC = () => {
       if (err instanceof Error) {
         setErrorMsg(err.message);
       } else {
-        setErrorMsg("Failed to connect to backend server. Ensure backend is running on port 5000.");
+        setErrorMsg(
+          "Failed to connect to backend server. Ensure backend is running on port 5000.",
+        );
       }
     } finally {
       setIsLoading(false);
@@ -260,14 +264,10 @@ export const AdminLogin: React.FC = () => {
             </div>
 
             {/* Tab 1: Blog CRUD Management */}
-            {activeTab === "blogs" && (
-              <AdminBlogManager token={token} />
-            )}
+            {activeTab === "blogs" && <AdminBlogManager token={token} />}
 
             {/* Tab 3: Change Password */}
-            {activeTab === "security" && (
-              <AdminChangePassword token={token} />
-            )}
+            {activeTab === "security" && <AdminChangePassword token={token} />}
 
             {/* Tab 2: System Overview */}
             {activeTab === "overview" && (
@@ -325,7 +325,9 @@ export const AdminLogin: React.FC = () => {
                     Connected Administrative Session
                   </h2>
                   <p className="text-sm text-slate-600 leading-relaxed mb-4">
-                    You are securely authenticated as an administrator. You have authorization to manage communication channels, SMS routing, DID allocation, voice carriers, and customer inquiries.
+                    You are securely authenticated as an administrator. You have
+                    authorization to manage communication channels, SMS routing,
+                    DID allocation, voice carriers, and customer inquiries.
                   </p>
                   <div className="flex flex-wrap gap-3">
                     <button
@@ -466,7 +468,8 @@ export const AdminLogin: React.FC = () => {
 
       {/* Bottom Footer */}
       <footer className="w-full border-t border-slate-200 bg-white/60 px-6 py-4 text-center text-xs text-slate-500">
-        © {new Date().getFullYear()} iNet Global Communications Inc. All rights reserved.
+        © {new Date().getFullYear()} iNet Global Communications Inc. All rights
+        reserved.
       </footer>
     </div>
   );
