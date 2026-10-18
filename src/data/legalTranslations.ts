@@ -36,7 +36,7 @@ export const legalTranslations: Record<string, LegalTranslations> = {
         "Learn how iNet Global collects, uses, and protects personal information across its telecommunications and business communication services.",
       badge: "DATA PRIVACY & PROTECTION",
       title: "Privacy Policy",
-      lastUpdated: "Last Updated: June 2024",
+      lastUpdated: "Last Updated: June 2026",
       intro:
         "iNet Global Services Limited respects your privacy and is committed to protecting your personal and business information. This policy explains how we collect, use, and safeguard information when you visit our website or use our telecommunications services.",
       sections: [
@@ -102,7 +102,7 @@ export const legalTranslations: Record<string, LegalTranslations> = {
         "Review the terms governing website access and the use of iNet Global telecommunications and business communication services.",
       badge: "LEGAL AGREEMENT",
       title: "Terms of Service",
-      lastUpdated: "Last Updated: June 2024",
+      lastUpdated: "Last Updated: June 2026",
       intro:
         "These Terms of Service govern your access to the iNet Global website and use of our telecommunications services. By using our website or services, you agree to the terms applicable to your use.",
       sections: [
@@ -167,7 +167,7 @@ export const legalTranslations: Record<string, LegalTranslations> = {
         "Discover iNet Global's approach to telecommunications security, responsible messaging, data protection, and compliance.",
       badge: "INFRASTRUCTURE SECURITY",
       title: "Security & Compliance",
-      lastUpdated: "Last Updated: June 2024",
+      lastUpdated: "Last Updated: June 2026",
       intro:
         "At iNet Global Services Limited, we prioritize secure, reliable, and responsible telecommunications. We work to protect our communication infrastructure and support the safe use of our voice, messaging, and connectivity services.",
       sections: [
