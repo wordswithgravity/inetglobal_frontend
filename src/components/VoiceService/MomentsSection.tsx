@@ -1,3 +1,4 @@
+import Image from "next/image";
 import React from "react";
 import contactCenterImg from "../../assets/contactcenter.jpg";
 import fintechPlatformImg from "../../assets/fintech&platform.jpg";
@@ -49,11 +50,13 @@ export const MomentsSection: React.FC<MomentsSectionProps> = ({ t }) => {
             >
               <div>
                 {/* Card Artwork Header */}
-                <div className="w-full h-48 sm:h-52 bg-white flex items-center justify-center overflow-hidden border-b border-gray-100">
-                  <img
+                <div className="w-full h-48 sm:h-52 bg-white flex items-center justify-center overflow-hidden border-b border-gray-100 relative">
+                  <Image
                     src={images[idx % images.length]}
                     alt={moment.title}
-                    className="w-full h-full object-cover object-center transform group-hover:scale-105 transition-transform duration-300"
+                    fill
+                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                    className="object-cover object-center transform group-hover:scale-105 transition-transform duration-300"
                   />
                 </div>
 

@@ -1,4 +1,6 @@
+import Image from "next/image";
 import React from "react";
+import Link from "next/link";
 import { ArrowRight, Clock, Check, MessageSquare } from "lucide-react";
 import peopleImg from "../../assets/twopeople.png";
 import type { WholesaleVoiceTranslation } from "../../data/wholesaleVoiceTranslations";
@@ -31,20 +33,20 @@ export const VoiceCta: React.FC<VoiceCtaProps> = ({ t }) => {
               </p>
 
               <div className="pt-2 flex flex-wrap items-center gap-4">
-                <a
+                <Link
                   href="/contact"
                   className="inline-flex items-center justify-center gap-2 px-8 sm:px-9 py-3 sm:py-3.5 rounded-full bg-[#83184d] hover:bg-[#721240] text-white text-[14.5px] sm:text-[16px] font-medium transition duration-150 shadow-md shadow-[#83184d]/25 active:scale-[0.98]"
                 >
                   {t.talkToExpert}
                   <ArrowRight className="w-4 h-4" />
-                </a>
+                </Link>
 
-                <a
+                <Link
                   href="/contact"
                   className="inline-flex items-center justify-center gap-2 px-7 sm:px-8 py-3 sm:py-3.5 rounded-full bg-white hover:bg-slate-50 text-[#102038] border border-gray-300 hover:border-[#698a22] text-[14.5px] sm:text-[16px] font-medium transition duration-150 active:scale-[0.98]"
                 >
                   {t.contactUs}
-                </a>
+                </Link>
 
                 <div className="flex items-center gap-1.5 text-[12.5px] text-slate-500 w-full sm:w-auto pt-1 sm:pt-0">
                   <Clock className="w-3.5 h-3.5 text-[#698a22]" />
@@ -56,9 +58,11 @@ export const VoiceCta: React.FC<VoiceCtaProps> = ({ t }) => {
             {/* Right Illustration Artwork */}
             <div className="lg:col-span-6 flex justify-center items-center relative">
               <div className="relative w-full max-w-[560px] sm:max-w-[620px] lg:max-w-[660px] flex items-center justify-center">
-                <img
-                  src={typeof peopleImg === "string" ? peopleImg : (peopleImg as any)?.src || peopleImg}
+                <Image
+                  src={peopleImg}
                   alt="Voice Collaboration"
+                  width={1536}
+                  height={1024}
                   className="w-full h-auto object-contain select-none transform hover:scale-[1.02] transition-transform duration-300"
                 />
 

@@ -1,6 +1,8 @@
 "use client";
+import Image from "next/image";
 
 import React, { useState } from "react";
+import Link from "next/link";
 import {
   ArrowRight,
   MessageSquare,
@@ -66,13 +68,13 @@ export const MessagingServices: React.FC = () => {
               </p>
 
               <div className="pt-2 sm:pt-3">
-                <a
+                <Link
                   href="/contact"
                   className="inline-flex items-center justify-center gap-2 px-8 sm:px-9 py-3 sm:py-3.5 rounded-full bg-[#83184d] hover:bg-[#721240] text-white text-[14.5px] sm:text-[16px] font-medium transition duration-150 shadow-md shadow-[#83184d]/25 active:scale-[0.98]"
                 >
                   {t.getStarted}
                   <ArrowRight className="w-4 h-4" />
-                </a>
+                </Link>
               </div>
             </div>
 
@@ -84,9 +86,12 @@ export const MessagingServices: React.FC = () => {
 
                 {/* Large Background Globe */}
                 <div className="absolute inset-0 flex items-center justify-center pointer-events-none opacity-65 sm:opacity-75 scale-120 sm:scale-130 lg:scale-140 transition-transform duration-300 z-0">
-                  <img
-                    src={typeof globeImg === "string" ? globeImg : (globeImg as any)?.src || globeImg}
+                  <Image
+                    src={globeImg}
                     alt="Network Globe"
+                    priority
+                    width={1536}
+                    height={1024}
                     className="w-full max-w-[580px] sm:max-w-[680px] lg:max-w-[760px] h-auto object-contain select-none"
                   />
                 </div>
@@ -99,9 +104,11 @@ export const MessagingServices: React.FC = () => {
                       <div className="flex items-center justify-between pb-2.5 border-b border-gray-200">
                         <div className="flex items-center gap-2 min-w-0">
                           <div className="w-7 h-7 rounded-full bg-[#102038] flex items-center justify-center p-1 shrink-0">
-                            <img
-                              src={typeof logoImg === "string" ? logoImg : (logoImg as any)?.src || logoImg}
+                            <Image
+                              src={logoImg}
                               alt="iNet Logo"
+                              width={39}
+                              height={28}
                               className="w-full h-full object-contain"
                             />
                           </div>
@@ -153,7 +160,7 @@ export const MessagingServices: React.FC = () => {
 
                 {/* Floating Location/Service Badges Attached to Phone */}
                 {/* 1. Top-Right Badge (Wholesale SMS) */}
-                <a
+                <Link
                   href="/wholesale-message"
                   className="absolute top-6 -right-2 sm:-right-6 bg-white/95 backdrop-blur-xs rounded-2xl py-2 px-3.5 shadow-lg border border-gray-100 flex items-center gap-2.5 z-20 max-w-[210px] text-left transition hover:shadow-xl hover:-translate-y-0.5 group cursor-pointer"
                 >
@@ -168,10 +175,10 @@ export const MessagingServices: React.FC = () => {
                       {t.floatingBadges.wholesale.desc}
                     </div>
                   </div>
-                </a>
+                </Link>
 
                 {/* 2. Middle-Right Badge (RCS Business Messaging) */}
-                <a
+                <Link
                   href="/rcs"
                   className="absolute top-1/2 -translate-y-1/2 -right-4 sm:-right-8 bg-white/95 backdrop-blur-xs rounded-2xl py-2 px-3.5 shadow-lg border border-gray-100 flex items-center gap-2.5 z-20 max-w-[220px] text-left transition hover:shadow-xl hover:-translate-y-0.5 group cursor-pointer"
                 >
@@ -186,10 +193,10 @@ export const MessagingServices: React.FC = () => {
                       {t.floatingBadges.rcs.desc}
                     </div>
                   </div>
-                </a>
+                </Link>
 
                 {/* 3. Bottom-Right Badge (OTP SMS) */}
-                <a
+                <Link
                   href="/otp-sms-services"
                   className="absolute bottom-6 -right-2 sm:-right-6 bg-white/95 backdrop-blur-xs rounded-2xl py-2 px-3.5 shadow-lg border border-gray-100 flex items-center gap-2.5 z-20 max-w-[210px] text-left transition hover:shadow-xl hover:-translate-y-0.5 group cursor-pointer"
                 >
@@ -204,7 +211,7 @@ export const MessagingServices: React.FC = () => {
                       {t.floatingBadges.otp.desc}
                     </div>
                   </div>
-                </a>
+                </Link>
               </div>
             </div>
           </div>
@@ -274,13 +281,13 @@ export const MessagingServices: React.FC = () => {
               </div>
 
               <div className="pt-6 sm:pt-8 text-left">
-                <a
+                <Link
                   href="/wholesale-message"
                   className="inline-flex items-center gap-2 text-[14px] font-semibold text-[#83184d] group-hover:text-[#721240] transition"
                 >
                   {t.services.wholesaleSms.learnMore}
                   <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
-                </a>
+                </Link>
               </div>
             </div>
 
@@ -319,13 +326,13 @@ export const MessagingServices: React.FC = () => {
               </div>
 
               <div className="pt-6 sm:pt-8 text-left">
-                <a
+                <Link
                   href="/rcs"
                   className="inline-flex items-center gap-2 text-[14px] font-semibold text-[#83184d] group-hover:text-[#721240] transition"
                 >
                   {t.services.rcsMessaging.learnMore}
                   <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
-                </a>
+                </Link>
               </div>
             </div>
 
@@ -364,13 +371,13 @@ export const MessagingServices: React.FC = () => {
               </div>
 
               <div className="pt-6 sm:pt-8 text-left">
-                <a
+                <Link
                   href="/otp-sms-services"
                   className="inline-flex items-center gap-2 text-[14px] font-semibold text-[#83184d] group-hover:text-[#721240] transition"
                 >
                   {t.services.otpSms.learnMore}
                   <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
-                </a>
+                </Link>
               </div>
             </div>
           </div>
@@ -511,13 +518,15 @@ export const MessagingServices: React.FC = () => {
           {/* 5 Feature Cards Grid */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-5 lg:gap-6">
             {t.features.map((feat, idx) => {
-              const icons = [
-                <BarChart3 className="w-5 h-5 text-white" />,
-                <MessageSquare className="w-5 h-5 text-white" />,
-                <Zap className="w-5 h-5 text-white" />,
-                <Lock className="w-5 h-5 text-white" />,
-                <Share2 className="w-5 h-5 text-white" />,
-              ];
+              const getIcon = (i: number) => {
+                switch (i % 5) {
+                  case 0: return <BarChart3 className="w-5 h-5 text-white" />;
+                  case 1: return <MessageSquare className="w-5 h-5 text-white" />;
+                  case 2: return <Zap className="w-5 h-5 text-white" />;
+                  case 3: return <Lock className="w-5 h-5 text-white" />;
+                  default: return <Share2 className="w-5 h-5 text-white" />;
+                }
+              };
 
               return (
                 <div
@@ -526,7 +535,7 @@ export const MessagingServices: React.FC = () => {
                 >
                   <div className="space-y-4">
                     <div className="w-12 h-12 rounded-full bg-[#83184d] flex items-center justify-center shadow-xs">
-                      {icons[idx % icons.length]}
+                      {getIcon(idx)}
                     </div>
 
                     <h4 className="text-lg sm:text-[18px] font-bold text-[#102038] leading-tight">
@@ -576,20 +585,20 @@ export const MessagingServices: React.FC = () => {
             </p>
 
             <div className="pt-2 flex flex-col sm:flex-row items-center justify-center gap-4">
-              <a
+              <Link
                 href="/contact"
                 className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 sm:px-9 py-3 sm:py-3.5 rounded-full bg-[#83184d] hover:bg-[#721240] text-white text-[14.5px] sm:text-[16px] font-medium transition duration-150 shadow-md shadow-[#83184d]/25 active:scale-[0.98]"
               >
                 {t.getStarted}
                 <ArrowRight className="w-4 h-4" />
-              </a>
+              </Link>
 
-              <a
+              <Link
                 href="/contact"
                 className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 sm:px-9 py-3 sm:py-3.5 rounded-full bg-white hover:bg-slate-50 text-[#102038] border border-gray-300 hover:border-[#698a22] text-[14.5px] sm:text-[16px] font-medium transition duration-150 active:scale-[0.98]"
               >
                 {t.contactUs}
-              </a>
+              </Link>
             </div>
           </div>
         </div>

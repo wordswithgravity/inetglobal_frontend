@@ -1,6 +1,8 @@
 "use client";
+import Image from "next/image";
 
 import React from "react";
+import Link from "next/link";
 import { Calendar, Clock, ArrowRight, User, Tag } from "lucide-react";
 
 export interface BlogPost {
@@ -34,8 +36,7 @@ export const BlogCard: React.FC<BlogCardProps> = ({
       onPostClick(post.slug);
       return;
     }
-    // Default navigation to article details
-    window.location.href = `/blog/${post.slug}`;
+    // Navigation handled via Link component
   };
 
   return (
@@ -45,11 +46,13 @@ export const BlogCard: React.FC<BlogCardProps> = ({
     >
       {/* Post Image Container */}
       <div className="relative aspect-16/10 overflow-hidden bg-slate-100">
-        <img
+        <Image
           src={post.imageUrl}
           alt={post.title}
-          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-          loading="lazy"
+          fill
+          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+          className="object-cover group-hover:scale-105 transition-transform duration-500"
+          unoptimized={!post.imageUrl.startsWith('/') && !post.imageUrl.includes('inetglobalservices.com') && !post.imageUrl.includes('unsplash.com')}
         />
         {/* Category Pill Badge */}
         <div className="absolute top-4 left-4">
@@ -112,17 +115,11 @@ export const BlogCard: React.FC<BlogCardProps> = ({
             </div>
           </div>
 
-          <a
-            href={`/blog/${post.slug}`}
-            onClick={(e) => {
-              e.preventDefault();
-              handleClick(e);
-            }}
-            className="inline-flex items-center gap-1.5 text-xs font-bold text-[#83184d] hover:text-[#5f1037] transition-colors group/link"
+          <Link href={`/blog/${post.slug}`} onClick={(e) => { if (onPostClick) { e.preventDefault(); onPostClick(post.slug); } }} className="inline-flex items-center gap-1.5 text-xs font-bold text-[#83184d] hover:text-[#5f1037] transition-colors group/link"
           >
             <span>{readMoreText}</span>
             <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover/link:translate-x-1" />
-          </a>
+          </Link>
         </div>
       </div>
     </article>

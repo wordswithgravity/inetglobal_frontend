@@ -4,8 +4,7 @@ import {
   type PayloadAction,
 } from "@reduxjs/toolkit";
 import axios from "axios";
-
-const API_BASE_URL = "https://api.inetglobalservices.com/api";
+import { API_BASE_URL } from "../../utils/apiConfig";
 
 export interface GraphPoint {
   label: string;

@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useEffect, useRef, useState } from "react";
+import Link from "next/link";
 import {
   ShieldCheck,
   Building2,
@@ -435,13 +436,13 @@ export const BusinessSolutions: React.FC = () => {
               </ul>
 
               <div className="mt-[30px]">
-                <a
+                <Link
                   href="/messaging"
                   className="inline-flex items-center justify-center gap-2 min-w-[180px] px-6 h-[45px] rounded-full bg-[#8b1a5e] hover:bg-[#751450] text-white text-[14.5px] font-medium transition duration-150 shadow-lg shadow-[#8b1a5e]/30 active:scale-[0.98]"
                 >
                   {navT.exploreSolutions || "Explore Solution"}
                   <ArrowRight className="w-4 h-4" />
-                </a>
+                </Link>
               </div>
             </div>
           </div>

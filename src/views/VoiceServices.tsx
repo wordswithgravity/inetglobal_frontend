@@ -1,6 +1,8 @@
 "use client";
+import Image from "next/image";
 
 import React, { useState } from "react";
+import Link from "next/link";
 import {
   ArrowRight,
   Phone,
@@ -67,13 +69,13 @@ export const VoiceServices: React.FC = () => {
               </p>
 
               <div className="pt-2 sm:pt-3">
-                <a
+                <Link
                   href="/contact"
                   className="inline-flex items-center justify-center gap-2 px-8 sm:px-9 py-3 sm:py-3.5 rounded-full bg-[#83184d] hover:bg-[#721240] text-white text-[14.5px] sm:text-[16px] font-medium transition duration-150 shadow-md shadow-[#83184d]/25 active:scale-[0.98]"
                 >
                   {t.getStarted}
                   <ArrowRight className="w-4 h-4" />
-                </a>
+                </Link>
               </div>
             </div>
 
@@ -85,9 +87,12 @@ export const VoiceServices: React.FC = () => {
 
                 {/* Globe Image - Large and prominent */}
                 <div className="relative w-full flex items-center justify-center p-2 sm:p-4">
-                  <img
-                    src={typeof globeImg === "string" ? globeImg : (globeImg as any)?.src || globeImg}
+                  <Image
+                    src={globeImg}
                     alt="Voice Network Globe"
+                    priority
+                    width={1536}
+                    height={1024}
                     className="w-full max-w-[600px] sm:max-w-[720px] lg:max-w-[820px] xl:max-w-[900px] h-auto object-contain select-none transform hover:scale-[1.02] transition-transform duration-300"
                   />
                 </div>
@@ -234,13 +239,13 @@ export const VoiceServices: React.FC = () => {
               </div>
 
               <div className="pt-6 sm:pt-8 text-left">
-                <a
+                <Link
                   href="/wholesale-voice"
                   className="inline-flex items-center gap-2 text-[14px] font-semibold text-[#83184d] group-hover:text-[#721240] transition"
                 >
                   {t.services.wholesale.learnMore}
                   <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
-                </a>
+                </Link>
               </div>
             </div>
 
@@ -279,13 +284,13 @@ export const VoiceServices: React.FC = () => {
               </div>
 
               <div className="pt-6 sm:pt-8 text-left">
-                <a
+                <Link
                   href="/ai-voice"
                   className="inline-flex items-center gap-2 text-[14px] font-semibold text-[#83184d] group-hover:text-[#721240] transition"
                 >
                   {t.services.aiVoice.learnMore}
                   <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
-                </a>
+                </Link>
               </div>
             </div>
 
@@ -324,13 +329,13 @@ export const VoiceServices: React.FC = () => {
               </div>
 
               <div className="pt-6 sm:pt-8 text-left">
-                <a
+                <Link
                   href="/virtual-numbers-did"
                   className="inline-flex items-center gap-2 text-[14px] font-semibold text-[#83184d] group-hover:text-[#721240] transition"
                 >
                   {t.services.virtualNumbers.learnMore}
                   <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
-                </a>
+                </Link>
               </div>
             </div>
           </div>
@@ -505,9 +510,11 @@ export const VoiceServices: React.FC = () => {
               <div className="bg-white rounded-[24px] p-6 sm:p-7 border border-gray-200 hover:border-[#698a22] shadow-xs hover:shadow-lg transition duration-200 flex flex-col justify-between text-left space-y-5">
                 <div className="flex items-center justify-between">
                   <div className="w-12 h-12 rounded-full bg-[#fdf2f8] flex items-center justify-center p-2 shadow-xs">
-                    <img
-                      src={typeof logoImg === "string" ? logoImg : (logoImg as any)?.src || logoImg}
+                    <Image
+                      src={logoImg}
                       alt="iNet Global Logo"
+                      width={67}
+                      height={48}
                       className="w-full h-full object-contain"
                     />
                   </div>
@@ -616,20 +623,20 @@ export const VoiceServices: React.FC = () => {
             </p>
 
             <div className="pt-2 flex flex-col sm:flex-row items-center justify-center gap-4">
-              <a
+              <Link
                 href="/contact"
                 className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 sm:px-9 py-3 sm:py-3.5 rounded-full bg-[#83184d] hover:bg-[#721240] text-white text-[14.5px] sm:text-[16px] font-medium transition duration-150 shadow-md shadow-[#83184d]/25 active:scale-[0.98]"
               >
                 {t.getStarted}
                 <ArrowRight className="w-4 h-4" />
-              </a>
+              </Link>
 
-              <a
+              <Link
                 href="/contact"
                 className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 sm:px-9 py-3 sm:py-3.5 rounded-full bg-white hover:bg-slate-50 text-[#102038] border border-gray-300 hover:border-[#698a22] text-[14.5px] sm:text-[16px] font-medium transition duration-150 active:scale-[0.98]"
               >
                 {t.contactUs}
-              </a>
+              </Link>
             </div>
           </div>
         </div>

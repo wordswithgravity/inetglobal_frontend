@@ -1,6 +1,8 @@
 "use client";
+import Image from "next/image";
 
 import React, { useEffect } from "react";
+import Link from "next/link";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import BlogCard from "../components/Blog/BlogCard";
@@ -8,6 +10,7 @@ import { useAppDispatch, useAppSelector } from "../store/hooks";
 import {
   fetchBlogBySlug,
   fetchPublishedBlogs,
+  type BlogItem,
 } from "../store/slices/blogSlice";
 import { getBlogTranslations } from "../data/blogTranslations";
 import {
@@ -30,13 +33,17 @@ import {
 
 interface BlogDetailsProps {
   slug?: string;
+  initialBlog?: BlogItem | null;
   onNavigateBack?: () => void;
 }
 
+
 export const BlogDetails: React.FC<BlogDetailsProps> = ({
   slug,
+  initialBlog,
   onNavigateBack,
 }) => {
+
   const dispatch = useAppDispatch();
   const { currentBlog, blogs, loading } = useAppSelector(
     (state) => state.blog
@@ -76,7 +83,8 @@ export const BlogDetails: React.FC<BlogDetailsProps> = ({
 
   // Active post only from real backend data (no mock/fake fallback)
   const post =
-    currentBlog && currentBlog.slug === currentSlug ? currentBlog : null;
+    (currentBlog && currentBlog.slug === currentSlug ? currentBlog : null) ||
+    (initialBlog && initialBlog.slug === currentSlug ? initialBlog : null);
 
   // Related posts from real backend blogs only
   const relatedPosts = (blogs || [])
@@ -148,19 +156,11 @@ export const BlogDetails: React.FC<BlogDetailsProps> = ({
             {t.articleNotFoundDesc}
           </p>
           <div className="pt-2">
-            <a
-              href="/blog"
-              onClick={(e) => {
-                if (onNavigateBack) {
-                  e.preventDefault();
-                  onNavigateBack();
-                }
-              }}
-              className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full bg-[#83184d] hover:bg-[#6c143f] text-white text-xs sm:text-sm font-semibold transition shadow-sm cursor-pointer"
+            <Link href="/blog" onClick={(e) => { if (onNavigateBack) { e.preventDefault(); onNavigateBack(); } }} className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full bg-[#83184d] hover:bg-[#6c143f] text-white text-xs sm:text-sm font-semibold transition shadow-sm cursor-pointer"
             >
               <ArrowLeft className="w-4 h-4" />
               {t.backToArticles}
-            </a>
+            </Link>
           </div>
         </div>
         <Footer />
@@ -177,19 +177,11 @@ export const BlogDetails: React.FC<BlogDetailsProps> = ({
       {/* 2. Top Breadcrumb & Back Bar */}
       <div className="bg-white/80 backdrop-blur-md border-b border-slate-200/80 sticky top-0 z-30 px-3 sm:px-6 lg:px-8">
         <div className="max-w-[1440px] mx-auto py-3.5 flex items-center justify-between">
-          <a
-            href="/blog"
-            onClick={(e) => {
-              if (onNavigateBack) {
-                e.preventDefault();
-                onNavigateBack();
-              }
-            }}
-            className="inline-flex items-center gap-2 text-xs sm:text-sm font-semibold text-slate-600 hover:text-slate-900 transition-colors cursor-pointer"
+          <Link href="/blog" onClick={(e) => { if (onNavigateBack) { e.preventDefault(); onNavigateBack(); } }} className="inline-flex items-center gap-2 text-xs sm:text-sm font-semibold text-slate-600 hover:text-slate-900 transition-colors cursor-pointer"
           >
             <ArrowLeft className="w-4 h-4" />
             {t.backToArticles}
-          </a>
+          </Link>
 
           <div className="flex items-center gap-3">
             <span className="hidden sm:inline-block text-xs font-semibold px-3 py-1 rounded-full bg-[#EEF2EB] text-slate-700 border border-slate-200">
@@ -264,11 +256,15 @@ export const BlogDetails: React.FC<BlogDetailsProps> = ({
       <main className="w-full py-8 sm:py-12 lg:py-16 px-3 sm:px-6 lg:px-8">
         <div className="max-w-[1440px] mx-auto space-y-8 sm:space-y-12">
           {/* Featured Hero Image */}
-          <div className="w-full aspect-21/9 max-h-[520px] rounded-3xl overflow-hidden shadow-xl border border-slate-200/90 bg-slate-100">
-            <img
+          <div className="w-full aspect-21/9 max-h-[520px] rounded-3xl overflow-hidden shadow-xl border border-slate-200/90 bg-slate-100 relative">
+            <Image
               src={post.imageUrl}
               alt={post.title}
-              className="w-full h-full object-cover"
+              fill
+              priority
+              sizes="100vw"
+              className="object-cover"
+              unoptimized={!post.imageUrl.startsWith('/') && !post.imageUrl.includes('inetglobalservices.com') && !post.imageUrl.includes('unsplash.com')}
             />
           </div>
 
@@ -297,14 +293,17 @@ export const BlogDetails: React.FC<BlogDetailsProps> = ({
                   {/* In-Between Image Uploaded to Cloudinary */}
                   {section.sectionImage?.url && (
                     <div className="my-8 rounded-2xl overflow-hidden border border-slate-200 shadow-md bg-slate-50">
-                      <img
+                      <Image
                         src={section.sectionImage.url}
                         alt={
                           section.sectionImage.alt ||
                           section.sectionImage.caption ||
                           section.heading
                         }
+                        width={1200}
+                        height={600}
                         className="w-full max-h-[460px] object-cover"
+                        unoptimized
                       />
                       {section.sectionImage.caption && (
                         <div className="p-3 bg-slate-100 text-center text-xs font-medium text-slate-500 border-t border-slate-200">
@@ -459,7 +458,7 @@ export const BlogDetails: React.FC<BlogDetailsProps> = ({
                   {/* Quote Callout */}
                   {section.quote && (
                     <blockquote className="my-6 p-6 sm:p-8 rounded-2xl bg-[#EEF2EB] border-l-4 border-[#83184d] text-slate-800 font-medium italic text-base sm:text-lg leading-relaxed shadow-xs">
-                      "{section.quote}"
+                      &ldquo;{section.quote}&rdquo;
                     </blockquote>
                   )}
 
@@ -546,13 +545,11 @@ export const BlogDetails: React.FC<BlogDetailsProps> = ({
                 </h3>
               </div>
 
-              <a
-                href="/blog"
-                className="inline-flex items-center gap-1 text-sm font-semibold text-[#83184d] hover:text-[#5f1037]"
+              <Link href="/blog" className="inline-flex items-center gap-1 text-sm font-semibold text-[#83184d] hover:text-[#5f1037]"
               >
                 {t.viewAllArticles}
                 <ArrowRight className="w-4 h-4" />
-              </a>
+              </Link>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">

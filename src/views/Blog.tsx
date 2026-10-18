@@ -1,4 +1,6 @@
 "use client";
+import Image from "next/image";
+import Link from "next/link";
 
 import React, { useState, useEffect } from "react";
 import Navbar from "../components/Navbar";
@@ -6,10 +8,14 @@ import Footer from "../components/Footer";
 import BlogCard, { type BlogPost } from "../components/Blog/BlogCard";
 import { Search, BookOpen, ArrowRight, Loader2 } from "lucide-react";
 import { useAppDispatch, useAppSelector } from "../store/hooks";
-import { fetchPublishedBlogs } from "../store/slices/blogSlice";
+import { fetchPublishedBlogs, type BlogItem } from "../store/slices/blogSlice";
 import { getBlogTranslations } from "../data/blogTranslations";
 
-export const Blog: React.FC = () => {
+interface BlogProps {
+  initialBlogs?: BlogItem[];
+}
+
+export const Blog: React.FC<BlogProps> = ({ initialBlogs = [] }) => {
   const dispatch = useAppDispatch();
   const { blogs: apiBlogs, loading } = useAppSelector((state) => state.blog);
   const selectedLanguage = useAppSelector(
@@ -35,7 +41,8 @@ export const Blog: React.FC = () => {
   ];
 
   // Convert real API blogs to BlogPost format (NO fake/mock data)
-  const allBlogPosts: BlogPost[] = (apiBlogs || []).map((b) => ({
+  const displayBlogs = apiBlogs && apiBlogs.length > 0 ? apiBlogs : initialBlogs;
+  const allBlogPosts: BlogPost[] = (displayBlogs || []).map((b) => ({
     id: (b._id || b.id || b.slug) as string,
     slug: b.slug,
     title: b.title,
@@ -130,12 +137,12 @@ export const Blog: React.FC = () => {
                     {featuredPost.category}
                   </span>
                   <h2 className="text-2xl sm:text-4xl font-extrabold text-slate-900 leading-tight">
-                    <a
+                    <Link
                       href={`/blog/${featuredPost.slug}`}
                       className="hover:text-[#83184d] transition-colors"
                     >
                       {featuredPost.title}
-                    </a>
+                    </Link>
                   </h2>
                   <p className="text-sm sm:text-base text-slate-600 leading-relaxed">
                     {featuredPost.excerpt}
@@ -148,21 +155,24 @@ export const Blog: React.FC = () => {
                     <span>{featuredPost.readTime}</span>
                   </div>
                   <div className="pt-2">
-                    <a
+                    <Link
                       href={`/blog/${featuredPost.slug}`}
                       className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-[#83184d] hover:bg-[#721240] text-white text-sm font-semibold transition-all shadow-md shadow-[#83184d]/25"
                     >
                       {t.readFullStory}
                       <ArrowRight className="w-4 h-4" />
-                    </a>
+                    </Link>
                   </div>
                 </div>
 
-                <div className="lg:col-span-5 aspect-16/10 rounded-2xl overflow-hidden shadow-lg border border-slate-200/80">
-                  <img
+                <div className="lg:col-span-5 aspect-16/10 rounded-2xl overflow-hidden shadow-lg border border-slate-200/80 relative">
+                  <Image
                     src={featuredPost.imageUrl}
                     alt={featuredPost.title}
-                    className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
+                    fill
+                    sizes="(max-width: 1024px) 100vw, 40vw"
+                    className="object-cover hover:scale-105 transition-transform duration-500"
+                    unoptimized={!featuredPost.imageUrl.startsWith('/') && !featuredPost.imageUrl.includes('inetglobalservices.com') && !featuredPost.imageUrl.includes('unsplash.com')}
                   />
                 </div>
               </div>

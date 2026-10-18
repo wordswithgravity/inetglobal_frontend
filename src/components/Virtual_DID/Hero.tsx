@@ -1,4 +1,5 @@
 import React from "react";
+import Link from "next/link";
 import {
   ArrowRight,
   Globe2,
@@ -41,13 +42,13 @@ export const Hero: React.FC<HeroProps> = ({ t }) => {
 
             {/* CTAs */}
             <div className="pt-2 flex flex-wrap items-center gap-4">
-              <a
+              <Link
                 href="/contact"
                 className="inline-flex items-center justify-center gap-2 px-7 sm:px-8 py-3.5 rounded-full bg-[#83184d] hover:bg-[#721240] text-white text-[15px] font-medium transition duration-150 shadow-md shadow-[#83184d]/25 active:scale-[0.98]"
               >
                 {t.getStarted}
                 <ArrowRight className="w-4 h-4" />
-              </a>
+              </Link>
 
               <a
                 href="#demo"

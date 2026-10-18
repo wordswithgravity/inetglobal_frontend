@@ -1,4 +1,5 @@
 import React from "react";
+import Link from "next/link";
 import { ArrowRight, ShieldCheck, Headphones } from "lucide-react";
 import type { AboutUsTranslation } from "../../data/aboutUsTranslations";
 
@@ -21,20 +22,20 @@ export const AboutCta: React.FC<AboutCtaProps> = ({ t }) => {
           </div>
 
           <div className="flex flex-wrap items-center justify-center gap-4 pt-2">
-            <a
+            <Link
               href="/contact"
               className="inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-full bg-[#83184d] hover:bg-[#721240] text-white text-[15px] font-semibold transition duration-150 shadow-md shadow-[#83184d]/25 active:scale-[0.98]"
             >
               <span>{t.ctaPrimaryBtn}</span>
               <ArrowRight className="w-4 h-4" />
-            </a>
+            </Link>
 
-            <a
+            <Link
               href="/voice"
               className="inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-full bg-[#102038] hover:bg-[#192f50] text-white text-[15px] font-semibold transition duration-150 shadow-md active:scale-[0.98]"
             >
               <span>{t.ctaSecondaryBtn}</span>
-            </a>
+            </Link>
           </div>
 
           <div className="pt-6 flex flex-wrap items-center justify-center gap-6 text-[13px] text-slate-500 font-medium border-t border-slate-100">

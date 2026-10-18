@@ -1,4 +1,6 @@
+import Image from "next/image";
 import React from "react";
+import Link from "next/link";
 import {
   MapPin,
   Phone,
@@ -71,10 +73,12 @@ export const AddressAndMap: React.FC<AddressAndMapProps> = ({
 
               {/* Map Image Container */}
               <div className="w-full h-[280px] sm:h-[340px] rounded-2xl overflow-hidden relative shadow-inner border border-slate-300/80 group">
-                <img
-                  src={typeof mapImg === "string" ? mapImg : (mapImg as any)?.src || mapImg}
+                <Image
+                  src={mapImg}
                   alt="iNet Global Headquarters Map"
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                  fill
+                  sizes="(max-width: 1024px) 100vw, 60vw"
+                  className="object-cover group-hover:scale-105 transition-transform duration-500"
                 />
 
                 {/* Floating Map Pin Badge */}
@@ -196,13 +200,13 @@ export const AddressAndMap: React.FC<AddressAndMapProps> = ({
 
             {/* Quick Contact CTA */}
             <div className="pt-2">
-              <a
+              <Link
                 href="/contact"
                 className="w-full py-3.5 rounded-full bg-[#83184d] hover:bg-[#721240] text-white font-bold text-[14px] flex items-center justify-center gap-2 shadow-md shadow-[#83184d]/25 transition active:scale-[0.98]"
               >
                 <span>Get in Touch with Our Team</span>
                 <ExternalLink className="w-4 h-4" />
-              </a>
+              </Link>
             </div>
           </div>
         </div>

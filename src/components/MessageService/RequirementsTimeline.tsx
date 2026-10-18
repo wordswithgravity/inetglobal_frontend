@@ -1,4 +1,5 @@
 import React from "react";
+import Link from "next/link";
 import { Check, Terminal, ArrowRight } from "lucide-react";
 import type { WholesaleMessageTranslation } from "../../data/wholesaleMessageTranslations";
 
@@ -134,13 +135,13 @@ export const RequirementsTimeline: React.FC<RequirementsTimelineProps> = ({
                 <span className="text-[12.5px] text-slate-400">
                   {t.integrationPlan.discussNote}
                 </span>
-                <a
+                <Link
                   href="/contact"
                   className="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-full bg-[#83184d] hover:bg-[#721240] text-white text-[13px] font-medium transition duration-150 shadow-md shadow-[#83184d]/30 shrink-0"
                 >
                   {t.integrationPlan.discussBtn}
                   <ArrowRight className="w-3.5 h-3.5" />
-                </a>
+                </Link>
               </div>
             </div>
           </div>

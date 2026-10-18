@@ -4,8 +4,7 @@ import {
   type PayloadAction,
 } from "@reduxjs/toolkit";
 import axios from "axios";
-
-const API_BASE_URL = "https://api.inetglobalservices.com/api";
+import { API_BASE_URL } from "../../utils/apiConfig";
 
 export interface SubscriberItem {
   _id: string;
@@ -78,9 +77,10 @@ export const subscribeNewsletter = createAsyncThunk(
         },
       );
       return response.data;
-    } catch (err: any) {
+    } catch (err: unknown) {
+      const error = err as { response?: { data?: { message?: string } }; message?: string };
       return rejectWithValue(
-        err.response?.data?.message || err.message || "Failed to subscribe",
+        error.response?.data?.message || error.message || "Failed to subscribe",
       );
     }
   },
@@ -95,10 +95,11 @@ export const fetchSubscribers = createAsyncThunk(
         headers: { Authorization: `Bearer ${token}` },
       });
       return response.data;
-    } catch (err: any) {
+    } catch (err: unknown) {
+      const error = err as { response?: { data?: { message?: string } }; message?: string };
       return rejectWithValue(
-        err.response?.data?.message ||
-          err.message ||
+        error.response?.data?.message ||
+          error.message ||
           "Failed to fetch subscribers",
       );
     }
@@ -123,10 +124,11 @@ export const updateSubscriberStatus = createAsyncThunk(
         { headers: { Authorization: `Bearer ${token}` } },
       );
       return response.data.subscriber;
-    } catch (err: any) {
+    } catch (err: unknown) {
+      const error = err as { response?: { data?: { message?: string } }; message?: string };
       return rejectWithValue(
-        err.response?.data?.message ||
-          err.message ||
+        error.response?.data?.message ||
+          error.message ||
           "Failed to update subscriber",
       );
     }
@@ -142,10 +144,11 @@ export const deleteSubscriber = createAsyncThunk(
         headers: { Authorization: `Bearer ${token}` },
       });
       return id;
-    } catch (err: any) {
+    } catch (err: unknown) {
+      const error = err as { response?: { data?: { message?: string } }; message?: string };
       return rejectWithValue(
-        err.response?.data?.message ||
-          err.message ||
+        error.response?.data?.message ||
+          error.message ||
           "Failed to delete subscriber",
       );
     }
@@ -159,10 +162,11 @@ export const fetchSocialLinks = createAsyncThunk(
     try {
       const response = await axios.get(`${API_BASE_URL}/social-links`);
       return response.data.socialLinks;
-    } catch (err: any) {
+    } catch (err: unknown) {
+      const error = err as { response?: { data?: { message?: string } }; message?: string };
       return rejectWithValue(
-        err.response?.data?.message ||
-          err.message ||
+        error.response?.data?.message ||
+          error.message ||
           "Failed to fetch social links",
       );
     }
@@ -183,10 +187,11 @@ export const updateSocialLinks = createAsyncThunk(
         { headers: { Authorization: `Bearer ${token}` } },
       );
       return response.data.socialLinks;
-    } catch (err: any) {
+    } catch (err: unknown) {
+      const error = err as { response?: { data?: { message?: string } }; message?: string };
       return rejectWithValue(
-        err.response?.data?.message ||
-          err.message ||
+        error.response?.data?.message ||
+          error.message ||
           "Failed to update social links",
       );
     }

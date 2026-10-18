@@ -1,4 +1,5 @@
 "use client";
+import Image from "next/image";
 
 import React, { useState, useEffect } from "react";
 import {
@@ -193,12 +194,14 @@ export const IndustryExpertise: React.FC = () => {
                   }`}
                 >
                   {/* Illustration */}
-                  <div className="w-full shrink-0 h-[210px] sm:h-[240px] md:h-[var(--ih)] bg-gradient-to-b bg-[#66dd0b] overflow-hidden flex items-center justify-center">
-                    <img
+                  <div className="w-full shrink-0 h-[210px] sm:h-[240px] md:h-[var(--ih)] bg-gradient-to-b bg-[#66dd0b] overflow-hidden flex items-center justify-center relative">
+                    <Image
                       src={item.image}
                       alt={item.title}
                       draggable={false}
-                      className="w-full h-full object-fill object-center"
+                      fill
+                      sizes="(max-width: 768px) 100vw, 570px"
+                      className="object-fill object-center"
                     />
                   </div>
 

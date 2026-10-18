@@ -1,3 +1,4 @@
+import Image from "next/image";
 import React from "react";
 import { CheckCircle2, RadioTower } from "lucide-react";
 import mapImg from "../../assets/map.jpg";
@@ -45,11 +46,13 @@ export const GlobalNetwork: React.FC<GlobalNetworkProps> = ({ t }) => {
         {/* ===== Left: Map card ===== */}
         <div className="lg:col-span-6 relative w-full max-w-[640px] lg:max-w-[700px] mx-auto lg:mx-0 mb-12 lg:mb-0">
           <div className="relative w-full aspect-[460/354] rounded-[32px] bg-[#0d1427] overflow-hidden shadow-2xl border border-[#1b345c]">
-            <img
-              src={typeof mapImg === "string" ? mapImg : (mapImg as any)?.src || mapImg}
+            <Image
+              src={mapImg}
               alt="Global SMS network map"
               draggable={false}
-              className="absolute inset-0 w-full h-full object-contain object-[center_45%] select-none transform hover:scale-105 transition-transform duration-500"
+              fill
+              sizes="(max-width: 1024px) 100vw, 50vw"
+              className="object-contain object-[center_45%] select-none transform hover:scale-105 transition-transform duration-500"
             />
           </div>
 

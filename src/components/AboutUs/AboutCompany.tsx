@@ -1,3 +1,4 @@
+import Image from "next/image";
 import React from "react";
 import { Target, Compass, Award, Shield, Users, Lightbulb } from "lucide-react";
 import type { AboutUsTranslation } from "../../data/aboutUsTranslations";
@@ -38,11 +39,13 @@ export const AboutCompany: React.FC<AboutCompanyProps> = ({ t }) => {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
           {/* Left Column: Image with Floating Card */}
           <div className="lg:col-span-5 relative">
-            <div className="rounded-3xl overflow-hidden shadow-2xl border border-slate-200/90 aspect-[4/3] bg-slate-100">
-              <img
-                src={typeof peopleImg === "string" ? peopleImg : (peopleImg as any)?.src || peopleImg}
+            <div className="rounded-3xl overflow-hidden shadow-2xl border border-slate-200/90 aspect-[4/3] bg-slate-100 relative">
+              <Image
+                src={peopleImg}
                 alt="iNet Global Operations Team"
-                className="w-full h-full object-cover object-center"
+                fill
+                sizes="(max-width: 1024px) 100vw, 40vw"
+                className="object-cover object-center"
               />
             </div>
             {/* Ambient Accent Card */}

@@ -1,6 +1,8 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
+import Link from "next/link";
+import Image from "next/image";
 import { Mail, Phone, MapPin, CheckCircle2, AlertCircle, Loader2 } from "lucide-react";
 import logoImg from "../assets/logo.png";
 import { useAppDispatch, useAppSelector } from "../store/hooks";
@@ -118,9 +120,11 @@ export const Footer: React.FC = () => {
           <div className="sm:col-span-2 md:col-span-3 lg:col-span-4 space-y-6">
             {/* Logo */}
             <div className="flex items-center gap-3">
-              <img
-                src={typeof logoImg === "string" ? logoImg : (logoImg as any)?.src || "/assets/logo.png"}
+              <Image
+                src={logoImg}
                 alt="iNet Global"
+                width={56}
+                height={40}
                 className="h-9 sm:h-10 w-auto object-contain shrink-0 drop-shadow-xs"
               />
               <span className="text-xl sm:text-2xl font-bold tracking-tight text-white select-none">
@@ -215,39 +219,39 @@ export const Footer: React.FC = () => {
             </h4>
             <ul className="space-y-2.5 text-[14px]">
               <li>
-                <a href="/wholesale-voice" className="text-slate-400 hover:text-white transition">
+                <Link href="/wholesale-voice" className="text-slate-400 hover:text-white transition">
                   {t.productItems?.["wholesale-voice"]?.title || "Wholesale Voice"}
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="/ai-voice" className="text-slate-400 hover:text-white transition">
+                <Link href="/ai-voice" className="text-slate-400 hover:text-white transition">
                   {t.productItems?.["ai-voice"]?.title || "AI Voice"}
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="/virtual-numbers-did" className="text-slate-400 hover:text-white transition">
+                <Link href="/virtual-numbers-did" className="text-slate-400 hover:text-white transition">
                   {t.productItems?.["virtual-numbers"]?.title || "Virtual Numbers (DID)"}
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="/wholesale-message" className="text-slate-400 hover:text-white transition">
+                <Link href="/wholesale-message" className="text-slate-400 hover:text-white transition">
                   {t.productItems?.["wholesale-sms"]?.title || "Wholesale SMS"}
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="/rcs" className="text-slate-400 hover:text-white transition">
+                <Link href="/rcs" className="text-slate-400 hover:text-white transition">
                   {t.productItems?.["rcs"]?.title || "RCS Business Messaging"}
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="/otp-sms-services" className="text-slate-400 hover:text-white transition">
+                <Link href="/otp-sms-services" className="text-slate-400 hover:text-white transition">
                   {t.productItems?.["otp-sms"]?.title || "OTP SMS"}
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="/whatsapp" className="text-slate-400 hover:text-white transition">
+                <Link href="/whatsapp" className="text-slate-400 hover:text-white transition">
                   {t.productItems?.["whatsapp"]?.title || "WhatsApp Business"}
-                </a>
+                </Link>
               </li>
             </ul>
           </div>
@@ -259,34 +263,34 @@ export const Footer: React.FC = () => {
             </h4>
             <ul className="space-y-2.5 text-[14px]">
               <li>
-                <a href="/advance-sms-portal" className="text-slate-400 hover:text-white transition">
+                <Link href="/advance-sms-portal" className="text-slate-400 hover:text-white transition">
                   {t.solutionItems?.[0]?.title || "Advance SMS Portal"}
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="/dialer" className="text-slate-400 hover:text-white transition">
+                <Link href="/dialer" className="text-slate-400 hover:text-white transition">
                   {t.solutionItems?.[1]?.title || "Complete Dialer Solution"}
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="/virtual-did" className="text-slate-400 hover:text-white transition">
+                <Link href="/virtual-did" className="text-slate-400 hover:text-white transition">
                   {t.solutionItems?.[2]?.title || "International Number (DID)"}
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="/" className="text-slate-400 hover:text-white transition">
+                <Link href="/" className="text-slate-400 hover:text-white transition">
                   {industries.find((item) => item.id === "banking")?.name || "Banking & Finance"}
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="/" className="text-slate-400 hover:text-white transition">
+                <Link href="/" className="text-slate-400 hover:text-white transition">
                   {industries.find((item) => item.id === "healthcare")?.name || "Healthcare"}
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="/" className="text-slate-400 hover:text-white transition">
+                <Link href="/" className="text-slate-400 hover:text-white transition">
                   {industries.find((item) => item.id === "ecommerce")?.name || "E-Commerce & Retail"}
-                </a>
+                </Link>
               </li>
             </ul>
           </div>
@@ -298,39 +302,39 @@ export const Footer: React.FC = () => {
             </h4>
             <ul className="space-y-2.5 text-[14px]">
               <li>
-                <a href="/about" className="text-slate-400 hover:text-white transition">
+                <Link href="/about" className="text-slate-400 hover:text-white transition">
                   {companyT.aboutUs}
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="/contact" className="text-slate-400 hover:text-white transition">
+                <Link href="/contact" className="text-slate-400 hover:text-white transition">
                   {companyT.careers}
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="/contact" className="text-slate-400 hover:text-white transition">
+                <Link href="/contact" className="text-slate-400 hover:text-white transition">
                   {companyT.partners}
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="/contact" className="text-slate-400 hover:text-white transition">
+                <Link href="/contact" className="text-slate-400 hover:text-white transition">
                   {companyT.documentation}
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="/contact" className="text-slate-400 hover:text-white transition">
+                <Link href="/contact" className="text-slate-400 hover:text-white transition">
                   {companyT.restApis}
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="/contact" className="text-slate-400 hover:text-white transition">
+                <Link href="/contact" className="text-slate-400 hover:text-white transition">
                   {companyT.faqs}
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="/blog" className="text-slate-400 hover:text-white transition">
+                <Link href="/blog" className="text-slate-400 hover:text-white transition">
                   {companyT.blog}
-                </a>
+                </Link>
               </li>
             </ul>
           </div>
@@ -370,17 +374,17 @@ export const Footer: React.FC = () => {
           <p>{content.copyright}</p>
 
           <div className="flex items-center gap-3">
-            <a href="/privacy-policy" className="hover:text-slate-300 transition">
+            <Link href="/privacy-policy" className="hover:text-slate-300 transition">
               {t.privacyPolicy}
-            </a>
+            </Link>
             <span className="text-slate-700">|</span>
-            <a href="/terms-of-service" className="hover:text-slate-300 transition">
+            <Link href="/terms-of-service" className="hover:text-slate-300 transition">
               {t.termsOfService}
-            </a>
+            </Link>
             <span className="text-slate-700">|</span>
-            <a href="/security-and-compliance" className="hover:text-slate-300 transition">
+            <Link href="/security-and-compliance" className="hover:text-slate-300 transition">
               {t.securityCompliance}
-            </a>
+            </Link>
           </div>
         </div>
       </div>

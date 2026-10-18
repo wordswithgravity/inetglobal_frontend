@@ -1,6 +1,8 @@
 "use client";
+import Image from "next/image";
 
 import React, { useState, useEffect, useCallback } from "react";
+import { API_BASE_URL } from "../../utils/apiConfig";
 import { useRouter } from "next/navigation";
 import {
   FileText,
@@ -45,21 +47,14 @@ export const Dashboard: React.FC = () => {
   const { adminBlogs } = useAppSelector((state) => state.blog);
 
   // Authentication & Mounting State
-  const [mounted, setMounted] = useState(false);
+  const mounted = React.useSyncExternalStore(
+    () => () => {},
+    () => true,
+    () => false,
+  );
   const [token, setToken] = useState<string | null>(null);
   const [adminUser, setAdminUser] = useState<AdminUser | null>(null);
-
-  useEffect(() => {
-    setMounted(true);
-    const storedToken = localStorage.getItem("inet_admin_token");
-    setToken(storedToken);
-    try {
-      const stored = localStorage.getItem("inet_admin_user");
-      setAdminUser(stored ? JSON.parse(stored) : null);
-    } catch {
-      setAdminUser(null);
-    }
-  }, []);
+  const [isAuthChecking, setIsAuthChecking] = useState(true);
 
   // Active section in sidebar (defaults to "blog-posts")
   const [activeSection, setActiveSection] =
@@ -72,39 +67,61 @@ export const Dashboard: React.FC = () => {
     localStorage.removeItem("inet_admin_user");
     setToken(null);
     setAdminUser(null);
+    setIsAuthChecking(false);
     router.replace("/admin");
   }, [router]);
 
-  // Redirect to /admin if not authenticated
-  useEffect(() => {
-    if (!mounted) return;
+  const authCheckedRef = React.useRef(false);
 
-    if (!token) {
+  // Single mount check: verify stored credentials once on initial load
+  useEffect(() => {
+    if (authCheckedRef.current) return;
+    authCheckedRef.current = true;
+
+    const storedToken = localStorage.getItem("inet_admin_token");
+    if (!storedToken) {
+      setIsAuthChecking(false);
       router.replace("/admin");
       return;
     }
 
+    setToken(storedToken);
+    try {
+      const stored = localStorage.getItem("inet_admin_user");
+      setAdminUser(stored ? JSON.parse(stored) : null);
+    } catch {
+      setAdminUser(null);
+    }
+    setIsAuthChecking(false);
+
     // Load admin blogs count for sidebar badge
-    dispatch(fetchAdminBlogs(token));
+    dispatch(fetchAdminBlogs(storedToken));
 
     // Verify token with backend
-    fetch("https://api.inetglobalservices.com/api/admin/me", {
+    fetch(`${API_BASE_URL}/admin/me`, {
       headers: {
-        Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${storedToken}`,
       },
     })
-      .then((res) => res.json())
+      .then((res) => {
+        if (res.status === 401 || res.status === 403) {
+          handleLogout();
+          return null;
+        }
+        return res.json();
+      })
       .then((data) => {
-        if (!data.success) {
+        if (data && !data.success) {
           handleLogout();
         }
       })
       .catch(() => {
-        // Backend offline or unreachable, retain local session
+        // Backend offline or unreachable: retain local session
       });
-  }, [mounted, token, handleLogout, dispatch, router]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
-  if (!mounted || !token) {
+  if (!mounted || isAuthChecking || !token) {
     return (
       <div className="min-h-screen bg-[#EEF2EB] flex items-center justify-center">
         <div className="w-8 h-8 border-4 border-[#83184d] border-t-transparent rounded-full animate-spin" />
@@ -136,11 +153,7 @@ export const Dashboard: React.FC = () => {
         {/* Top Branding */}
         <div className="p-5 border-b border-slate-100 flex items-center justify-between">
           <div className="flex items-center gap-3 select-none">
-            <img
-              src={typeof logoImg === "string" ? logoImg : (logoImg as any)?.src || logoImg}
-              alt="iNet Global"
-              className="h-9 w-auto object-contain"
-            />
+            <Image src={logoImg} alt="iNet Global" width={50} height={36} className="h-9 w-auto object-contain" />
             <div className="flex flex-col">
               <span className="text-base font-extrabold tracking-tight text-slate-900 flex items-center gap-1.5">
                 iNet Global

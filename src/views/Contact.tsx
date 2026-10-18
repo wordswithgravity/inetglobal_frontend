@@ -1,4 +1,5 @@
 "use client";
+import Image from "next/image";
 
 import React, { useState } from "react";
 import { ArrowRight, Minus, Plus, ChevronDown } from "lucide-react";
@@ -171,9 +172,12 @@ export const Contact: React.FC = () => {
 
                 {/* Actual Lady in Phone Image from user assets */}
                 <div className="relative w-full flex items-center justify-center z-10">
-                  <img
-                    src={typeof ladyinphoneImg === "string" ? ladyinphoneImg : (ladyinphoneImg as any)?.src || ladyinphoneImg}
+                  <Image
+                    src={ladyinphoneImg}
                     alt="Let's Build Communication Solutions"
+                    priority
+                    width={1451}
+                    height={1084}
                     className="w-full max-w-[460px] sm:max-w-[560px] lg:max-w-[640px] xl:max-w-[700px] h-auto object-contain drop-shadow-2xl transition-transform duration-300 hover:scale-[1.02]"
                   />
                 </div>
@@ -398,10 +402,12 @@ export const Contact: React.FC = () => {
             <div className="lg:col-span-5 bg-[#EEF2EB] rounded-[28px] p-6 sm:p-8 space-y-6 border border-[#e0e8dc]">
               {/* Map Preview Graphic */}
               <div className="w-full h-[210px] sm:h-[220px] rounded-2xl overflow-hidden relative shadow-inner bg-[#2c3427] border border-[#3e4838]">
-                <img
-                  src={typeof mapImg === "string" ? mapImg : (mapImg as any)?.src || mapImg}
+                <Image
+                  src={mapImg}
                   alt="Location Map"
-                  className="w-full h-full object-cover"
+                  fill
+                  sizes="(max-width: 1024px) 100vw, 400px"
+                  className="object-cover"
                 />
               </div>
 

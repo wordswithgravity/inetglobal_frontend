@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import { API_BASE_URL } from "../../utils/apiConfig";
 import {
   KeyRound,
   Eye,
@@ -68,7 +69,7 @@ export const AdminChangePassword: React.FC<AdminChangePasswordProps> = ({
     try {
       setIsLoading(true);
       const res = await fetch(
-        "https://api.inetglobalservices.com/api/admin/change-password",
+        `${API_BASE_URL}/admin/change-password`,
         {
           method: "PUT",
           headers: {

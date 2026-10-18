@@ -2,6 +2,7 @@
 
 import React, { useState, useRef, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import {
   ChevronDown,
   ChevronUp,
@@ -33,11 +34,7 @@ export const Logo: React.FC<{ className?: string }> = ({
   const imgSrc = typeof logoImg === "string" ? logoImg : (logoImg as any)?.src || "/assets/logo.png";
   return (
     <div className={`flex items-center gap-3 ${className}`}>
-      <img
-        src={imgSrc}
-        alt="iNet Global Logo"
-        className="h-11 sm:h-12 w-auto object-contain shrink-0 drop-shadow-xs"
-      />
+      <Image src={logoImg} alt="iNet Global Logo" width={67} height={48} priority className="h-11 sm:h-12 w-auto object-contain shrink-0 drop-shadow-xs" />
       <span className="text-[23px] sm:text-[25px] font-bold tracking-tight text-[#16213e] select-none">
         iNet Global
       </span>
@@ -317,9 +314,9 @@ export const Navbar: React.FC = () => {
         <div className="grid grid-cols-2 md:grid-cols-3 items-center h-20 w-full">
           {/* DIV 1: Brand Logo (Left) */}
           <div className="flex items-center justify-start">
-            <a href="/" className="flex items-center gap-2 group">
+            <Link href="/" className="flex items-center gap-2 group">
               <Logo />
-            </a>
+            </Link>
           </div>
 
           {/* DIV 2: Desktop Navigation Links (Center) */}
@@ -369,11 +366,7 @@ export const Navbar: React.FC = () => {
                   <div className="absolute left-1/2 -translate-x-1/2 top-full pt-3 z-50">
                     <div className="w-[330px] rounded-[24px] bg-white shadow-[0_20px_50px_rgba(16,32,56,0.14)] border border-slate-200/80 p-5 space-y-2 animate-in fade-in duration-200">
                       {solutionItems.map((item, idx) => (
-                        <a
-                          key={idx}
-                          href={item.href}
-                          onClick={() => setActiveDropdown(null)}
-                          className="group flex items-start gap-3.5 p-2 rounded-xl hover:bg-[#f9fbf7] transition-all duration-150"
+                        <Link key={idx} href={item.href} onClick={() => setActiveDropdown(null)} className="group flex items-start gap-3.5 p-2 rounded-xl hover:bg-[#f9fbf7] transition-all duration-150"
                         >
                           <div className="w-10 h-10 rounded-full bg-[#ebf6dc] text-[#558117] flex items-center justify-center shrink-0 group-hover:bg-[#558117] group-hover:text-white transition-colors duration-150">
                             <PhoneCall className="w-4 h-4" />
@@ -386,7 +379,7 @@ export const Navbar: React.FC = () => {
                               {item.description}
                             </p>
                           </div>
-                        </a>
+                        </Link>
                       ))}
                     </div>
                   </div>

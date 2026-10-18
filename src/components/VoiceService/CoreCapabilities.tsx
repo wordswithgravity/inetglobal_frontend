@@ -1,4 +1,5 @@
 import React from "react";
+import Link from "next/link";
 import {
   PhoneCall,
   Radio,
@@ -51,13 +52,13 @@ export const CoreCapabilities: React.FC<CoreCapabilitiesProps> = ({ t }) => {
           </div>
 
           <div className="space-y-2">
-            <a
+            <Link
               href="/contact"
               className="inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-full bg-[#83184d] hover:bg-[#721240] text-white text-[14.5px] sm:text-[15.5px] font-medium transition duration-150 shadow-md shadow-[#83184d]/25 active:scale-[0.98]"
             >
               {t.designSolution}
               <ArrowRight className="w-4 h-4" />
-            </a>
+            </Link>
             <div className="flex items-center gap-2 text-[12px] sm:text-[13px] text-slate-600">
               <Check className="w-3.5 h-3.5 text-[#698a22] stroke-[3]" />
               <span>{t.solutionNote}</span>

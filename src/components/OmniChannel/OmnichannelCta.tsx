@@ -1,4 +1,5 @@
 import React from "react";
+import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import type { OmnichannelTranslation } from "../../data/omnichannelTranslations";
 
@@ -31,20 +32,20 @@ export const OmnichannelCta: React.FC<OmnichannelCtaProps> = ({ t }) => {
           </p>
 
           <div className="pt-2 flex flex-col sm:flex-row items-center justify-center gap-4">
-            <a
+            <Link
               href="/contact"
               className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 sm:px-9 py-3 sm:py-3.5 rounded-full bg-[#83184d] hover:bg-[#721240] text-white text-[14.5px] sm:text-[16px] font-medium transition duration-150 shadow-md shadow-[#83184d]/25 active:scale-[0.98]"
             >
               {t.getStarted}
               <ArrowRight className="w-4 h-4" />
-            </a>
+            </Link>
 
-            <a
+            <Link
               href="/contact"
               className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 sm:px-9 py-3 sm:py-3.5 rounded-full bg-white hover:bg-slate-50 text-[#102038] border border-gray-300 hover:border-[#698a22] text-[14.5px] sm:text-[16px] font-medium transition duration-150 active:scale-[0.98]"
             >
               {t.contactUs}
-            </a>
+            </Link>
           </div>
         </div>
       </div>

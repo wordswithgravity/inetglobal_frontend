@@ -1,4 +1,6 @@
+import Image from "next/image";
 import React from "react";
+import Link from "next/link";
 import { ArrowRight, MessageSquare, BarChart2 } from "lucide-react";
 import globeImg from "../../assets/globe.png";
 import type { WholesaleMessageTranslation } from "../../data/wholesaleMessageTranslations";
@@ -34,13 +36,13 @@ export const Hero: React.FC<HeroProps> = ({ t }) => {
 
             {/* CTAs */}
             <div className="pt-2 flex flex-wrap items-center gap-4">
-              <a
+              <Link
                 href="/contact"
                 className="inline-flex items-center justify-center gap-2 px-7 sm:px-8 py-3.5 rounded-full bg-[#83184d] hover:bg-[#721240] text-white text-[15px] font-medium transition duration-150 shadow-md shadow-[#83184d]/25 active:scale-[0.98]"
               >
                 {t.talkToExpert}
                 <ArrowRight className="w-4 h-4" />
-              </a>
+              </Link>
 
               <a
                 href="#capabilities"
@@ -87,9 +89,12 @@ export const Hero: React.FC<HeroProps> = ({ t }) => {
 
               {/* Large Network Globe */}
               <div className="relative w-full flex items-center justify-center select-none">
-                <img
-                  src={typeof globeImg === "string" ? globeImg : (globeImg as any)?.src || globeImg}
+                <Image
+                  src={globeImg}
                   alt="Global Wholesale SMS Network"
+                  priority
+                  width={1536}
+                  height={1024}
                   className="w-full max-w-[560px] sm:max-w-[680px] lg:max-w-[780px] xl:max-w-[860px] h-auto object-contain scale-110 sm:scale-120 lg:scale-130 xl:scale-135 transition-transform duration-300"
                 />
               </div>

@@ -1,3 +1,4 @@
+import Image from "next/image";
 import React from "react";
 
 const PHONE_WIDTH = 433;
@@ -105,10 +106,12 @@ export const Iphone: React.FC<IphoneProps> = ({
         )}
 
         {!hasVideo && src && (
-          <img
+          <Image
             key={src}
             src={src}
             alt="Screen"
+            fill
+            unoptimized
             className="block w-full h-full object-cover object-top"
           />
         )}

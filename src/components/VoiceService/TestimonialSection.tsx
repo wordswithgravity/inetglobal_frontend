@@ -1,3 +1,4 @@
+import Image from "next/image";
 import React from "react";
 import { Check, Quote } from "lucide-react";
 import blackLadyImg from "../../assets/blacklady.jpg";
@@ -49,10 +50,12 @@ export const TestimonialSection: React.FC<TestimonialSectionProps> = ({ t }) => 
           {/* Left Column: Portrait photo of VP */}
           <div className="lg:col-span-4 flex justify-center">
             <div className="relative w-full max-w-[340px] aspect-4/3 sm:aspect-square lg:aspect-4/5 rounded-[24px] overflow-hidden shadow-md bg-slate-100">
-              <img
-                src={typeof blackLadyImg === "string" ? blackLadyImg : (blackLadyImg as any)?.src || blackLadyImg}
+              <Image
+                src={blackLadyImg}
                 alt="Maya Chen - VP, Network Operations"
-                className="w-full h-full object-cover object-center"
+                fill
+                sizes="(max-width: 1024px) 100vw, 340px"
+                className="object-cover object-center"
               />
             </div>
           </div>

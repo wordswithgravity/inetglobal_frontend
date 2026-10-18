@@ -1,4 +1,6 @@
+import Image from "next/image";
 import React from "react";
+import Link from "next/link";
 import {
   ArrowRight,
   MessageSquare,
@@ -37,13 +39,13 @@ export const Hero: React.FC<HeroProps> = ({ t }) => {
             </p>
 
             <div className="pt-2 sm:pt-3">
-              <a
+              <Link
                 href="/contact"
                 className="inline-flex items-center justify-center gap-2 px-8 sm:px-9 py-3 sm:py-3.5 rounded-full bg-[#83184d] hover:bg-[#721240] text-white text-[14.5px] sm:text-[16px] font-medium transition duration-150 shadow-md shadow-[#83184d]/25 active:scale-[0.98]"
               >
                 {t.getStarted}
                 <ArrowRight className="w-4 h-4" />
-              </a>
+              </Link>
             </div>
           </div>
 
@@ -55,9 +57,12 @@ export const Hero: React.FC<HeroProps> = ({ t }) => {
 
               {/* Large Background Globe */}
               <div className="absolute inset-0 flex items-center justify-center pointer-events-none opacity-65 sm:opacity-75 scale-120 sm:scale-130 lg:scale-140 transition-transform duration-300 z-0">
-                <img
-                  src={typeof globeImg === "string" ? globeImg : (globeImg as any)?.src || globeImg}
+                <Image
+                  src={globeImg}
                   alt="Network Globe"
+                  priority
+                  width={1536}
+                  height={1024}
                   className="w-full max-w-[580px] sm:max-w-[680px] lg:max-w-[760px] h-auto object-contain select-none"
                 />
               </div>
@@ -70,9 +75,11 @@ export const Hero: React.FC<HeroProps> = ({ t }) => {
                     <div className="flex items-center justify-between pb-2.5 border-b border-gray-200">
                       <div className="flex items-center gap-2 min-w-0">
                         <div className="w-7 h-7 rounded-full bg-[#102038] flex items-center justify-center p-1 shrink-0">
-                          <img
-                            src={typeof logoImg === "string" ? logoImg : (logoImg as any)?.src || logoImg}
+                          <Image
+                            src={logoImg}
                             alt="iNet Logo"
+                            width={39}
+                            height={28}
                             className="w-full h-full object-contain"
                           />
                         </div>

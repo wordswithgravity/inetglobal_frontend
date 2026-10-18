@@ -1,6 +1,9 @@
 "use client";
+import Image from "next/image";
 
 import React, { useState, useEffect } from "react";
+import Link from "next/link";
+import { API_BASE_URL } from "../../utils/apiConfig";
 import { useRouter } from "next/navigation";
 import {
   Lock,
@@ -44,21 +47,14 @@ export const AdminLogin: React.FC = () => {
     "blogs",
   );
 
-  const [mounted, setMounted] = useState(false);
+  const mounted = React.useSyncExternalStore(
+    () => () => {},
+    () => true,
+    () => false,
+  );
   const [adminUser, setAdminUser] = useState<AdminUser | null>(null);
   const [token, setToken] = useState<string | null>(null);
-
-  useEffect(() => {
-    setMounted(true);
-    const storedToken = localStorage.getItem("inet_admin_token");
-    setToken(storedToken);
-    try {
-      const stored = localStorage.getItem("inet_admin_user");
-      setAdminUser(stored ? JSON.parse(stored) : null);
-    } catch {
-      setAdminUser(null);
-    }
-  }, []);
+  const [isAuthChecking, setIsAuthChecking] = useState(true);
 
   const handleLogout = React.useCallback(() => {
     localStorage.removeItem("inet_admin_token");
@@ -69,34 +65,58 @@ export const AdminLogin: React.FC = () => {
     setPassword("");
     setSuccessMsg(null);
     setErrorMsg(null);
+    setIsAuthChecking(false);
   }, []);
 
-  // If already logged in, redirect to dashboard
-  useEffect(() => {
-    if (mounted && token) {
-      router.replace("/dashboard");
-    }
-  }, [mounted, token, router]);
+  const authCheckedRef = React.useRef(false);
 
-  // Verify token on mount if stored
+  // Single mount check: verify stored credentials once on initial load
   useEffect(() => {
-    if (token) {
-      fetch("https://api.inetglobalservices.com/api/admin/me", {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
-        .then((res) => res.json())
-        .then((data) => {
-          if (!data.success) {
-            handleLogout();
-          }
-        })
-        .catch(() => {
-          // If server offline or check fails, retain local state or handle gracefully
-        });
+    if (authCheckedRef.current) return;
+    authCheckedRef.current = true;
+
+    const storedToken = localStorage.getItem("inet_admin_token");
+    if (!storedToken) {
+      setIsAuthChecking(false);
+      return;
     }
-  }, [token, handleLogout]);
+
+    setToken(storedToken);
+    try {
+      const stored = localStorage.getItem("inet_admin_user");
+      setAdminUser(stored ? JSON.parse(stored) : null);
+    } catch {
+      setAdminUser(null);
+    }
+
+    // Verify token with backend before redirecting
+    fetch(`${API_BASE_URL}/admin/me`, {
+      headers: {
+        Authorization: `Bearer ${storedToken}`,
+      },
+    })
+      .then((res) => {
+        if (res.status === 401 || res.status === 403) {
+          handleLogout();
+          return null;
+        }
+        return res.json();
+      })
+      .then((data) => {
+        if (data && data.success) {
+          router.replace("/dashboard");
+        } else if (data && !data.success) {
+          handleLogout();
+        } else {
+          setIsAuthChecking(false);
+        }
+      })
+      .catch(() => {
+        // Backend unreachable or offline: proceed with existing local session
+        router.replace("/dashboard");
+      });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -112,7 +132,7 @@ export const AdminLogin: React.FC = () => {
 
     try {
       const response = await fetch(
-        "https://api.inetglobalservices.com/api/admin/login",
+        `${API_BASE_URL}/admin/login`,
         {
           method: "POST",
           headers: {
@@ -153,7 +173,7 @@ export const AdminLogin: React.FC = () => {
     }
   };
 
-  if (!mounted) {
+  if (!mounted || isAuthChecking) {
     return (
       <div className="min-h-screen bg-[#EEF2EB] flex items-center justify-center">
         <div className="w-8 h-8 border-4 border-[#83184d] border-t-transparent rounded-full animate-spin" />
@@ -169,12 +189,8 @@ export const AdminLogin: React.FC = () => {
 
       {/* Top Header / Brand Bar */}
       <header className="w-full border-b border-slate-200/80 bg-white/80 backdrop-blur-md px-6 py-4 flex items-center justify-between z-10 shadow-xs">
-        <a href="/" className="flex items-center gap-3 group">
-          <img
-            src={typeof logoImg === "string" ? logoImg : (logoImg as any)?.src || logoImg}
-            alt="iNet Global"
-            className="h-10 w-auto object-contain transition-transform group-hover:scale-105"
-          />
+        <Link href="/" className="flex items-center gap-3 group">
+          <Image src={logoImg} alt="iNet Global" width={56} height={40} className="h-10 w-auto object-contain transition-transform group-hover:scale-105" />
           <div className="flex flex-col">
             <span className="text-xl font-bold tracking-tight text-slate-900 flex items-center gap-2">
               iNet Global
@@ -183,15 +199,15 @@ export const AdminLogin: React.FC = () => {
               </span>
             </span>
           </div>
-        </a>
+        </Link>
 
         <div className="flex items-center gap-4">
-          <a
+          <Link
             href="/"
             className="text-sm font-semibold text-slate-600 hover:text-slate-900 transition-colors"
           >
             ← Back to Website
-          </a>
+          </Link>
         </div>
       </header>
 
@@ -336,18 +352,18 @@ export const AdminLogin: React.FC = () => {
                     >
                       Manage Articles
                     </button>
-                    <a
+                    <Link
                       href="/contact"
                       className="px-4 py-2 rounded-xl bg-white hover:bg-slate-50 text-slate-800 text-xs font-semibold border border-slate-300 shadow-xs transition-colors"
                     >
                       View Inquiries
-                    </a>
-                    <a
+                    </Link>
+                    <Link
                       href="/"
                       className="px-4 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-white text-xs font-semibold shadow-xs transition-colors"
                     >
                       Visit Main Portal
-                    </a>
+                    </Link>
                   </div>
                 </div>
               </div>

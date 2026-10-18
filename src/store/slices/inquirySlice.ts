@@ -4,8 +4,7 @@ import {
   type PayloadAction,
 } from "@reduxjs/toolkit";
 import axios from "axios";
-
-const API_BASE_URL = "https://api.inetglobalservices.com/api";
+import { API_BASE_URL } from "../../utils/apiConfig";
 
 export interface InquiryItem {
   _id: string;
@@ -64,10 +63,11 @@ export const submitInquiry = createAsyncThunk(
         headers: { "Content-Type": "application/json" },
       });
       return response.data;
-    } catch (err: any) {
+    } catch (err: unknown) {
+      const error = err as { response?: { data?: { message?: string } }; message?: string };
       return rejectWithValue(
-        err.response?.data?.message ||
-          err.message ||
+        error.response?.data?.message ||
+          error.message ||
           "Failed to submit inquiry",
       );
     }
@@ -85,10 +85,11 @@ export const fetchInquiries = createAsyncThunk(
         },
       });
       return response.data;
-    } catch (err: any) {
+    } catch (err: unknown) {
+      const error = err as { response?: { data?: { message?: string } }; message?: string };
       return rejectWithValue(
-        err.response?.data?.message ||
-          err.message ||
+        error.response?.data?.message ||
+          error.message ||
           "Failed to fetch inquiries",
       );
     }
@@ -118,10 +119,11 @@ export const updateInquiryStatus = createAsyncThunk(
         },
       );
       return response.data.inquiry;
-    } catch (err: any) {
+    } catch (err: unknown) {
+      const error = err as { response?: { data?: { message?: string } }; message?: string };
       return rejectWithValue(
-        err.response?.data?.message ||
-          err.message ||
+        error.response?.data?.message ||
+          error.message ||
           "Failed to update inquiry status",
       );
     }
@@ -139,10 +141,11 @@ export const deleteInquiry = createAsyncThunk(
         },
       });
       return id;
-    } catch (err: any) {
+    } catch (err: unknown) {
+      const error = err as { response?: { data?: { message?: string } }; message?: string };
       return rejectWithValue(
-        err.response?.data?.message ||
-          err.message ||
+        error.response?.data?.message ||
+          error.message ||
           "Failed to delete inquiry",
       );
     }

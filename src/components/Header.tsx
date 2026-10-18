@@ -1,6 +1,8 @@
 "use client";
 
 import React from "react";
+import Link from "next/link";
+import Image from "next/image";
 import { ArrowRight } from "lucide-react";
 import globeImg from "../assets/globe.png";
 import { useAppSelector } from "../store/hooks";
@@ -36,32 +38,24 @@ export const Header: React.FC = () => {
 
             <div className="flex flex-wrap items-center gap-3 sm:gap-4 pt-2 sm:pt-3">
               {/* Primary CTA */}
-              <a
-                href="/contact"
-                className="inline-flex items-center justify-center gap-2 px-7 sm:px-8 py-3 sm:py-3.5 rounded-full bg-[#83184d] hover:bg-[#721240] text-white text-[14.5px] sm:text-[16px] font-medium transition duration-150 shadow-md shadow-[#83184d]/25 active:scale-[0.98]"
+              <Link href="/contact" className="inline-flex items-center justify-center gap-2 px-7 sm:px-8 py-3 sm:py-3.5 rounded-full bg-[#83184d] hover:bg-[#721240] text-white text-[14.5px] sm:text-[16px] font-medium transition duration-150 shadow-md shadow-[#83184d]/25 active:scale-[0.98]"
               >
                 {content.primaryCta}
                 <ArrowRight className="w-4 h-4" />
-              </a>
+              </Link>
 
               {/* Secondary CTA */}
-              <a
-                href="/voice"
-                className="inline-flex items-center justify-center px-7 sm:px-8 py-3 sm:py-3.5 rounded-full border border-[#7e995f] hover:bg-[#e4ece0] text-[#1e2d42] text-[14.5px] sm:text-[16px] font-medium transition duration-150 active:scale-[0.98]"
+              <Link href="/voice" className="inline-flex items-center justify-center px-7 sm:px-8 py-3 sm:py-3.5 rounded-full border border-[#7e995f] hover:bg-[#e4ece0] text-[#1e2d42] text-[14.5px] sm:text-[16px] font-medium transition duration-150 active:scale-[0.98]"
               >
                 {content.secondaryCta}
-              </a>
+              </Link>
             </div>
           </div>
 
           {/* Center Column: Network Globe Graphic (5 cols) */}
           <div className="lg:col-span-5 flex justify-center items-center relative py-2 sm:py-4">
             <div className="relative w-full max-w-[340px] sm:max-w-[480px] lg:max-w-[620px] aspect-square flex items-center justify-center sm:scale-105 lg:scale-115 transition-transform">
-              <img
-                src={globeSrc}
-                alt="Global Network Globe"
-                className="w-full h-full object-contain"
-              />
+              <Image src={globeImg} alt="Global Network Globe" width={1536} height={1024} priority className="w-full h-full object-contain" />
             </div>
           </div>
 

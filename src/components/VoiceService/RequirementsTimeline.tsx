@@ -1,4 +1,5 @@
 import React from "react";
+import Link from "next/link";
 import { ShieldCheck, Terminal, ArrowRight } from "lucide-react";
 import type { WholesaleVoiceTranslation } from "../../data/wholesaleVoiceTranslations";
 
@@ -107,13 +108,13 @@ export const RequirementsTimeline: React.FC<RequirementsTimelineProps> = ({ t })
                   <span>{t.terminal.interopNote}</span>
                 </div>
 
-                <a
+                <Link
                   href="/contact"
                   className="inline-flex items-center justify-center gap-2 px-6 py-2.5 rounded-full bg-[#83184d] hover:bg-[#721240] text-white text-[13px] font-semibold transition shadow-md shadow-[#83184d]/30"
                 >
                   {t.terminal.viewApiDocs}
                   <ArrowRight className="w-3.5 h-3.5" />
-                </a>
+                </Link>
               </div>
             </div>
           </div>
